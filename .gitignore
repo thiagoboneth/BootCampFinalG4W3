@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 /lib/
+
+### Local ###
+.DS_Store
