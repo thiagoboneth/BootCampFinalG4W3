@@ -18,7 +18,7 @@ public class InboundOrderController {
 	private InboundOrderService inboundOrderService;
 	
 	// CREATE
-	@PostMapping
+	@PostMapping()
 	public ResponseEntity<InboundOrdeRequestDTO> createInboundOrder(@RequestBody InboundOrderDTO inboundOrderDTO) {
 		return null;
 		
