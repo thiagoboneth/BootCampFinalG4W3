@@ -23,7 +23,4 @@ public class Buyer {
     private String name;
     @Column(name = "lastName")
     private String lastName;
-
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Product> products;
 }
