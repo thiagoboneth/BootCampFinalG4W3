@@ -45,7 +45,11 @@ public class BatchStock {
 	private LocalDateTime manufacturingTime;
 	@Column(name = "due_date")
 	private LocalDate dueDate;
+//	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "idproduct")
+//	private Product product;
+
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idproduct")
-	private Product product;
+	@JoinColumn(name = "idseller_products")
+	private SellerProducts sellerProducts;
 }
