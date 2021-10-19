@@ -43,4 +43,8 @@ public class Product {
 	//@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "idseller")
 	//private Seller seller;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "idseller")
+	private Seller seller;
 }
