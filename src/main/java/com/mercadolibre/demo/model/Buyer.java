@@ -24,6 +24,6 @@ public class Buyer {
     @Column(name = "lastName")
     private String lastName;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Product> products;
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Product> products;
 }
