@@ -13,11 +13,11 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name = "buyar")
-public class Buyar {
+@Table(name = "buyer")
+public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
-    @Column(name = "idBuyar")
+    @Column(name = "idBuyer")
     private Long idBuyar;
     @Column(name = "name")
     private String name;
