@@ -20,7 +20,5 @@ public class WareHouse {
     private Long id_ware_house;
 
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_delegate")
-    private Delegate delegate;
+
 }
