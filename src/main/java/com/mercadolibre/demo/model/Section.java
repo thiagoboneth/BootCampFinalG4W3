@@ -18,11 +18,11 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
     @Column(name = "section_code")
     private Long section_code;
+    @Column(name = "capacity")
+    private int capacity;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_ware_house")
     private WareHouse wareHouse;
-
-
-
 }
