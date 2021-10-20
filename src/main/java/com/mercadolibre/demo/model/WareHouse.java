@@ -18,7 +18,8 @@ public class WareHouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
     @Column(name = "id_ware_house")
     private Long id_ware_house;
-
+    @Column(name = "ware_house_name")
+    private String ware_house_name;
 
 
 }
