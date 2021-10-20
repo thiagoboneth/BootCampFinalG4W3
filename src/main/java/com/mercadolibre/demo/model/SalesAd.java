@@ -13,9 +13,9 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "seller_products")
+@Table(name = "sales_ad")
 
-public class SellerProducts {
+public class SalesAd {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
@@ -30,5 +30,12 @@ public class SellerProducts {
     @Column(name = "price")
     private Double price;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idseller")
+    private Seller seller;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "idproduct")
+    private Product product;
 
 }
