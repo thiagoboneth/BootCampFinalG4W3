@@ -13,18 +13,18 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "seller_productors_buyers")
+@Table(name = "sales_ad_buyers")
 
-public class SellerProductorsBuyers {
+public class SalesAdBuyers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
-    @Column(name = "idseller_productors_buyers")
+    @Column(name = "idsales_ad_buyers")
     private Long id;
 
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idseller_products")
+    @JoinColumn(name = "idsales_ad")
     private SalesAd salesAd;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

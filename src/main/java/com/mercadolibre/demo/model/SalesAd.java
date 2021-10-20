@@ -17,7 +17,7 @@ public class SalesAd {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
-    @Column(name = "idseller_products")
+    @Column(name = "idsales_ad")
     private Long id;
     @Column(name = "volume")
     private Float volume;
