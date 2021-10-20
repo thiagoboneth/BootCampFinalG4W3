@@ -1,6 +1,5 @@
 package com.mercadolibre.demo.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +12,8 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "seller_products")
-
-public class SellerProducts {
+@Table(name = "sales_ad")
+public class SalesAd {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
@@ -29,6 +27,4 @@ public class SellerProducts {
     private Float maximumTemperature;
     @Column(name = "price")
     private Double price;
-
-
 }

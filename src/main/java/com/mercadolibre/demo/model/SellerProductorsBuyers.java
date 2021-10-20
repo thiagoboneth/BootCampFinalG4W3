@@ -25,7 +25,7 @@ public class SellerProductorsBuyers {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idseller_products")
-    private SellerProducts sellerProducts;
+    private SalesAd salesAd;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_buyer")
