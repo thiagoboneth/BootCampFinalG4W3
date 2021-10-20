@@ -25,4 +25,9 @@ public class Delegate {
     @Column(name = "lastname")
     private String lastname;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "section_code")
+    private Section section;
+
+
 }
