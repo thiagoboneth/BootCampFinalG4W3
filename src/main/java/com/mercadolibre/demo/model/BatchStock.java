@@ -48,5 +48,5 @@ public class BatchStock {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idseller_products")
-	private sales_ad salesad;
+	private SalesAd salesad;
 }
