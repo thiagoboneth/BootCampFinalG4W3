@@ -38,6 +38,7 @@ public class Product implements Serializable {
 	private String description;
 	
 	
+	//Construtor
 	public Product(String name, String description) {
 		this.name = name;
 		this.description = description;
