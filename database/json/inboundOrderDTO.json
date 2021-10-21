@@ -1,0 +1,34 @@
+{
+  "inboudOrder":{
+    "orderNunber":"1010",
+    "orderDate":"2021-10-10",
+    "section":{
+      "sectionCode":"1",
+      "warehouseCode":"1"
+    },
+    "batchStock":[
+      {
+        "batchNunber":"1010",
+        "productionId":"1",
+        "currentTemperature":"10",
+        "minimumTemperature":"4",
+        "initialQuantity":"1",
+        "currentQuantity":"20",
+        "manufacturingDate":"2021-10-10",
+        "manufacturingTime":"14:00:00",
+        "dueDate":"2021-1010"
+      },{
+        "batchNunber":1011,
+        "productionId":"String",
+        "productionId":"2",
+        "currentTemperature":"10",
+        "minimumTemperature":"4",
+        "initialQuantity":"1",
+        "currentQuantity":"21",
+        "manufacturingDate":"2021-10-10",
+        "manufacturingTime":"14:00:00",
+        "dueDate":"2021-1010"
+      }
+    ]
+  }
+}
