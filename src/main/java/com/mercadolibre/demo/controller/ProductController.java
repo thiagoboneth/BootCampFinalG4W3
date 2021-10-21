@@ -57,7 +57,7 @@ public class ProductController {
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
 	public ResponseEntity<String> deleteProduct(@RequestParam Long idproduct) {
-		//productRepository.deleteById(idproduct);
+		productService.delete(idproduct);
 		return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK); // Retorna status code 200(OK) e mensagem
 	}
 
