@@ -1,36 +1,43 @@
 package com.mercadolibre.demo.model;
 
-import javax.persistence.CascadeType;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 @Builder
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idproduct")
 	private Long id;
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name = "description")
-	private String description;
+	@Column(name = "description", nullable = false)
 
+	private String description;
+	
+	
+	//Construtor
+	public Product(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
 }

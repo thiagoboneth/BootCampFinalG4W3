@@ -1,15 +1,13 @@
 package com.mercadolibre.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Getter
 @Builder
 @Entity
 @Table(name = "ware_house")
@@ -21,5 +19,7 @@ public class WareHouse {
     @Column(name = "ware_house_name")
     private String ware_house_name;
 
-
+    public WareHouse(String name) {
+        this.ware_house_name = name;
+    }
 }
