@@ -1,7 +1,7 @@
 {
   "inboudOrder":{
     "orderNunber":"int",
-    "orderDate":"localDate"
+    "orderDate":"localDate",
     "section":{
       "sectionCode":"String",
       "warehouseCode":"String"
