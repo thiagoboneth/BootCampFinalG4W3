@@ -19,13 +19,13 @@ public class SalesAdBuyers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
-    @Column(name = "idsales_ad_buyers")
+    @Column(name = "idseller_productors_buyers")
     private Long id;
 
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idsales_ad")
-    private SalesAd salesAd;
+    @JoinColumn(name = "idseller_products")
+    private SalesAd salesad;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_buyer")
