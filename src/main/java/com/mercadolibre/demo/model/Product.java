@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -35,6 +35,7 @@ public class Product implements Serializable {
 	private String description;
 	
 	
+	//Construtor
 	public Product(String name, String description) {
 		this.name = name;
 		this.description = description;
