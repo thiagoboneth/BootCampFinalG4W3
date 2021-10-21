@@ -1,22 +1,22 @@
 package com.mercadolibre.demo.model;
 
-import java.util.List;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.io.Serializable;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
 @Builder
 @Entity
 @Table(name = "seller")
-public class Seller {
+public class Seller implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
@@ -27,5 +27,8 @@ public class Seller {
 	@Column(name = "lastname")
 	private String lastname;
 
-	
+	public Seller(String name, String lastname) {
+		this.name = name;
+		this.lastname = lastname;
+	}
 }
