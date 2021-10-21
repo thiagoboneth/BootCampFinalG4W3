@@ -1,0 +1,33 @@
+{
+  "inboudOrder":{
+    "orderNunber":"int",
+    "orderDate":"localDate"
+    "section":{
+      "sectionCode":"String",
+      "warehouseCode":"String"
+    },
+    "batchStock":[
+      {
+        "batchNunber":"int",
+        "productionId":"String",
+        "currentTemperature":"float",
+        "minimumTemperature":"float",
+        "initialQuantity":"int",
+        "currentQuantity":"int",
+        "manufacturingDate":"LocalDate",
+        "manufacturingTime":"LocalDateTime",
+        "dueDate":"LocalDate"
+      },{
+        "batchNunber":"int",
+        "productionId":"String",
+        "currentTemperature":"float",
+        "minimumTemperature":"float",
+        "initialQuantity":"int",
+        "currentQuantity":"int",
+        "manufacturingDate":"LocalDate",
+        "manufacturingTime":"LocalDateTime",
+        "dueDate":"LocalDate"
+      }
+    ]
+  }
+}
