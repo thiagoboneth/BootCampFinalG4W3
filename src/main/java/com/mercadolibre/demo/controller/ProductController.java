@@ -47,7 +47,6 @@ public class ProductController {
 		return new ResponseEntity<>(products, HttpStatus.OK); // Retorna status code 200(OK) e a lista em formato JSON
 	}
 	
-	
 	@PutMapping(value = "/update")
 	@ResponseBody
 	public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) {
@@ -55,8 +54,6 @@ public class ProductController {
 		return new ResponseEntity<>(p, HttpStatus.CREATED); //Retorna status code 201(CREATED)
 	}
 	
-	
-	// O endpoint delete deve ficar oculto na url da api
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
 	public ResponseEntity<String> deleteProduct(@RequestParam Long idproduct) {
