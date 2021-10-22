@@ -27,7 +27,11 @@ public class Delegate {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "section_code")
-    private Section section;
+    private Section section_code;
 
-
+    public Delegate(String name, String lastname, Section section_code) {
+        this.name = name;
+        this.lastname = lastname;
+        this.section_code = section_code;
+    }
 }
