@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/warehouse")
@@ -28,5 +29,23 @@ public class WareHouseController {
     private ResponseEntity<WareHouseResponseDTO> saveWareHouse(@Valid @RequestBody WareHouseDTO dto){
         WareHouse wareHouse = wareHouseService.create(dto.convertObject());
         return new ResponseEntity<>(WareHouseResponseDTO.convertDTO(wareHouse),HttpStatus.CREATED);
+    }
+    @GetMapping(value = "/list")
+    @ResponseBody
+    public ResponseEntity<List<WareHouse>> listSeller(){
+        List<WareHouse> wareHouses = wareHouseService.list();
+        return new ResponseEntity<>(wareHouses, HttpStatus.OK);
+    }
+    @PutMapping(value = "/update")
+    @ResponseBody
+    public ResponseEntity<WareHouse> updateSeller(@Valid @RequestBody WareHouse wareHouse){
+        WareHouse s = wareHouseService.update(wareHouse);
+        return new ResponseEntity<>(s, HttpStatus.CREATED);
+    }
+    @DeleteMapping(value = "/delete")
+    @ResponseBody
+    public ResponseEntity<String> deleteSeller(@RequestParam Long idsWareHouse){
+        wareHouseService.delete(idsWareHouse);
+        return new ResponseEntity<>("WareHouse successfully deleted", HttpStatus.OK);
     }
 }
