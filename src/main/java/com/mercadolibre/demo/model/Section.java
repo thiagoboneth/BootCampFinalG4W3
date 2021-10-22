@@ -20,10 +20,12 @@ public class Section {
     private Long section_code;
     @Column(name = "capacity")
     private int capacity;
-
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_ware_house")
     private WareHouse wareHouse;
 
+    public Section(int capacity, WareHouse wareHouse) {
+        this.capacity = capacity;
+        this.wareHouse = wareHouse;
+    }
 }
