@@ -45,6 +45,6 @@ public class SellerController {
     @ResponseBody
     public ResponseEntity<String> deleteSeller(@RequestParam Long idseller){
         sellerService.delete(idseller);
-        return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Seller successfully deleted", HttpStatus.OK);
     }
 }
