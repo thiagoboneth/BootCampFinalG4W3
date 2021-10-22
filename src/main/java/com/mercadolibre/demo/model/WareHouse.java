@@ -2,6 +2,8 @@ package com.mercadolibre.demo.model;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -11,9 +13,12 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "ware_house")
-public class WareHouse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
+public class WareHouse implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ware_house")
     private Long id_ware_house;
     @Column(name = "ware_house_name")

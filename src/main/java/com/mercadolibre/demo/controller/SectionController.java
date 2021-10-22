@@ -9,11 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/fresh-sections/section")
+@RequestMapping("/api/v1/fresh-products/section")
 public class SectionController {
 
     private SectionService sectionService;
@@ -23,7 +22,7 @@ public class SectionController {
         this.sectionService = sectionService;
     }
     @PostMapping(value = "/save")
-    public ResponseEntity<SectionResponseDTO> saveSection(@Valid @RequestBody SectionDTO dto){
+    public ResponseEntity<SectionResponseDTO> saveSection(@RequestBody SectionDTO dto){
         Section section = sectionService.save(dto.convertObject());
         return new ResponseEntity<>(SectionResponseDTO.convertSection(section), HttpStatus.CREATED);
     }
@@ -36,7 +35,7 @@ public class SectionController {
     }
     @PutMapping(value = "/update")
     @ResponseBody
-    public ResponseEntity<Section> updateSection(@Valid @RequestBody Section section){
+    public ResponseEntity<Section> updateSection(@RequestBody Section section){
         Section s = sectionService.update(section);
         return new ResponseEntity<>(s, HttpStatus.CREATED);
     }

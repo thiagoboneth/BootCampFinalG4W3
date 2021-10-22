@@ -1,9 +1,7 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.model.Delegate;
-import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.repository.DelegateRepository;
-import com.mercadolibre.demo.repository.WareHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

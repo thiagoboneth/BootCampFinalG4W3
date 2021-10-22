@@ -36,29 +36,29 @@ public class ProductController {
 
 	@PostMapping(value = "/save")
 	public ResponseEntity<ProductResponseDTO> saveProduct(@Valid @RequestBody ProductDTO dto) {
-		Product product = productService.save(dto.convertObject()); // Salva a entity 
-		return new ResponseEntity<>(ProductResponseDTO.convertDTO(product), HttpStatus.CREATED); // Retorna status code 201(CREATED)
+		Product product = productService.save(dto.convertObject());
+		return new ResponseEntity<>(ProductResponseDTO.convertDTO(product), HttpStatus.CREATED);
 	}
 	
 	@GetMapping(value = "/list")
 	@ResponseBody
 	public ResponseEntity<List<Product>> listProducts() {
 		List<Product> products = productService.list();
-		return new ResponseEntity<>(products, HttpStatus.OK); // Retorna status code 200(OK) e a lista em formato JSON
+		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/update")
 	@ResponseBody
 	public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) {
-		Product p = productService.update(product); // Salva a entity e libera o update instantâneamente na DB
-		return new ResponseEntity<>(p, HttpStatus.CREATED); //Retorna status code 201(CREATED)
+		Product p = productService.update(product);
+		return new ResponseEntity<>(p, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
 	public ResponseEntity<String> deleteProduct(@RequestParam Long idproduct) {
 		productService.delete(idproduct);
-		return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK); // Retorna status code 200(OK) e mensagem
+		return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK);
 	}
 
 }
