@@ -24,10 +24,9 @@ public class WareHouseController {
         this.wareHouseService = wareHouseService;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    private ResponseEntity<WareHouseDTO> createWareHouse(@Valid @RequestBody WareHouseDTO dto){
+	@PostMapping(value = "/save")
+    private ResponseEntity<WareHouseResponseDTO> saveWareHouse(@Valid @RequestBody WareHouseDTO dto){
         WareHouse wareHouse = wareHouseService.create(dto.convertObject());
-        return new ResponseEntity(WareHouseResponseDTO.convertDTO(wareHouse),HttpStatus.OK);
+        return new ResponseEntity<>(WareHouseResponseDTO.convertDTO(wareHouse),HttpStatus.CREATED);
     }
 }

@@ -53,7 +53,7 @@ public class BatchStock implements Serializable{
 	@Column(name = "manufacturing_time", nullable = false)
 	private LocalDateTime manufacturingTime;
 
-	@Column(name = "due_date")
+	@Column(name = "due_date", nullable = false)
 	private LocalDate dueDate;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

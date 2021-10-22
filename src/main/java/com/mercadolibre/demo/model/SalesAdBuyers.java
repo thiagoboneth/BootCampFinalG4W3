@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -15,9 +17,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sales_ad_buyers")
 
-public class SalesAdBuyers {
+public class SalesAdBuyers implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
     @Column(name = "idseller_productors_buyers")
     private Long id;

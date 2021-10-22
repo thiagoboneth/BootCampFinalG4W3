@@ -3,7 +3,6 @@ package com.mercadolibre.demo.dto;
 import com.mercadolibre.demo.model.Buyer;
 import lombok.Getter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
