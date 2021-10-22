@@ -1,9 +1,12 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.repository.WareHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -21,18 +24,16 @@ public class WareHouseService {
         return wareHouseRepository.save(wareHouse);
     }
 
-//    // READ
-//    public List<WareHouse> list() {
-//        return wareHouseRepository.findAll();
-//    }
-//
-//    // UPDATE
-//    public WareHouse update(WareHouse wareHouse) {
-//        return wareHouseRepository.saveAndFlush(wareHouse);
-//    }
-//
-//     //DELETE
-//	public void delete(WareHouse wareHouse) {
-//        wareHouseRepository.deleteById(wareHouse.getId_ware_house());
-//	}
+    public WareHouse save(WareHouse wareHouse) {
+        return wareHouseRepository.save(wareHouse);
+    }
+    public List<WareHouse> list() {
+        return wareHouseRepository.findAll();
+    }
+    public WareHouse update(WareHouse wareHouse) {
+        return wareHouseRepository.saveAndFlush(wareHouse);
+    }
+    public void delete(Long id) {
+        wareHouseRepository.deleteById(id);
+    }
 }
