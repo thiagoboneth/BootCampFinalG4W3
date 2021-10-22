@@ -15,11 +15,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "seller")
 public class Seller implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idseller")
 	private Long id;
 	@Column(name = "name")

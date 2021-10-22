@@ -2,8 +2,6 @@ package com.mercadolibre.demo.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,28 +33,28 @@ public class SalesAdController {
 	
 	
 	@PostMapping(value = "/save")
-	public ResponseEntity<SalesAdResponseDTO> saveBatchStock(@Valid @RequestBody SalesAdDTO dto) {
+	public ResponseEntity<SalesAdResponseDTO> saveSalesAd(@RequestBody SalesAdDTO dto) {
 		SalesAd salesAd = salesAdService.save(dto.convertObject());
 		return new ResponseEntity<>(SalesAdResponseDTO.convertDTO(salesAd), HttpStatus.CREATED);
 	}
 	
 	@GetMapping(value = "/list")
 	@ResponseBody
-	public ResponseEntity<List<SalesAd>> listBatchStock() {
+	public ResponseEntity<List<SalesAd>> listSalesAd() {
 		List<SalesAd> salesAds = salesAdService.list();
 		return new ResponseEntity<>(salesAds, HttpStatus.OK);	
 	}
 	
 	@PutMapping(value = "/update")
 	@ResponseBody
-	public ResponseEntity<SalesAd> updateBatchStock(@Valid @RequestBody SalesAd salesAd) {
+	public ResponseEntity<SalesAd> updateSalesAd(@RequestBody SalesAd salesAd) {
 		SalesAd s = salesAdService.update(salesAd);
 		return new ResponseEntity<>(s, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
-	public ResponseEntity<String> deleteBatchStock(@RequestParam Long id) {
+	public ResponseEntity<String> deleteSalesAd(@RequestParam Long id) {
 		salesAdService.delete(id);
 		return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK);
 	}
