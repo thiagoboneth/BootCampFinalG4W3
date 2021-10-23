@@ -29,7 +29,7 @@ public class BuyerController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	private ResponseEntity<BuyerDTO> createBuyer(@Valid @RequestBody BuyerDTO dto){
-		Buyer buyer = buyerService.create(dto.convertObjectBuyer());
+		Buyer buyer = buyerService.save(dto.convertObjectBuyer());
 		return new ResponseEntity(BuyerResponseDTO.convertDTO(buyer),HttpStatus.OK);
 	}
 	@GetMapping(value = "/list")

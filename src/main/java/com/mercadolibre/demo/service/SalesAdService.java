@@ -18,22 +18,15 @@ public class SalesAdService {
 		this.salesAdRepository = salesAdRepository;
 	}
 	
-	// CREATE
 	public SalesAd save(SalesAd salesAd) {
 		return salesAdRepository.save(salesAd);
 	}
-	
-	// READ
 	public List<SalesAd> list() {
 		return salesAdRepository.findAll();
 	}
-
-	// UPDATE
 	public SalesAd update(SalesAd salesAd) {
 		return salesAdRepository.saveAndFlush(salesAd);
 	}
-	
-	 // DELETE
 	public void delete(Long batchNumber) {
 		salesAdRepository.deleteById(batchNumber);
 	}

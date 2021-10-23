@@ -19,9 +19,6 @@ public class BuyerService {
         this.buyerRepository = buyerRepository;
     }
 
-    public Buyer create(Buyer buyer) {
-        return buyerRepository.save(buyer);
-    }
     public Buyer save(Buyer buyer) {
         return buyerRepository.save(buyer);
     }

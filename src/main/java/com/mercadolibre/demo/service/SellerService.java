@@ -16,6 +16,7 @@ public class SellerService {
     public SellerService(SellerRepository sellerRepository) {
         this.sellerRepository = sellerRepository;
     }
+
     public Seller save(Seller seller) {
         return sellerRepository.save(seller);
     }

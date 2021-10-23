@@ -22,7 +22,7 @@ public class WareHouseController {
 
 	@PostMapping(value = "/save")
     private ResponseEntity<WareHouseResponseDTO> saveWareHouse( @RequestBody WareHouseDTO dto){
-        WareHouse wareHouse = wareHouseService.create(dto.convertObject());
+        WareHouse wareHouse = wareHouseService.save(dto.convertObject());
         return new ResponseEntity<>(WareHouseResponseDTO.convertDTO(wareHouse),HttpStatus.CREATED);
     }
     @GetMapping(value = "/list")
@@ -37,10 +37,10 @@ public class WareHouseController {
         WareHouse s = wareHouseService.update(wareHouse);
         return new ResponseEntity<>(s, HttpStatus.CREATED);
     }
-/*    @DeleteMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     @ResponseBody
     public ResponseEntity<String> deleteWareHouse(@RequestParam Long idsWareHouse){
         wareHouseService.delete(idsWareHouse);
         return new ResponseEntity<>("WareHouse successfully deleted", HttpStatus.OK);
-    }*/
+    }
 }

@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sales_ad_buyers")
 
-public class SalesAdBuyers implements Serializable {
+public class SalesAdBuyer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,4 +36,8 @@ public class SalesAdBuyers implements Serializable {
     @JoinColumn(name = "id_buyer")
     private Buyer buyer;
 
+    public SalesAdBuyer(SalesAd salesad, Buyer buyer) {
+        this.salesad = salesad;
+        this.buyer = buyer;
+    }
 }
