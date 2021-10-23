@@ -1,9 +1,12 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.model.Delegate;
+import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.repository.DelegateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -15,24 +18,17 @@ public class DelegateService {
     public DelegateService(DelegateRepository delegateRepository) {
         this.delegateRepository = delegateRepository;
     }
-
-    // CREATE
     public Delegate create(Delegate delegate) {
         return delegateRepository.save(delegate);
     }
-
-//    // READ
-//    public List<Delegate> list() {
-//        return wareHouseRepository.findAll();
-//    }
-//
-//    // UPDATE
-//    public WareHouse update(WareHouse wareHouse) {
-//        return wareHouseRepository.saveAndFlush(wareHouse);
-//    }
-//
-//     //DELETE
-//	public void delete(WareHouse wareHouse) {
-//        wareHouseRepository.deleteById(wareHouse.getId_ware_house());
-//	}
+    public Delegate save(Delegate delegate) {
+        return delegateRepository.save(delegate);
+    }
+    public List<Delegate> list() {return delegateRepository.findAll();}
+    public Delegate update(Delegate delegate) {
+        return delegateRepository.saveAndFlush(delegate);
+    }
+    public void delete(Long id) {
+        delegateRepository.deleteById(id);
+    }
 }

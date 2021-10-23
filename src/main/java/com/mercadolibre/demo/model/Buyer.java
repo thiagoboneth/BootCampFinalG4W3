@@ -29,7 +29,6 @@ public class Buyer implements Serializable{
     
     
 	public Buyer(String name, String lastName) {
-		super();
 		this.name = name;
 		this.lastName = lastName;
 	}  
