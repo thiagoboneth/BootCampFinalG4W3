@@ -48,13 +48,13 @@ public class BatchStock implements Serializable{
 	private Long currentQuantity;
 
 	@Column(name = "manufacturing_date", nullable = false)
-	private LocalDate manufacturingDate;
+	private LocalDate manufacturingDate = LocalDate.now();
 
 	@Column(name = "manufacturing_time", nullable = false)
-	private LocalDateTime manufacturingTime;
+	private LocalDateTime manufacturingTime = LocalDateTime.now();
 
 	@Column(name = "due_date", nullable = false)
-	private LocalDate dueDate;
+	private LocalDate dueDate = LocalDate.now();
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idseller_products")

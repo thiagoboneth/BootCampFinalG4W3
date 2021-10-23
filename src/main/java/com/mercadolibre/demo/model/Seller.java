@@ -21,7 +21,7 @@ public class Seller implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idseller")
-	private Long id;
+	private Long idseller;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "lastname")

@@ -13,16 +13,13 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/fresh-sellers/seller")
+@RequestMapping("/api/v1/fresh-products/seller")
 public class SellerController {
 
     private SellerService sellerService;
 
     @Autowired
-    public SellerController(SellerService sellerService) {
-        super();
-        this.sellerService = sellerService;
-    }
+    public SellerController(SellerService sellerService) {this.sellerService = sellerService;}
 
     @PostMapping(value = "/save")
     public ResponseEntity<SellerResponseDTO> saveSeller(@Valid @RequestBody SellerDTO dto) {
