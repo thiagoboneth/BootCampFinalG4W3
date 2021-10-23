@@ -18,22 +18,15 @@ public class BatchStockService {
 		this.batchStockRepository = batchStockRepositor;
 	}
 	
-	// CREATE
 	public BatchStock save(BatchStock batchStock) {
 		return batchStockRepository.save(batchStock);
 	}
-	
-	// READ
 	public List<BatchStock> list() {
 		return batchStockRepository.findAll();
 	}
-
-	// UPDATE
 	public BatchStock update(BatchStock batchStock) {
 		return batchStockRepository.saveAndFlush(batchStock);
 	}
-	
-	 // DELETE
 	public void delete(Long batchNumber) {
 		batchStockRepository.deleteById(batchNumber);
 	}

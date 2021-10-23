@@ -26,7 +26,7 @@ public class DelegateController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     private ResponseEntity<DelegateDTO> createDelegate(@RequestBody DelegateDTO dto){
-        Delegate delegate = delegateService.create(dto.convertObjectDelegate());
+        Delegate delegate = delegateService.save(dto.convertObjectDelegate());
         return new ResponseEntity(DelegateResponseDTO.convertDTO(delegate),HttpStatus.OK);
     }
     @GetMapping(value = "/list")

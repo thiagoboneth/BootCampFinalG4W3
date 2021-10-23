@@ -18,9 +18,7 @@ public class DelegateService {
     public DelegateService(DelegateRepository delegateRepository) {
         this.delegateRepository = delegateRepository;
     }
-    public Delegate create(Delegate delegate) {
-        return delegateRepository.save(delegate);
-    }
+
     public Delegate save(Delegate delegate) {
         return delegateRepository.save(delegate);
     }

@@ -18,11 +18,6 @@ public class WareHouseService {
         this.wareHouseRepository = wareHouseRepository;
     }
 
-    // CREATE
-    public WareHouse create(WareHouse wareHouse) {
-        return wareHouseRepository.save(wareHouse);
-    }
-
     public WareHouse save(WareHouse wareHouse) {
         return wareHouseRepository.save(wareHouse);
     }
