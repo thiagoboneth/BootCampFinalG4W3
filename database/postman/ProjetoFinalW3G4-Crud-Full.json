@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "dcc4588f-8703-4edb-a9ee-c7a0460456fb",
+		"name": "ProjetoFinalW3G4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "inboundOrderNew",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"orderDate\":1,\n    \"batchStock\":{\n         \"currentTemperature\":1,\n         \"minimumTemperature\":1,\n         \"initialQuantity\":100,\n         \"currentQuantity\":25,\n         \"salesad\":{\n            \"volume\":35,\n            \"minimumTemperature\":0,\n            \"maximumTemperature\":10,\n            \"price\":100,\n            \"seller\":{\n               \"name\":\"Dona\",\n               \"lastname\":\"Florinda\"\n            },\n            \"product\":{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            }\n         }\n},\n\"section\":{\n    \"capacity\":20,\n    \"wareHouse\":{\n    \"ware_house_name\":\"WhareHouse 1\"\n}\n}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WhareHouse",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ware_house_name\":\"WhareHouse 1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"warehouse",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Seller",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Thiago\",\n    \"lastname\":\"Boneth\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/buyer/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"buyer",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/product/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"product",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Section",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"capacity\":20,\n    \"wareHouse\":{\n    \"ware_house_name\":\"WhareHouse 1\"\n}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/section/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"section",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "salesad",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"volume\":35,\n            \"minimumTemperature\":0,\n            \"maximumTemperature\":10,\n            \"price\":100,\n            \"seller\":{\n               \"name\":\"Dona\",\n               \"lastname\":\"Florinda\"\n            },\n            \"product\":{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/salesad/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"salesad",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "salesadBuyer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"salesad\":{\n            \"volume\":35,\n            \"minimumTemperature\":0,\n            \"maximumTemperature\":10,\n            \"price\":100,\n            \"seller\":{\n               \"name\":\"Dona\",\n               \"lastname\":\"Florinda\"\n            },\n            \"product\":{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            }\n            },\n    \"buyer\":{\n    \"name\":\"Thiago\",\n    \"lastname\":\"Boneth\"\n        }\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/salesadbuyer/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"salesadbuyer",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BatchStock",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n         \"currentTemperature\":1,\n         \"minimumTemperature\":1,\n         \"initialQuantity\":100,\n         \"currentQuantity\":25,\n         \"salesad\":{\n            \"volume\":35,\n            \"minimumTemperature\":0,\n            \"maximumTemperature\":10,\n            \"price\":100,\n            \"seller\":{\n               \"name\":\"Dona\",\n               \"lastname\":\"Florinda\"\n            },\n            \"product\":{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            }\n         }\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"batchstock",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "buyer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Thiago\",\n    \"lastname\":\"Boneth\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/seller/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"seller",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delegate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Thiago\",\n    \"lastname\":\"Boneth\",\n    \"section_code\":{\n    \"capacity\":20,\n    \"wareHouse\":{\n        \"ware_house_name\":\"WhareHouse 1\"\n        }\n    }\n}\n\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/fresh-products/delegate/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"delegate",
+						"save"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
