@@ -26,7 +26,7 @@ public class BuyerController {
 		this.buyerService = buyerService;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	private ResponseEntity<BuyerDTO> createBuyer(@Valid @RequestBody BuyerDTO dto){
 		Buyer buyer = buyerService.create(dto.convertObjectBuyer());
@@ -34,19 +34,19 @@ public class BuyerController {
 	}
 	@GetMapping(value = "/list")
 	@ResponseBody
-	public ResponseEntity<List<Buyer>> listSeller(){
+	public ResponseEntity<List<Buyer>> listBuyer(){
 		List<Buyer> buyers = buyerService.list();
 		return new ResponseEntity<>(buyers, HttpStatus.OK);
 	}
 	@PutMapping(value = "/update")
 	@ResponseBody
-	public ResponseEntity<Buyer> updateSeller(@Valid @RequestBody Buyer wareHouse){
-		Buyer s = buyerService.update(wareHouse);
+	public ResponseEntity<Buyer> updateBuyer(@Valid @RequestBody Buyer buyer){
+		Buyer s = buyerService.update(buyer);
 		return new ResponseEntity<>(s, HttpStatus.CREATED);
 	}
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
-	public ResponseEntity<String> deleteSeller(@RequestParam Long idsBuyer){
+	public ResponseEntity<String> deleteBuyer(@RequestParam Long idsBuyer){
 		buyerService.delete(idsBuyer);
 		return new ResponseEntity<>("Buyer successfully deleted", HttpStatus.OK);
 	}

@@ -24,7 +24,7 @@ public class SalesAdBuyers implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
-    @Column(name = "idseller_productors_buyers")
+    @Column(name = "idseller_ad_buyers")
     private Long id;
 
 

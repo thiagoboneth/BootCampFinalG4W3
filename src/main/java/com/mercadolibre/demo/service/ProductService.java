@@ -17,23 +17,15 @@ public class ProductService {
 	public ProductService(ProductRepository productRepository) {
 		this.productRepository = productRepository;
 	}
-	
-	// CREATE
 	public Product save(Product product) {
 		return productRepository.save(product);
 	}
-	
-	// READ
 	public List<Product> list() {
 		return productRepository.findAll();
 	}
-
-	// UPDATE
 	public Product update(Product product) {
 		return productRepository.saveAndFlush(product);
 	}
-	
-	 // DELETE
 	public void delete(Long idproduct) {
 		productRepository.deleteById(idproduct);
 	}
