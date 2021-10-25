@@ -18,13 +18,8 @@ import java.util.List;
 @RequestMapping("/api/v1/fresh-products/buyer")
 public class BuyerController {
 
-	private BuyerService buyerService;
-
 	@Autowired
-	public BuyerController(BuyerService buyerService) {
-		super();
-		this.buyerService = buyerService;
-	}
+	private BuyerService buyerService;
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
