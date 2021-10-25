@@ -1,14 +1,24 @@
 package com.mercadolibre.demo.model;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
-import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,10 +32,10 @@ public class InboundOrder implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orderNumber", nullable = false)
+    @Column(name = "order_number", nullable = false)
     private Long id;
-    @Column(name = "orderDate", nullable = false)
-    private LocalDate orderDate;
+    @Column(name = "order_date", nullable = false)
+    private LocalDate orderDate = LocalDate.now();
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idbatch_number", nullable = false)
@@ -39,5 +49,5 @@ public class InboundOrder implements Serializable {
 		this.orderDate = orderDate;
 		this.batchStock = batchStock;
 		this.section = section;
-	}   
+	}
 }
