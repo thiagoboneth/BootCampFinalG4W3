@@ -3,6 +3,7 @@ package com.mercadolibre.demo.dto.response;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.SalesAd;
 
@@ -18,8 +19,11 @@ public class BatchStockResponseDTO {
 	private Float minimumTemperature;
 	private Long initialQuantity;
 	private Long currentQuantity;
+	@JsonIgnore
 	private LocalDate manufacturingDate = LocalDate.now();
+	@JsonIgnore
 	private LocalDateTime manufacturingTime = LocalDateTime.now();
+	@JsonIgnore
 	private LocalDate dueDate = LocalDate.now();
 	private SalesAd salesad;
 	
