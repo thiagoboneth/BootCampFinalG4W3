@@ -24,12 +24,8 @@ import com.mercadolibre.demo.service.BatchStockService;
 @RequestMapping("/api/v1/fresh-products/batchstock")
 public class BatchStockController {
 	
-	private BatchStockService batchStockService;
-
 	@Autowired
-	public BatchStockController(BatchStockService batchStockService) {
-		this.batchStockService = batchStockService;
-	}
+	private BatchStockService batchStockService;
 	
 	@PostMapping(value = "/save")
 	public ResponseEntity<BatchStockResponseDTO> saveBatchStock(@RequestBody BatchStockDTO dto) {

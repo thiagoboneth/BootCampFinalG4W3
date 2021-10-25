@@ -24,25 +24,20 @@ import com.mercadolibre.demo.service.InboundOrderService;
 @RequestMapping("/api/v1/fresh-products/inboundorder/")
 public class InboundOrderController {
 	
-	private InboundOrderService inboundOrderService;
-	
 	@Autowired
-	public InboundOrderController(InboundOrderService inboundOrderService) {
-		this.inboundOrderService = inboundOrderService;
-	}
+	private InboundOrderService inboundOrderService;
 
 	@PostMapping(value ="/save")
 	public ResponseEntity<InboundOrderResponseDTO> saveInboundOrder(@RequestBody InboundOrderDTO dto) {
 		InboundOrder inboundOrder = inboundOrderService.save(dto.convertObject());
 		return new ResponseEntity<>(InboundOrderResponseDTO.convertDTO(inboundOrder), HttpStatus.CREATED);
-		
 	}
 	
 	@GetMapping(value = "/list")
 	@ResponseBody
 	public ResponseEntity<List<InboundOrder>> listInboundOrder() {
-		List<InboundOrder> batchStocks = inboundOrderService.list();
-		return new ResponseEntity<>(batchStocks, HttpStatus.OK);
+		List<InboundOrder> inboundOrders = inboundOrderService.list();
+		return new ResponseEntity<>(inboundOrders, HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/update")
@@ -55,6 +50,6 @@ public class InboundOrderController {
 	@ResponseBody
 	public ResponseEntity<String> deleteInboundOrder(@RequestParam Long id) {
 		inboundOrderService.delete(id);
-		return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK);
+		return new ResponseEntity<>("Product successfully deleted", HttpStatus.ACCEPTED);
 	}
 }

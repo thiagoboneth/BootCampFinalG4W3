@@ -11,11 +11,12 @@ import com.mercadolibre.demo.repository.BatchStockRepository;
 @Service
 public class BatchStockService {
 	
+	@Autowired
 	public final BatchStockRepository batchStockRepository;
 
 	@Autowired
-	public BatchStockService(BatchStockRepository batchStockRepositor) {
-		this.batchStockRepository = batchStockRepositor;
+	public BatchStockService(BatchStockRepository batchStockRepository) {
+		this.batchStockRepository = batchStockRepository;
 	}
 	
 	public BatchStock save(BatchStock batchStock) {

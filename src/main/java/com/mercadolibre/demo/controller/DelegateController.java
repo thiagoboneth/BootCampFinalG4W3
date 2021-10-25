@@ -18,10 +18,8 @@ import java.util.List;
 @RequestMapping("/api/v1/fresh-products/delegate")
 public class DelegateController {
 
+	@Autowired
     private DelegateService delegateService;
-
-    @Autowired
-    public DelegateController(DelegateService delegateService) {this.delegateService = delegateService;}
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
