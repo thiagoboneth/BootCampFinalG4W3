@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.SalesAd;
 
