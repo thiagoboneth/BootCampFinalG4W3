@@ -19,6 +19,7 @@ public class InboundOrderResponseDTO {
     private Section section;
     
     public static InboundOrderResponseDTO convertDTO(InboundOrder inboundOrder) {
-    	return new InboundOrderResponseDTO(inboundOrder.getOrderDate(), inboundOrder.getBatchStock(), inboundOrder.getSection());
+    	return new InboundOrderResponseDTO(inboundOrder.getOrderDate(),
+    			inboundOrder.getBatchStock(), inboundOrder.getSection());
     }
 }
