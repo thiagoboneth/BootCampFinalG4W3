@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -15,7 +17,7 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "sales_ad_buyers")
+@Table(name = "item_do_produto")
 
 public class SalesAdBuyer implements Serializable {
 
@@ -27,17 +29,10 @@ public class SalesAdBuyer implements Serializable {
     @Column(name = "idseller_ad_buyers")
     private Long id;
 
+    @Column(name = "quantity")
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idseller_products")
-    private SalesAd salesad;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_buyer")
-    private Buyer buyer;
-
-    public SalesAdBuyer(SalesAd salesad, Buyer buyer) {
-        this.salesad = salesad;
-        this.buyer = buyer;
-    }
+    private SalesAd salesAd;
 }
