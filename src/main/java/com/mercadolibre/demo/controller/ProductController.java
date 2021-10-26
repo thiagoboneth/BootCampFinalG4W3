@@ -1,6 +1,7 @@
 package com.mercadolibre.demo.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
@@ -9,16 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mercadolibre.demo.dto.ProductDTO;
-import com.mercadolibre.demo.dto.response.ProductResponseDTO;
 import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.service.ProductService;
 
@@ -30,9 +30,13 @@ public class ProductController {
 	private ProductService productService;
 
 	@PostMapping(value = "/save")
-	public ResponseEntity<ProductResponseDTO> saveProduct(@RequestBody ProductDTO dto) {
-		Product product = productService.save(dto.convertObject());
-		return new ResponseEntity<>(ProductResponseDTO.convertDTO(product), HttpStatus.CREATED);
+	public ResponseEntity<Product> saveProduct(@Valid @RequestBody ProductDTO dto) throws Exception {
+		try {
+			Product product = productService.save(dto);
+			return new ResponseEntity<>(product, HttpStatus.CREATED);
+		} catch(NoSuchElementException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@GetMapping(value = "/list")
@@ -42,18 +46,21 @@ public class ProductController {
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/update")
-	@ResponseBody
-	public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) {
-		Product p = productService.update(product);
-		return new ResponseEntity<>(p, HttpStatus.CREATED);
+	@PutMapping(value = "/update/{id}")
+	public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product, @PathVariable Long id) {
+				
+		try{
+			product.setId(id);
+			productService.update(product);
+		}catch(NoSuchElementException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(product, HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping(value = "/delete")
-	@ResponseBody
-	public ResponseEntity<String> deleteProduct(@RequestParam Long idproduct) {
-		productService.delete(idproduct);
-		return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK);
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<String> deleteProduct(@PathVariable Long id) throws Exception {
+		productService.delete(id);
+		return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.ACCEPTED);
 	}
-
 }

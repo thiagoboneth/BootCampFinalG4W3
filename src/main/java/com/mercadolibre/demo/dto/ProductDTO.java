@@ -1,7 +1,6 @@
 package com.mercadolibre.demo.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import com.mercadolibre.demo.model.Product;
 
@@ -10,11 +9,10 @@ import lombok.Getter;
 @Getter
 public class ProductDTO {
 	
-	@NotNull(message = "O nome não pode ser nulo")
-	@NotEmpty (message = "O nome não pode estar vázio")
+	@NotBlank(message = "{name.not.blank}")
 	private String name;
-	@NotNull(message = "A descricao não pode ser nulo")
-	@NotEmpty (message = "A descricao não pode estar vázio")
+	
+	@NotBlank(message = "{description.not.blank}")
 	private String description;
 	
 	
