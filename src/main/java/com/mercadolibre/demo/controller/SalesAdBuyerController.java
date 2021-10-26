@@ -24,12 +24,12 @@ public class SalesAdBuyerController {
 	}
 
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	private ResponseEntity<SalesAdBuyerResponseDTO> createBuyer(@RequestBody SalesAdBuyerDTO dto){
-		SalesAdBuyer salesAdBuyer = salesAdBuyerService.save(dto.convertObject());
-		return new ResponseEntity(SalesAdBuyerResponseDTO.convertDTO(salesAdBuyer),HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/save", method = RequestMethod.POST)
+//	@ResponseStatus(HttpStatus.CREATED)
+//	private ResponseEntity<SalesAdBuyerResponseDTO> createBuyer(@RequestBody SalesAdBuyerDTO dto){
+//		SalesAdBuyer salesAdBuyer = salesAdBuyerService.save(dto.convertObject());
+//		return new ResponseEntity(SalesAdBuyerResponseDTO.convertDTO(salesAdBuyer),HttpStatus.OK);
+//	}
 	@GetMapping(value = "/list")
 	@ResponseBody
 	public ResponseEntity<List<SalesAdBuyer>> listBuyer(){
