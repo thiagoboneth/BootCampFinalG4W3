@@ -8,15 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "products")
@@ -28,8 +32,14 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idproduct")
 	private Long id;
+	
+	@NotNull(message = "O nome não pode ser nulo")
+	@NotEmpty (message = "O nome não pode estar vázio")
 	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@NotNull(message = "A descricao não pode ser nulo")
+	@NotEmpty (message = "A descricao não pode estar vázio")
 	@Column(name = "description", nullable = false)
 	private String description;
 	
