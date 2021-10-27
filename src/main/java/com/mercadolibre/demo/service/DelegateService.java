@@ -1,32 +1,60 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.DelegateDTO;
 import com.mercadolibre.demo.model.Delegate;
-import com.mercadolibre.demo.model.Seller;
+import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.repository.DelegateRepository;
+import com.mercadolibre.demo.repository.SectionRepositotory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @Service
 public class DelegateService {
 
-    private DelegateRepository delegateRepository;
+	@Autowired
+	private DelegateRepository delegateRepository;
+	@Autowired
+	private SectionRepositotory sectionRepositotory;
 
-    @Autowired
-    public DelegateService(DelegateRepository delegateRepository) {
-        this.delegateRepository = delegateRepository;
-    }
+	public Delegate save(DelegateDTO dto) throws Exception  {
+			Delegate delegate;
+			delegate = convertDelegateToDTO(dto);
+			return delegateRepository.save(delegate);
+	}
 
-    public Delegate save(Delegate delegate) {
-        return delegateRepository.save(delegate);
-    }
-    public List<Delegate> list() {return delegateRepository.findAll();}
-    public Delegate update(Delegate delegate) {
-        return delegateRepository.saveAndFlush(delegate);
-    }
-    public void delete(Long id) {
-        delegateRepository.deleteById(id);
-    }
+	public List<Delegate> list() {
+		return delegateRepository.findAll();
+	}
+
+	public Optional<Delegate> findById(Long id) {
+		return delegateRepository.findById(id);
+	}
+
+	public Delegate update(DelegateDTO dto, Long id) throws Exception {
+		Delegate delegate = new Delegate();
+		Optional<Delegate> existDelegate = findById(id);
+		if(existDelegate.isPresent()) {
+			delegate = convertDelegateToDTO(dto);
+			delegate.setIdDelegate(id);
+			return delegateRepository.saveAndFlush(delegate);
+		}
+		return delegate;
+}
+	
+	public void delete(Long id) {
+		delegateRepository.deleteById(id);
+	}
+
+	public Delegate convertDelegateToDTO(DelegateDTO dto) throws Exception {
+		Optional<Section> section = sectionRepositotory.findById(dto.getSection_code());
+		if(section.isPresent()) {
+			return new Delegate(dto.getName(),dto.getLastname(), section.get());
+		} else {
+			throw new Exception("Id nao casdastrado");
+		}
+	}
 }
