@@ -21,9 +21,9 @@ public class DelegateService {
 	private SectionRepositotory sectionRepositotory;
 
 	public Delegate save(DelegateDTO dto) throws Exception  {
-			Delegate delegate;
-			delegate = convertDelegateToDTO(dto);
-			return delegateRepository.save(delegate);
+		Delegate delegate;
+		delegate = convertDelegateToDTO(dto);
+		return delegateRepository.save(delegate);
 	}
 
 	public List<Delegate> list() {
@@ -41,10 +41,11 @@ public class DelegateService {
 			delegate = convertDelegateToDTO(dto);
 			delegate.setIdDelegate(id);
 			return delegateRepository.saveAndFlush(delegate);
+		} else {
+			throw new Exception("Id não cadastrado");
 		}
-		return delegate;
-}
-	
+	}
+
 	public void delete(Long id) {
 		delegateRepository.deleteById(id);
 	}
