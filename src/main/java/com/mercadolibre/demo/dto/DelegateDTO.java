@@ -1,27 +1,20 @@
 package com.mercadolibre.demo.dto;
 
-import com.mercadolibre.demo.model.Delegate;
-import com.mercadolibre.demo.model.Section;
 
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Getter
+@Setter
 public class DelegateDTO {
 
-    @NotNull(message = "O nome não pode ser nulo")
-    @NotEmpty(message = "O nome não pode estar vázio")
+	@NotBlank(message = "{name.not.blank}")
     private String name;
-    @NotNull(message = "O sobrenome não pode ser nulo")
-    @NotEmpty (message = "O sobrenome não pode estar vázio")
+    
+	@NotBlank(message = "{lastname.not.blank}")
     private String lastname;
-    @NotNull(message = "O sobrenome não pode ser nulo")
-    @NotEmpty (message = "O sobrenome não pode estar vázio")
-    private Section section_code;
 
-    public Delegate convertObjectDelegate(){
-        return new Delegate(name,lastname,section_code);
-    }
+    private Long section_code;
 }
