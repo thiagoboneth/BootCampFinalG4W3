@@ -7,7 +7,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 @Entity
 @Table(name = "seller")
 public class Seller implements Serializable {
