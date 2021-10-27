@@ -30,7 +30,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@PostMapping(value = "/save")
-	public ResponseEntity<Product> saveProduct(@Valid @RequestBody ProductDTO dto) throws Exception {
+	public ResponseEntity<Product> saveProduct(@Valid @RequestBody ProductDTO dto) {
 		try {
 			Product product = productService.save(dto);
 			return new ResponseEntity<>(product, HttpStatus.CREATED);
@@ -47,20 +47,23 @@ public class ProductController {
 	}
 	
 	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product, @PathVariable Long id) {
+	public ResponseEntity<Product> updateProduct(@Valid @RequestBody ProductDTO dto, @PathVariable Long id) throws Exception {
 				
 		try{
-			product.setId(id);
-			productService.update(product);
+			Product product = productService.update(dto, id);
+			return new ResponseEntity<>(product, HttpStatus.CREATED);
 		}catch(NoSuchElementException e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<>(product, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<String> deleteProduct(@PathVariable Long id) throws Exception {
-		productService.delete(id);
-		return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.ACCEPTED);
+	public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+		try {
+			productService.delete(id);
+			return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.OK);
+		} catch(NoSuchElementException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 }
