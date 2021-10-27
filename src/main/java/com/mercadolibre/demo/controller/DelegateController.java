@@ -42,13 +42,17 @@ public class DelegateController {
         	Delegate delegate = delegateService.update(dto, id);
             return new ResponseEntity<>(delegate, HttpStatus.CREATED);
         } catch(NoSuchElementException e) {
-        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> deleteDelegate(@PathVariable Long id){
-        delegateService.delete(id);
-        return new ResponseEntity<>("Representante deletado com sucesso", HttpStatus.OK);
+    	try {
+            delegateService.delete(id);
+            return new ResponseEntity<>("Representante deletado com sucesso", HttpStatus.OK);
+    	} catch(NoSuchElementException e) {
+    		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    	}
     }
 }
