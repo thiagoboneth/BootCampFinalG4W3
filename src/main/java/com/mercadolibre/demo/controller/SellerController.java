@@ -11,20 +11,23 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/seller")
 public class SellerController {
 
+    @Autowired
     private SellerService sellerService;
 
-    @Autowired
-    public SellerController(SellerService sellerService) {this.sellerService = sellerService;}
-
     @PostMapping(value = "/save")
-    public ResponseEntity<SellerResponseDTO> saveSeller(@Valid @RequestBody SellerDTO dto) {
-        Seller seller = sellerService.save(dto.convertObjectSeller());
-        return new ResponseEntity<>(SellerResponseDTO.convertSeller(seller), HttpStatus.CREATED);
+    public ResponseEntity<Seller> saveSeller(@Valid @RequestBody SellerDTO dto){
+        try {
+            Seller seller = sellerService.save(dto);
+            return new ResponseEntity<>(seller, HttpStatus.CREATED);
+        }catch(NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
     @GetMapping(value = "/list")
     @ResponseBody
@@ -32,16 +35,24 @@ public class SellerController {
         List<Seller> sellers = sellerService.list();
         return new ResponseEntity<>(sellers, HttpStatus.OK);
     }
-    @PutMapping(value = "/update")
-    @ResponseBody
-    public ResponseEntity<Seller> updateSeller(@Valid @RequestBody Seller seller){
-        Seller s = sellerService.update(seller);
-        return new ResponseEntity<>(s, HttpStatus.CREATED);
+    @PutMapping(value = "/update/{id}")
+    public ResponseEntity<Seller> updateSeller(@Valid @RequestBody SellerDTO sellerDTO,@PathVariable Long id){
+       try {
+           Seller seller = sellerService.update(sellerDTO,id);
+           return new ResponseEntity<>(seller, HttpStatus.CREATED);
+
+       }catch(NoSuchElementException e) {
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+       }
+
     }
-    @DeleteMapping(value = "/delete")
-    @ResponseBody
-    public ResponseEntity<String> deleteSeller(@RequestParam Long idseller){
-        sellerService.delete(idseller);
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<String> deleteSeller(@PathVariable Long id){
+        try {
+            sellerService.delete(id);
+        }catch(NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>("Seller successfully deleted", HttpStatus.OK);
     }
 }
