@@ -1,21 +1,16 @@
 package com.mercadolibre.demo.model;
 
-
 import javax.persistence.*;
-
 import lombok.*;
-
 import java.io.Serializable;
 
-
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "seller")
 public class Seller implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
