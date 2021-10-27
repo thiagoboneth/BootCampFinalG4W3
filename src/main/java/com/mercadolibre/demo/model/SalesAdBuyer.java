@@ -35,4 +35,9 @@ public class SalesAdBuyer implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idseller_products")
     private SalesAd salesAd;
+
+    public SalesAdBuyer(int quantity, SalesAd salesAd) {
+        this.quantity = quantity;
+        this.salesAd = salesAd;
+    }
 }
