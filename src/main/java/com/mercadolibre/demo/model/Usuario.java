@@ -28,7 +28,7 @@ public class Usuario implements UserDetails {
     @Column(name="username")
     private String user;
     @Column(name="password")
-    private String senha;
+        private String senha;
     @Column(name="enabled")
     private boolean ativo;
 
