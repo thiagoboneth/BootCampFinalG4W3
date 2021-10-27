@@ -1,14 +1,12 @@
 package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.SellerDTO;
-import com.mercadolibre.demo.dto.response.SellerResponseDTO;
 import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.NoSuchElementException;

@@ -5,46 +5,47 @@ import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class SellerService {
 
-    private final SellerRepository sellerRepository;
-
     @Autowired
-    public SellerService(SellerRepository sellerRepository) {
-        this.sellerRepository = sellerRepository;
-    }
+    SellerRepository sellerRepository;
 
     public Seller save(SellerDTO dto) {
         Seller seller;
         seller = convertSellerDTO(dto);
         return sellerRepository.save(seller);
     }
+
     public List<Seller> list() {
         return sellerRepository.findAll();
     }
+
     public Optional<Seller> findById(Long id) {
         return sellerRepository.findById(id);
     }
-    public Seller update(SellerDTO dto, Long id){
+
+    public Seller update(SellerDTO dto, Long id) {
         Seller seller = new Seller();
         Optional<Seller> existSaller = findById(id);
-        if(existSaller.isPresent()) {
-            dto.convertObjectSeller().setIdseller(id);
+        if (existSaller.isPresent()) {
             seller = convertSellerDTO(dto);
             seller.setIdseller(id);
             return sellerRepository.saveAndFlush(seller);
         }
         return seller;
     }
+
     public void delete(Long id) {
         sellerRepository.deleteById(id);
     }
+
     public Seller convertSellerDTO(SellerDTO dto) {
         return new Seller(dto.getName(), dto.getLastname());
     }
+
 }
+
