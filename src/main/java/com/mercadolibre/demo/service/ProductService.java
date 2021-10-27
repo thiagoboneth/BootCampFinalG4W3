@@ -13,48 +13,40 @@ import com.mercadolibre.demo.repository.ProductRepository;
 @Service
 public class ProductService {
 
-	private final ProductRepository productRepository;
-
 	@Autowired
-	public ProductService(ProductRepository productRepository) {
-		this.productRepository = productRepository;
+	private ProductRepository productRepository;
+
+
+	public Product save(ProductDTO dto) {
+		Product product;
+		product = convertProductToDTO(dto);
+		return productRepository.save(product);
 	}
 
-	public Product save(ProductDTO dto)  throws Exception{
-		Product product = new Product();
-		if(dto.getName() != null && dto.getDescription() != null && !dto.getName().isEmpty() && !dto.getDescription().isEmpty()) {
-			product = convertProductToDTO(dto);
-			return productRepository.save(product);
-		} else {
-			throw new Exception("Os parametros nào devem ser nulos ou vázios!");
-		}
-	}
-	
 	public List<Product> list() {
 		return productRepository.findAll();
 	}
-	
+
 	public Optional<Product> findById(Long id) {
 		return productRepository.findById(id);
 	}
-	
-	
-	public Product update(Product product) {
-		
-		if(product.getName() != null && product.getDescription() != null && !product.getName().isEmpty() && !product.getDescription().isEmpty()) {
-			Optional<Product> existProduct =findById(product.getId());
-			if(existProduct.isPresent()) {
-				product.setId(product.getId());
+
+	public Product update(ProductDTO dto, Long id) throws Exception {
+		Product product = new Product();
+		Optional<Product> existProduct = findById(id);
+		if(existProduct.isPresent()) {
+			product = convertProductToDTO(dto);
+			product.setId(id);
 			return productRepository.saveAndFlush(product);
-			}
-			
+		}  else {
+			throw new Exception("Id não cadastrado");
 		}
-		return product;
 	}
+
 	public void delete(Long id) {
-			productRepository.deleteById(id);
+		productRepository.deleteById(id);
 	}
-	
+
 	public Product convertProductToDTO(ProductDTO dto) {
 		return new Product(dto.getName(), dto.getDescription());
 	}
