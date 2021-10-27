@@ -1,22 +1,13 @@
 package com.mercadolibre.demo.dto;
 
-import com.mercadolibre.demo.model.Seller;
 import lombok.Getter;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 public class SellerDTO {
 
-    @NotNull(message = "O nome não pode ser nulo")
-    @NotEmpty(message = "O nome não pode estar vázio")
+    @NotBlank(message = "{name.not.blank}")
     private String name;
-    @NotNull(message = "O sobrenome não pode ser nulo")
-    @NotEmpty (message = "O sobrenome não pode estar vázio")
+    @NotBlank(message = "{lastname.not.blank}")
     private String lastname;
-
-    public Seller convertObjectSeller(){
-        return new Seller(name,lastname);
-    }
 }
