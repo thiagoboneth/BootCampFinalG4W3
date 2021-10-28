@@ -11,19 +11,17 @@ import com.mercadolibre.demo.model.InboundOrder;
 import com.mercadolibre.demo.model.Section;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class InboundOrderDTO {
 
 	@NotBlank(message = "{orderDate.not.blank}")
     private LocalDate orderDate = LocalDate.now();
 
-    private BatchStock batchStock;
+    private Long idBatchStock;
 
-    private Section section;	
-	
-	
-	public InboundOrder convertObject() {
-		return new InboundOrder(orderDate, batchStock, section);
-	}
+    private Long idSection;
+
 }
