@@ -1,35 +1,39 @@
 package com.mercadolibre.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @NoArgsConstructor
 @Getter
-@Builder
+@Setter
 @Entity
 @Table(name = "section")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Section implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "section_code")
-    private Long section_code;
+    private Long sectionCode;
+	
     @Column(name = "capacity")
-    private int capacity;
+    private Long capacity;
+    
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_ware_house")
-    private WareHouse wareHouse;
+    @JoinColumn(name = "id_ware_house", nullable = false)
+    private WareHouse idWareHouse;
 
-    public Section(int capacity, WareHouse wareHouse) {
+    public Section(Long capacity, WareHouse wareHouse) {
         this.capacity = capacity;
-        this.wareHouse = wareHouse;
+        this.idWareHouse = wareHouse;
     }
 }
