@@ -5,6 +5,7 @@ import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,15 +29,16 @@ public class SellerService {
         return sellerRepository.findById(id);
     }
 
-    public Seller update(SellerDTO dto, Long id) {
-        Seller seller = new Seller();
+    public Seller update(SellerDTO dto, Long id) throws Exception {
+        Seller seller;
         Optional<Seller> existSaller = findById(id);
         if (existSaller.isPresent()) {
             seller = convertSellerDTO(dto);
             seller.setIdseller(id);
             return sellerRepository.saveAndFlush(seller);
+        } else {
+            throw new Exception("Id nao casdastrado");
         }
-        return seller;
     }
 
     public void delete(Long id) {
