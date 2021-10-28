@@ -8,10 +8,10 @@ import lombok.Getter;
 @Getter
 public class SalesAdBuyerDTO {
 
-	private SalesAd salesAd;
-	private int quantity;
+    private SalesAd salesAd;
+    private int quantity;
 
-	public ItemOfProduct convertObject() {
-		return new ItemOfProduct(quantity, salesAd);
-	}
+    public ItemOfProduct convertObject() {
+        return new ItemOfProduct(quantity, salesAd);
+    }
 }
