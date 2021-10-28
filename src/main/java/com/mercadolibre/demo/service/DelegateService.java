@@ -51,11 +51,11 @@ public class DelegateService {
 	}
 
 	public Delegate convertDelegateToDTO(DelegateDTO dto) throws Exception {
-		Optional<Section> section = sectionRepositotory.findById(dto.getSection_code());
+		Optional<Section> section = sectionRepositotory.findById(dto.getSectionCode());
 		if(section.isPresent()) {
 			return new Delegate(dto.getName(),dto.getLastname(), section.get());
 		} else {
-			throw new Exception("Id nao casdastrado");
+			throw new Exception("Id nao cadastrado");
 		}
 	}
 }
