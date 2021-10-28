@@ -28,14 +28,15 @@ public class BatchStockService {
     public List<BatchStock> list() {
         return batchStockRepository.findAll();
     }
-    public Optional<BatchStock> findById (Long id){
+
+    public Optional<BatchStock> findById(Long id) {
         return batchStockRepository.findById(id);
     }
 
-    public BatchStock update(BatchStockDTO dto,Long id) throws Exception {
+    public BatchStock update(BatchStockDTO dto, Long id) throws Exception {
         BatchStock batchStock;
         Optional<BatchStock> existsBatchStok = findById(id);
-        if (existsBatchStok.isPresent()){
+        if (existsBatchStok.isPresent()) {
             batchStock = convertParaObject(dto);
             batchStock.setBatchNumber(id);
             return batchStockRepository.saveAndFlush(batchStock);
