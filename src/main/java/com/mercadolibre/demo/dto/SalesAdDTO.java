@@ -1,13 +1,6 @@
 package com.mercadolibre.demo.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import com.mercadolibre.demo.model.Product;
-import com.mercadolibre.demo.model.SalesAd;
-import com.mercadolibre.demo.model.Seller;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +16,6 @@ public class SalesAdDTO {
     private Float maximumTemperature;
 	@NotBlank(message = "{price.not.blank}")
     private Double price;
-    private Long sellerCode;
-    private Long productCode;
+    private Long idSeller;
+    private Long idProduct;
 }

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -38,6 +37,6 @@ public class PurchaseOrder implements Serializable {
     private Buyer buyer;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idseller_ad_buyers")
-    private List<SalesAdBuyer> salesAdBuyer;
+    @JoinColumn(name = "id_purchase_order")
+    private List<ItemOfProduct> itemOfProduct;
 }
