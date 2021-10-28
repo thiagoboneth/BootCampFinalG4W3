@@ -2,11 +2,8 @@ package com.mercadolibre.demo.model;
 
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

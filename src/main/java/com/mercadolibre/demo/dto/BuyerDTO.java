@@ -1,6 +1,5 @@
 package com.mercadolibre.demo.dto;
 
-import com.mercadolibre.demo.model.Buyer;
 import lombok.Getter;
 import lombok.Setter;
 

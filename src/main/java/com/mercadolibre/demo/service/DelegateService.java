@@ -5,10 +5,8 @@ import com.mercadolibre.demo.model.Delegate;
 import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.repository.DelegateRepository;
 import com.mercadolibre.demo.repository.SectionRepositotory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

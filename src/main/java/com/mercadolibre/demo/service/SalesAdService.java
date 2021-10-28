@@ -2,8 +2,6 @@ package com.mercadolibre.demo.service;
 
 import java.util.List;
 import java.util.Optional;
-
-import com.mercadolibre.demo.dto.DelegateDTO;
 import com.mercadolibre.demo.dto.SalesAdDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.ProductRepository;
