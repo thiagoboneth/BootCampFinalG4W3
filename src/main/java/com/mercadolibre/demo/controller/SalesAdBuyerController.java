@@ -1,6 +1,8 @@
 package com.mercadolibre.demo.controller;
 
-import com.mercadolibre.demo.model.ItemOfProduct;
+import com.mercadolibre.demo.dto.SalesAdBuyerDTO;
+import com.mercadolibre.demo.dto.response.SalesAdBuyerResponseDTO;
+import com.mercadolibre.demo.model.SalesAdBuyer;
 import com.mercadolibre.demo.service.SalesAdBuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,14 +32,14 @@ public class SalesAdBuyerController {
 //	}
 	@GetMapping(value = "/list")
 	@ResponseBody
-	public ResponseEntity<List<ItemOfProduct>> listBuyer(){
-		List<ItemOfProduct> itemOfProducts = salesAdBuyerService.list();
-		return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
+	public ResponseEntity<List<SalesAdBuyer>> listBuyer(){
+		List<SalesAdBuyer> salesAdBuyers = salesAdBuyerService.list();
+		return new ResponseEntity<>(salesAdBuyers, HttpStatus.OK);
 	}
 	@PutMapping(value = "/update")
 	@ResponseBody
-	public ResponseEntity<ItemOfProduct> updateBuyer(@Valid @RequestBody ItemOfProduct itemOfProduct){
-		ItemOfProduct s = salesAdBuyerService.update(itemOfProduct);
+	public ResponseEntity<SalesAdBuyer> updateBuyer(@Valid @RequestBody SalesAdBuyer salesAdBuyer){
+		SalesAdBuyer s = salesAdBuyerService.update(salesAdBuyer);
 		return new ResponseEntity<>(s, HttpStatus.CREATED);
 	}
 	@DeleteMapping(value = "/delete")

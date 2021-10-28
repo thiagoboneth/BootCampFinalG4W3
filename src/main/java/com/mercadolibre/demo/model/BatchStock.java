@@ -56,7 +56,7 @@ public class BatchStock implements Serializable{
 	private LocalDate dueDate = LocalDate.now();
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "idsales_ad")
+	@JoinColumn(name = "idseller_products")
 	private SalesAd salesad;
 
 	public BatchStock(Float currentTemperature, Float minimumTemperature, Long initialQuantity, Long currentQuantity,

@@ -1,12 +1,10 @@
 package com.mercadolibre.demo.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -14,14 +12,13 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "sales_ad")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class SalesAd implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idsales_ad", nullable = false)
+    @Column(name = "idseller_products", nullable = false)
     private Long id;
 	
     @Column(name = "volume", nullable = false)
@@ -44,12 +41,15 @@ public class SalesAd implements Serializable {
     @JoinColumn(name = "idproduct", nullable = false)
     private Product product;
 
-    public SalesAd(Float volume, Float minimumTemperature, Float maximumTemperature, Double price, Seller seller, Product product) {
-        this.volume = volume;
-        this.minimumTemperature = minimumTemperature;
-        this.maximumTemperature = maximumTemperature;
-        this.price = price;
-        this.seller = seller;
-        this.product = product;
-    }
+	public SalesAd(Float volume, Float minimumTemperature, Float maximumTemperature, Double price, Seller seller,
+			Product product) {
+		this.volume = volume;
+		this.minimumTemperature = minimumTemperature;
+		this.maximumTemperature = maximumTemperature;
+		this.price = price;
+		this.seller = seller;
+		this.product = product;
+	}
+
+
 }

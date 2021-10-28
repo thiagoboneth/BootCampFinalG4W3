@@ -30,19 +30,15 @@ public class InboundOrderService {
 		inboundOrder = convertInboundOrderToDTO(dto);
 		return inboundOrderRepository.save(inboundOrder);
 	}
-
 	public List<InboundOrder> list() {
 		return inboundOrderRepository.findAll();
 	}
-
 	public InboundOrder update(InboundOrder inboundOrder) {
 		return inboundOrderRepository.saveAndFlush(inboundOrder);
 	}
-
 	public void delete(Long id) {
 		inboundOrderRepository.deleteById(id);
 	}
-
 	public InboundOrder convertInboundOrderToDTO(InboundOrderDTO dto) throws Exception {
 		Optional<BatchStock> batchStock = batchStockRepository.findById(dto.getIdBatchStock());
 		Optional<Section> section = sectionRepositotory.findById(dto.getIdSection());

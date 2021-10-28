@@ -30,7 +30,7 @@ public class InboundOrder implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idInbound_order", nullable = false)
+    @Column(name = "order_number", nullable = false)
     private Long id;
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate = LocalDate.now();

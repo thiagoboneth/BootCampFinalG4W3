@@ -23,6 +23,6 @@ public class SalesAdDTO {
     private Float maximumTemperature;
 	@NotBlank(message = "{price.not.blank}")
     private Double price;
-    private Long idSeller;
-    private Long idProduct;
+    private Long sellerCode;
+    private Long productCode;
 }
