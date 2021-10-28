@@ -1,21 +1,14 @@
 package com.mercadolibre.demo.model;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
-
+import lombok.Setter;
 import javax.persistence.*;
+import java.io.Serializable;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
+@Getter
+@Setter
 @Entity
 @Table(name = "item_do_produto")
 

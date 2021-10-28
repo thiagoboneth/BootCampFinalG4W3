@@ -3,7 +3,6 @@ package com.mercadolibre.demo.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
-
 import lombok.Getter;
 import lombok.Setter;
 

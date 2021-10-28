@@ -2,10 +2,8 @@ package com.mercadolibre.demo.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.mercadolibre.demo.dto.ProductDTO;
 import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.repository.ProductRepository;
