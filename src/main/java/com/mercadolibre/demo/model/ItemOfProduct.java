@@ -17,26 +17,26 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "item_do_produto")
+@Table(name = "item_of_product")
 
-public class SalesAdBuyer implements Serializable {
+public class ItemOfProduct implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
-    @Column(name = "idseller_ad_buyers")
+    @Column(name = "idItem_of_product")
     private Long id;
 
     @Column(name = "quantity")
     private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idseller_products")
+    @JoinColumn(name = "idsales_ad")
     private SalesAd salesAd;
 
-    public SalesAdBuyer(int quantity, SalesAd salesAd) {
+    public ItemOfProduct(int quantity, SalesAd salesAd) {
         this.quantity = quantity;
         this.salesAd = salesAd;
     }

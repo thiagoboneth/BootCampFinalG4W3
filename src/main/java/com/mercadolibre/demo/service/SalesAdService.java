@@ -48,8 +48,8 @@ public class SalesAdService {
 		salesAdRepository.deleteById(batchNumber);
 	}
 	public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
-		Optional<Seller> seller = sellerRepository.findById(dto.getSellerCode());
-		Optional<Product> product = productRepository.findById(dto.getProductCode());
+		Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
+		Optional<Product> product = productRepository.findById(dto.getIdProduct());
 		if(seller.isPresent() && product.isPresent()) {
 			return new SalesAd(dto.getVolume(),dto.getMinimumTemperature(), dto.getMaximumTemperature(),dto.getPrice(),seller.get(),product.get());
 		} else {

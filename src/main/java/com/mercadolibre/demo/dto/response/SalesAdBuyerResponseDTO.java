@@ -12,7 +12,7 @@ public class SalesAdBuyerResponseDTO {
     private SalesAd salesAd;
     private int quantity;
     
-    public static SalesAdBuyerResponseDTO convertDTO(SalesAdBuyer salesAdBuyer) {
-    	return new SalesAdBuyerResponseDTO(salesAdBuyer.getSalesAd(), salesAdBuyer.getQuantity());
+    public static SalesAdBuyerResponseDTO convertDTO(ItemOfProduct itemOfProduct) {
+    	return new SalesAdBuyerResponseDTO(itemOfProduct.getSalesAd(), itemOfProduct.getQuantity());
     }
 }

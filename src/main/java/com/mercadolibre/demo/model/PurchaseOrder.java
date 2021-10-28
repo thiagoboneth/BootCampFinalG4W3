@@ -38,6 +38,6 @@ public class PurchaseOrder implements Serializable {
     private Buyer buyer;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "idseller_ad_buyers")
-    private List<SalesAdBuyer> salesAdBuyer;
+    @JoinColumn(name = "id_purchase_order")
+    private List<ItemOfProduct> itemOfProduct;
 }
