@@ -20,11 +20,10 @@ public class DelegateService {
 	@Autowired
 	private SectionRepositotory sectionRepositotory;
 
-	public Delegate save(DelegateDTO dto) throws Exception  {
-		Delegate delegate;
-		delegate = convertDelegateToDTO(dto);
+	public Delegate save(DelegateDTO dto) throws Exception {
+		Delegate delegate = convertDelegateToDTO(dto);
 		return delegateRepository.save(delegate);
-	}
+	} 
 
 	public List<Delegate> list() {
 		return delegateRepository.findAll();
