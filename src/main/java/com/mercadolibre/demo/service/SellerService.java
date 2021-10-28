@@ -28,15 +28,16 @@ public class SellerService {
         return sellerRepository.findById(id);
     }
 
-    public Seller update(SellerDTO dto, Long id) {
+    public Seller update(SellerDTO dto, Long id) throws Exception {
         Seller seller = new Seller();
         Optional<Seller> existSaller = findById(id);
         if (existSaller.isPresent()) {
             seller = convertSellerDTO(dto);
             seller.setIdseller(id);
             return sellerRepository.saveAndFlush(seller);
+        }else {
+            throw new Exception("Id nao casdastrado");
         }
-        return seller;
     }
 
     public void delete(Long id) {

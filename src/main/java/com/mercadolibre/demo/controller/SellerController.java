@@ -42,7 +42,6 @@ public class SellerController {
        }catch(NoSuchElementException e) {
            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
-
     }
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> deleteSeller(@PathVariable Long id){
