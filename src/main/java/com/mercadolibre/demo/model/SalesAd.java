@@ -1,19 +1,15 @@
 package com.mercadolibre.demo.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 import java.io.Serializable;
-
 import javax.persistence.*;
 
-@AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
+@Getter
+@Setter
 @Entity
 @Table(name = "sales_ad")
 public class SalesAd implements Serializable {
@@ -47,7 +43,6 @@ public class SalesAd implements Serializable {
 
 	public SalesAd(Float volume, Float minimumTemperature, Float maximumTemperature, Double price, Seller seller,
 			Product product) {
-		super();
 		this.volume = volume;
 		this.minimumTemperature = minimumTemperature;
 		this.maximumTemperature = maximumTemperature;
@@ -55,4 +50,6 @@ public class SalesAd implements Serializable {
 		this.seller = seller;
 		this.product = product;
 	}
+
+
 }
