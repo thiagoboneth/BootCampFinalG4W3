@@ -20,10 +20,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Builder
 @Entity
 @Table(name = "inbound_order")
 public class InboundOrder implements Serializable {
