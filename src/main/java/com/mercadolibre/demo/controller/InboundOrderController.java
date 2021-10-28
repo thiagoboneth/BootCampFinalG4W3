@@ -28,9 +28,13 @@ public class InboundOrderController {
 	private InboundOrderService inboundOrderService;
 
 	@PostMapping(value ="/save")
-	public ResponseEntity<InboundOrderResponseDTO> saveInboundOrder(@RequestBody InboundOrderDTO dto) {
-		InboundOrder inboundOrder = inboundOrderService.save(dto.convertObject());
-		return new ResponseEntity<>(InboundOrderResponseDTO.convertDTO(inboundOrder), HttpStatus.CREATED);
+	public ResponseEntity<InboundOrder> saveInboundOrder(@RequestBody InboundOrderDTO dto) throws Exception {
+		try {
+			InboundOrder inboundOrder = inboundOrderService.save(dto);
+			return new ResponseEntity<>(inboundOrder, HttpStatus.CREATED);
+		} catch (NoSuchFieldException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@GetMapping(value = "/list")
