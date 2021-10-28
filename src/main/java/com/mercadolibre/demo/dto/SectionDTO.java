@@ -1,24 +1,16 @@
 package com.mercadolibre.demo.dto;
 
-import com.mercadolibre.demo.model.Section;
-import com.mercadolibre.demo.model.WareHouse;
 import lombok.Getter;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
 
 @Getter
+@Setter
 public class SectionDTO {
 
-    @NotNull(message = "A capacidade não pode ser nula")
-    @NotEmpty (message = "A capacidade não pode estar vázio")
-    private int capacity;
+    @NotBlank(message = "{capacity.not.blank}")
+    private Long capacity;
 
-    @NotNull(message = "A WareHouse não pode ser nula")
-    @NotEmpty (message = "A WareHouse não pode estar vázia")
-    private WareHouse wareHouse;
-
-
-    public Section convertObject() {
-        return new Section(capacity,wareHouse);
-    }
+    private Long idWareHouse;
 }
