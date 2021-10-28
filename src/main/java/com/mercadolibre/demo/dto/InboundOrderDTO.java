@@ -2,6 +2,7 @@ package com.mercadolibre.demo.dto;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -13,17 +14,12 @@ import lombok.Getter;
 
 @Getter
 public class InboundOrderDTO {
-	
-	@NotNull(message = "A data do pedido atual não pode ser nula")
-	@NotEmpty (message = "A data do pedido atual não pode estar vazia")
+
+	@NotBlank(message = "{orderDate.not.blank}")
     private LocalDate orderDate = LocalDate.now();
-	
-	@NotNull(message = "O lote do pedido atual não pode ser nulo")
-	@NotEmpty(message = "O lote do pedido atual não pode estar vazio")
+
     private BatchStock batchStock;
-	
-	@NotNull(message = "A secao do pedido atual não pode ser nula")
-	@NotEmpty (message = "A secao do pedido atual não pode estar vazia")
+
     private Section section;	
 	
 	
