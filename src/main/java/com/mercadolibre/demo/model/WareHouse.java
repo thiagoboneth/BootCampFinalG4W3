@@ -1,17 +1,22 @@
 package com.mercadolibre.demo.model;
 
-import lombok.*;
 
 import java.io.Serializable;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @NoArgsConstructor
 @Getter
-@Builder
+@Setter
 @Entity
 @Table(name = "ware_house")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class WareHouse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,11 +24,12 @@ public class WareHouse implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ware_house")
-    private Long id_ware_house;
-    @Column(name = "ware_house_name")
-    private String ware_house_name;
+    private Long idWareHouse;
+	
+    @Column(name = "ware_house_name", nullable = false)
+    private String wareHouseName;
 
     public WareHouse(String name) {
-        this.ware_house_name = name;
+        this.wareHouseName = name;
     }
 }
