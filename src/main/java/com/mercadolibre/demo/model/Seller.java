@@ -1,7 +1,11 @@
 package com.mercadolibre.demo.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
-import lombok.*;
+
 import java.io.Serializable;
 
 @NoArgsConstructor

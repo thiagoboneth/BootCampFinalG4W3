@@ -55,7 +55,7 @@ public class SalesAdController {
     public ResponseEntity<String> deleteSalesAd(@PathVariable Long id) {
         try {
             salesAdService.delete(id);
-            return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK);
+            return new ResponseEntity<>("SalesAd successfully deleted", HttpStatus.OK);
 
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

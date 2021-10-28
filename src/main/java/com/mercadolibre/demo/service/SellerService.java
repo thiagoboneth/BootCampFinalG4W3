@@ -16,8 +16,7 @@ public class SellerService {
     SellerRepository sellerRepository;
 
     public Seller save(SellerDTO dto) {
-        Seller seller;
-        seller = convertSellerDTO(dto);
+        Seller seller = convertSellerDTO(dto);
         return sellerRepository.save(seller);
     }
 

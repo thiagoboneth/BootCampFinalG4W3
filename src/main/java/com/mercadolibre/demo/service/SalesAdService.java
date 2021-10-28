@@ -34,7 +34,7 @@ public class SalesAdService {
 		return salesAdRepository.findById(id);
 	}
 	public SalesAd update(SalesAdDTO dto,Long id) throws Exception {
-		SalesAd salesAd = new SalesAd();
+		SalesAd salesAd;
 		Optional<SalesAd> existSalesAd = findById(id);
 		if(existSalesAd.isPresent()){
 			salesAd = convertSalesAdDTO(dto);
@@ -48,12 +48,13 @@ public class SalesAdService {
 		salesAdRepository.deleteById(batchNumber);
 	}
 	public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
-		Optional<Seller> seller = sellerRepository.findById(dto.getSeller_code());
-		Optional<Product> product = productRepository.findById(dto.getProduct_code());
+		Optional<Seller> seller = sellerRepository.findById(dto.getSellerCode());
+		Optional<Product> product = productRepository.findById(dto.getProductCode());
 		if(seller.isPresent() && product.isPresent()) {
 			return new SalesAd(dto.getVolume(),dto.getMinimumTemperature(), dto.getMaximumTemperature(),dto.getPrice(),seller.get(),product.get());
 		} else {
 			throw new Exception("Id nao casdastrado");
 		}
 	}
+
 }
