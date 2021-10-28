@@ -23,19 +23,19 @@ public class Delegate implements Serializable {
     @Column(name = "id_delegate")
     private Long idDelegate;
 	
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
     
-    @Column(name = "lastname")
+    @Column(name = "lastname", nullable = false)
     private String lastname;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "section_code", nullable = false)
-    private Section section_code;
+    private Section sectionCode;
 
-	public Delegate(String name, String lastname, Section section_code) {
+	public Delegate(String name, String lastname, Section sectionCode) {
 		this.name = name;
 		this.lastname = lastname;
-		this.section_code = section_code;
+		this.sectionCode = sectionCode;
 	}
 }

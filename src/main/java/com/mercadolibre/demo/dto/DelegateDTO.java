@@ -16,5 +16,5 @@ public class DelegateDTO {
 	@NotBlank(message = "{lastname.not.blank}")
     private String lastname;
 
-    private Long section_code;
+    private Long sectionCode;
 }
