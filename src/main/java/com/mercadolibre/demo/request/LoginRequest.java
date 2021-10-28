@@ -9,15 +9,19 @@ public class LoginRequest {
     public void setUser(String user) {
         this.user = user;
     }
+
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
     public String getUser() {
         return user;
     }
+
     public String getSenha() {
         return senha;
     }
+
     public UsernamePasswordAuthenticationToken converter() {
 
         return new UsernamePasswordAuthenticationToken(user, senha);

@@ -48,7 +48,6 @@ public class ProductController {
 	
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<Product> updateProduct(@Valid @RequestBody ProductDTO dto, @PathVariable Long id) throws Exception {
-				
 		try{
 			Product product = productService.update(dto, id);
 			return new ResponseEntity<>(product, HttpStatus.CREATED);
