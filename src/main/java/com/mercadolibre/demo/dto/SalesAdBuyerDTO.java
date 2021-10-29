@@ -9,7 +9,7 @@ import lombok.Getter;
 public class SalesAdBuyerDTO {
 
 	private SalesAd salesAd;
-	private int quantity;
+	private Long quantity;
 
 	public ItemOfProduct convertObject() {
 		return new ItemOfProduct(quantity, salesAd);
