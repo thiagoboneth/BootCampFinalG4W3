@@ -10,7 +10,7 @@ import lombok.Getter;
 public class SalesAdBuyerResponseDTO {
 
     private SalesAd salesAd;
-    private int quantity;
+    private Long quantity;
     
     public static SalesAdBuyerResponseDTO convertDTO(ItemOfProduct itemOfProduct) {
     	return new SalesAdBuyerResponseDTO(itemOfProduct.getSalesAd(), itemOfProduct.getQuantity());
