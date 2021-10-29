@@ -7,12 +7,8 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class SalesAdBuyerResponseDTO {
+public class ItemOfProductResponseDTO {
 
     private SalesAd salesAd;
     private int quantity;
-    
-    public static SalesAdBuyerResponseDTO convertDTO(ItemOfProduct itemOfProduct) {
-    	return new SalesAdBuyerResponseDTO(itemOfProduct.getSalesAd(), itemOfProduct.getQuantity());
-    }
 }
