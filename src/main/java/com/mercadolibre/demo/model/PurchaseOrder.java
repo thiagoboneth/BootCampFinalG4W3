@@ -39,4 +39,11 @@ public class PurchaseOrder implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_purchase_order")
     private List<ItemOfProduct> itemOfProduct;
+
+    public PurchaseOrder(LocalDate date, OrderStatus orderStatus, Buyer buyer, List<ItemOfProduct> itemOfProduct) {
+        this.date = date;
+        this.orderStatus = orderStatus;
+        this.buyer = buyer;
+        this.itemOfProduct = itemOfProduct;
+    }
 }
