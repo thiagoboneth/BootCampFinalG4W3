@@ -11,4 +11,4 @@ public class BuyerDTO {
     private String name;
     @NotBlank(message = "{lastname.not.blank}")
     private String lastname;
-   }
+}
