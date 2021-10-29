@@ -26,13 +26,13 @@ public class ItemOfProduct implements Serializable {
     private Long id;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Long quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idsales_ad")
     private SalesAd salesAd;
 
-    public ItemOfProduct(int quantity, SalesAd salesAd) {
+    public ItemOfProduct(Long quantity, SalesAd salesAd) {
         this.quantity = quantity;
         this.salesAd = salesAd;
     }
