@@ -12,11 +12,15 @@ import com.mercadolibre.demo.repository.ProductRepository;
 @Service
 public class ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+	public ProductService(ProductRepository productRepository) {
+		this.productRepository = productRepository;
+	}
 
-    public Product save(ProductDTO dto) {
+    
+	public Product save(ProductDTO dto) {
         Product product = convertProductToDTO(dto);
         return productRepository.save(product);
     }
@@ -30,10 +34,9 @@ public class ProductService {
     }
 
     public Product update(ProductDTO dto, Long id) throws Exception {
-        Product product = new Product();
         Optional<Product> existProduct = findById(id);
         if (existProduct.isPresent()) {
-            product = convertProductToDTO(dto);
+        	Product product = convertProductToDTO(dto);
             product.setId(id);
             return productRepository.saveAndFlush(product);
         } else {
