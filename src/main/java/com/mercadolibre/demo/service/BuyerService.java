@@ -45,7 +45,7 @@ public class BuyerService {
     public void delete(Long id) {
         buyerRepository.deleteById(id);
     }
-
+//tratar dto
     public Buyer convertObjectBuyer(BuyerDTO dto) {
         return new Buyer(dto.getName(), dto.getLastname());
     }
