@@ -26,9 +26,14 @@ import com.mercadolibre.demo.service.ProductService;
 @RequestMapping("/api/v1/fresh-products/product")
 public class ProductController {
 	
-	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	public ProductController(ProductService productService) {
+		this.productService = productService;
+	}
 
+	
 	@PostMapping(value = "/save")
 	public ResponseEntity<Product> saveProduct(@Valid @RequestBody ProductDTO dto) {
 		try {
