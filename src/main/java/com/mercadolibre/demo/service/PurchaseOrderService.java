@@ -1,12 +1,17 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
+import com.mercadolibre.demo.dto.PriceDTO;
 import com.mercadolibre.demo.model.*;
+import com.mercadolibre.demo.repository.BuyerRepository;
 import com.mercadolibre.demo.repository.ItemOfProductRepository;
 import com.mercadolibre.demo.repository.PurchaseOrderRepository;
+import com.mercadolibre.demo.repository.SalesAdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +24,17 @@ public class PurchaseOrderService {
     @Autowired
     private ItemOfProductRepository itemOfProductRepository;
     @Autowired
-    private BuyerService buyerService;
-
+    private BuyerRepository buyerRepository;
+    @Autowired
+    private SalesAdRepository salesAdRepository;
+    @Autowired
+    private PurchaseOrderService purchaseOrderService;
 
     public PurchaseOrder save(PurchaseOrderDTO dto) throws Exception {
-        PurchaseOrder purchaseOrder;
-        purchaseOrder = convertPurchaseToDTO(dto);
+        PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
         return purchaseOrderRepository.save(purchaseOrder);
     }
+
 
     public List<PurchaseOrder> list() {
         return purchaseOrderRepository.findAll();
@@ -34,12 +42,54 @@ public class PurchaseOrderService {
 
     //implementar item do produto!
     public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
-        OrderStatus orderStatus = OrderStatus.CARRINHO;
-        Optional<Buyer> buyer = buyerService.findById(dto.getBuyer());
-        List<ItemOfProduct> itemOfProducts = itemOfProductRepository.findAll();
+       PurchaseOrder purchaseOrder = new PurchaseOrder();
+        Optional<Buyer> buyer = buyerRepository.findById(dto.getBuyer());
+        purchaseOrder.setBuyer(buyer.get());
         if (buyer.isPresent()){
-            return new PurchaseOrder(dto.getDate(), orderStatus, buyer.get(),itemOfProducts);
+        List<ItemOfProduct> itemOfProducts = convertItemOfProduct(dto.getItemOfProduct(),purchaseOrder);
+        purchaseOrder.setItemOfProduct(itemOfProducts);
+            return purchaseOrder;
         }
         throw new Exception("Erro no carrinho");
     }
+
+    public ItemOfProduct convertItemOfProduct(ItemOfProduct dto) throws Exception {
+        Optional<SalesAd> salesAd = salesAdRepository.findById(dto.getSalesAd().getId());
+        List<ItemOfProduct> itemOfProducts = itemOfProductRepository.findAll();
+        if (salesAd.isPresent()){
+            return new ItemOfProduct(dto.getQuantity(),dto.getSalesAd(), dto.getPurchaseOrder());
+        }
+        throw new Exception("Erro no carrinho");
+    }
+    public List<ItemOfProduct> convertItemOfProduct(List<ItemOfProductDTO> dto,PurchaseOrder purchOrder) throws Exception {
+
+       List<ItemOfProduct> listOfProducts = new ArrayList<>();
+        for (ItemOfProductDTO item: dto){
+            try {
+                Optional<SalesAd> salesAd = salesAdRepository.findById(item.getSalesAd());
+                if (salesAd.isPresent()){
+                    ItemOfProduct product = new ItemOfProduct(item.getQuantity(),salesAd.get(),purchOrder);
+                    listOfProducts.add(product);
+                }
+
+            }catch (Exception e){
+                throw new Exception("Erro no item do produto");
+            }
+        }
+        return listOfProducts;
+    }
+
+    public PriceDTO PriceLista(List<ItemOfProduct> lista) throws Exception {
+        Double valor = 0.0;
+        for (ItemOfProduct item: lista){
+            valor += item.getSalesAd().getPrice() * item.getQuantity();
+        }
+        PriceDTO priceDTO = new PriceDTO();
+        priceDTO.setTotalPrice(valor);
+        return priceDTO;
+    }
+
+
+
+
 }

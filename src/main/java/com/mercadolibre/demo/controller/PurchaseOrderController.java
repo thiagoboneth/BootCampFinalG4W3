@@ -1,13 +1,14 @@
 package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
+import com.mercadolibre.demo.dto.PriceDTO;
 import com.mercadolibre.demo.model.PurchaseOrder;
 import com.mercadolibre.demo.service.PurchaseOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
 
@@ -15,14 +16,15 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/v1/fresh-products/purchaseorder")
 public class PurchaseOrderController {
 
-    //@Autowired
+    @Autowired
     private PurchaseOrderService purchaseOrderService;
 
     @PostMapping(value = "/add")
-    private ResponseEntity<PurchaseOrder> addItem(@Valid @RequestBody PurchaseOrderDTO dto) throws Exception {
+
+    private ResponseEntity<PriceDTO> addItem(@RequestBody PurchaseOrderDTO dto) throws Exception {
         try{
-            PurchaseOrder purchaseOrder = purchaseOrderService.save(dto);
-            return new ResponseEntity<>(purchaseOrder, HttpStatus.CREATED);
+           PurchaseOrder purchaseOrder = purchaseOrderService.save(dto);
+            return new ResponseEntity<>(purchaseOrderService.PriceLista(purchaseOrder.getItemOfProduct()), HttpStatus.CREATED);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

@@ -11,7 +11,4 @@ public class SalesAdBuyerDTO {
 	private SalesAd salesAd;
 	private Long quantity;
 
-	public ItemOfProduct convertObject() {
-		return new ItemOfProduct(quantity, salesAd);
-	}
 }

@@ -2,6 +2,7 @@ package com.mercadolibre.demo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +10,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "sales_ad")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

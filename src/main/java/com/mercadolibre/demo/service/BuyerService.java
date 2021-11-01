@@ -34,7 +34,7 @@ public class BuyerService {
         Optional<Buyer> existBuyer = findById(id);
         if (existBuyer.isPresent()) {
             buyer = convertObjectBuyer(dto);
-            buyer.setIdBuyar(id);
+            buyer.setBuyer(id);
             return buyerRepository.saveAndFlush(buyer);
         } else {
             throw new Exception("Id nao casdastrado");
