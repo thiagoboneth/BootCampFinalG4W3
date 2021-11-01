@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
+import com.mercadolibre.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mercadolibre.demo.dto.ProductDTO;
 import com.mercadolibre.demo.model.Product;
-import com.mercadolibre.demo.service.ProductService;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/product")

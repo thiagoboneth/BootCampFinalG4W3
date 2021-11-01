@@ -1,13 +1,13 @@
 package com.mercadolibre.demo.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.mercadolibre.demo.dto.ProductDTO;
 import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -15,12 +15,12 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Autowired
-	public ProductService(ProductRepository productRepository) {
-		this.productRepository = productRepository;
-	}
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
-    
-	public Product save(ProductDTO dto) {
+
+    public Product save(ProductDTO dto) {
         Product product = convertProductToDTO(dto);
         return productRepository.save(product);
     }
@@ -36,7 +36,7 @@ public class ProductService {
     public Product update(ProductDTO dto, Long id) throws Exception {
         Optional<Product> existProduct = findById(id);
         if (existProduct.isPresent()) {
-        	Product product = convertProductToDTO(dto);
+            Product product = convertProductToDTO(dto);
             product.setId(id);
             return productRepository.saveAndFlush(product);
         } else {
