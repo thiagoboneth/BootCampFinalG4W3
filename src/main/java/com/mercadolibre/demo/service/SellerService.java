@@ -12,8 +12,12 @@ import java.util.Optional;
 @Service
 public class SellerService {
 
+
+    private SellerRepository sellerRepository;
     @Autowired
-    SellerRepository sellerRepository;
+    public SellerService(SellerRepository sellerRepository) {
+        this.sellerRepository = sellerRepository;
+    }
 
     public Seller save(SellerDTO dto) {
         Seller seller = convertSellerDTO(dto);
@@ -36,7 +40,7 @@ public class SellerService {
             seller.setIdseller(id);
             return sellerRepository.saveAndFlush(seller);
         } else {
-            throw new Exception("Id nao casdastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
 
