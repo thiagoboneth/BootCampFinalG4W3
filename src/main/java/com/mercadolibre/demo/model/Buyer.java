@@ -15,7 +15,7 @@ public class Buyer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
     @Column(name = "idBuyer")
-    private Long idBuyar;
+    private Long idBuyer;
     @Column(name = "name")
     private String name;
     @Column(name = "lastName")
