@@ -1,7 +1,10 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.ProductDTO;
 import com.mercadolibre.demo.dto.WareHouseDTO;
+import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.model.WareHouse;
+import com.mercadolibre.demo.repository.ProductRepository;
 import com.mercadolibre.demo.repository.WareHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,4 +52,5 @@ public class WareHouseService {
     public WareHouse convertWareHouseToDTO(WareHouseDTO dto) {
         return new WareHouse(dto.getWareHouseName());
     }
+
 }

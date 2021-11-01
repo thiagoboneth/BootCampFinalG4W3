@@ -13,8 +13,13 @@ import java.util.Optional;
 @Service
 public class BuyerService {
 
-    @Autowired
+
     private BuyerRepository buyerRepository;
+
+    @Autowired
+    public BuyerService(BuyerRepository buyerRepository) {
+        this.buyerRepository = buyerRepository;
+    }
 
     public Buyer save(BuyerDTO dto) {
         Buyer buyer;
@@ -35,10 +40,10 @@ public class BuyerService {
         Optional<Buyer> existBuyer = findById(id);
         if (existBuyer.isPresent()) {
             buyer = convertObjectBuyer(dto);
-            buyer.setIdBuyar(id);
+            buyer.setIdBuyer(id);
             return buyerRepository.saveAndFlush(buyer);
         } else {
-            throw new Exception("Id nao casdastrado");
+            throw new Exception("Id não cadastrado");
         }
 
     }
