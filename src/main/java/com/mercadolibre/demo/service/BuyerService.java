@@ -15,6 +15,10 @@ public class BuyerService {
     @Autowired
     private BuyerRepository buyerRepository;
 
+    public BuyerService(BuyerRepository buyerRepository) {
+        this.buyerRepository = buyerRepository;
+    }
+
     public Buyer save(BuyerDTO dto) {
         Buyer buyer;
         buyer = convertObjectBuyer(dto);
@@ -34,10 +38,10 @@ public class BuyerService {
         Optional<Buyer> existBuyer = findById(id);
         if (existBuyer.isPresent()) {
             buyer = convertObjectBuyer(dto);
-            buyer.setBuyer(id);
+            buyer.setIdBuyer(id);
             return buyerRepository.saveAndFlush(buyer);
         } else {
-            throw new Exception("Id nao casdastrado");
+            throw new Exception("Id não cadastrado");
         }
 
     }
