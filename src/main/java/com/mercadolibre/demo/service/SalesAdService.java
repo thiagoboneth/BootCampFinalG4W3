@@ -21,9 +21,14 @@ public class SalesAdService {
     @Autowired
     private ProductRepository productRepository;
 
+    public SalesAdService(SalesAdRepository salesAdRepository, SellerRepository sellerRepository, ProductRepository productRepository) {
+        this.salesAdRepository = salesAdRepository;
+        this.sellerRepository = sellerRepository;
+        this.productRepository = productRepository;
+    }
+
     public SalesAd save(SalesAdDTO dto) throws Exception {
-        SalesAd salesAd;
-        salesAd = convertSalesAdDTO(dto);
+        SalesAd salesAd = convertSalesAdDTO(dto);
         return salesAdRepository.save(salesAd);
     }
 
@@ -51,11 +56,22 @@ public class SalesAdService {
     }
 
     public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
+            return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(),
+                    dto.getPrice(), obtemSeller(dto),obtemProduct(dto));
+    }
+    public Optional<Seller> obtemSeller(SalesAdDTO dto) throws Exception {
         Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
+        if (seller.isPresent()){
+            return seller;
+        }else {
+            throw new Exception("Id nao casdastrado");
+        }
+    }
+    public Optional<Product> obtemProduct(SalesAdDTO dto) throws Exception {
         Optional<Product> product = productRepository.findById(dto.getIdProduct());
-        if (seller.isPresent() && product.isPresent()) {
-            return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(), dto.getPrice(), seller.get(), product.get());
-        } else {
+        if (product.isPresent()){
+            return product;
+        }else {
             throw new Exception("Id nao casdastrado");
         }
     }
