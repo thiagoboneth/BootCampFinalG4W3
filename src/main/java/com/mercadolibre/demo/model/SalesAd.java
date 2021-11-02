@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
+import java.util.Optional;
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -50,5 +51,15 @@ public class SalesAd implements Serializable {
         this.price = price;
         this.seller = seller;
         this.product = product;
+    }
+
+    public SalesAd(Float volume, Float minimumTemperature, Float maximumTemperature, Double price, Optional<Seller> obtemSeller, Optional<Product> obtemProduct) {
+        this.volume = volume;
+        this.minimumTemperature = minimumTemperature;
+        this.maximumTemperature = maximumTemperature;
+        this.price = price;
+        this.seller = obtemSeller.get();
+        this.product = obtemProduct.get();
+
     }
 }

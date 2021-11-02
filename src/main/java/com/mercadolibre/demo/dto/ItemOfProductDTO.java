@@ -1,9 +1,14 @@
 package com.mercadolibre.demo.dto;
 
-import com.mercadolibre.demo.model.SalesAd;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+import javax.validation.constraints.NotBlank;
+
+import com.mercadolibre.demo.model.SalesAd;
+
+@Getter
+@NoArgsConstructor
 public class ItemOfProductDTO {
         private Long quantity;
         private Long salesAd;

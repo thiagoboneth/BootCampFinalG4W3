@@ -1,10 +1,7 @@
 package com.mercadolibre.demo.service;
 
-import com.mercadolibre.demo.dto.ProductDTO;
 import com.mercadolibre.demo.dto.WareHouseDTO;
-import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.model.WareHouse;
-import com.mercadolibre.demo.repository.ProductRepository;
 import com.mercadolibre.demo.repository.WareHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,11 +30,10 @@ public class WareHouseService {
     }
 
     public WareHouse update(WareHouseDTO dto, Long id) throws Exception {
-        WareHouse wareHouse = new WareHouse();
         Optional<WareHouse> existWareHouse = findById(id);
         if (existWareHouse.isPresent()) {
-            wareHouse = convertWareHouseToDTO(dto);
-            wareHouse.setIdWareHouse(id);
+            WareHouse wareHouse= convertWareHouseToDTO(dto);
+          //  wareHouse.setIdWareHouse(id);
             return wareHouseRepository.saveAndFlush(wareHouse);
         } else {
             throw new Exception("Id não cadastrado");
