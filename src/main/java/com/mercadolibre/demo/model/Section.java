@@ -7,12 +7,13 @@ import java.io.Serializable;
 import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Entity
 @Table(name = "section")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@NoArgsConstructor
 public class Section implements Serializable {
 
 	private static final long serialVersionUID = 1L;

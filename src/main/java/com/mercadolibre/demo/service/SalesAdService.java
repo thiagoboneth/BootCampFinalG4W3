@@ -55,10 +55,7 @@ public class SalesAdService {
         salesAdRepository.deleteById(batchNumber);
     }
 
-    public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
-            return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(),
-                    dto.getPrice(), obtemSeller(dto),obtemProduct(dto));
-    }
+
     public Optional<Seller> obtemSeller(SalesAdDTO dto) throws Exception {
         Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
         if (seller.isPresent()){
@@ -75,5 +72,11 @@ public class SalesAdService {
             throw new Exception("Id nao casdastrado");
         }
     }
-
+    public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
+        if (obtemProduct(dto).isPresent() && obtemSeller(dto).isPresent()) {
+            return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(), dto.getPrice(), obtemSeller(dto), obtemProduct(dto));
+        } else {
+            throw new Exception("Id nao casdastrado");
+        }
+    }
 }

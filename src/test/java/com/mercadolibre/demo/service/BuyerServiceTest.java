@@ -48,22 +48,19 @@ public class BuyerServiceTest {
         buyer.setName("Kabuto");
         buyer.setLastName("Yakushi");
 
-
         Buyer product2 = new Buyer();
         buyer.setIdBuyer(2L);
         buyer.setName("Madara");
         buyer.setLastName("Uchiha");
 
         list.add(buyer);
-        list.add(product2)
-        ;
+        list.add(product2);
         when(mock.findAll()).thenReturn(list);
         List <Buyer> listAll = mock.findAll();
         buyerService.list();
         assertNotNull(list);
         assertTrue(listAll.contains(buyer));
         assertTrue(listAll.contains(product2));
-
     }
     @Test
     public void testFindById() {

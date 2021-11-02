@@ -5,13 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
 import javax.persistence.*;
-
-
-@NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "delegate")
+@NoArgsConstructor
 public class Delegate implements Serializable {
 
 	private static final long serialVersionUID = 1L;
