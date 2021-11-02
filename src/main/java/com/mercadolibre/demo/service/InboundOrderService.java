@@ -2,7 +2,6 @@ package com.mercadolibre.demo.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import com.mercadolibre.demo.dto.InboundOrderDTO;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.Section;

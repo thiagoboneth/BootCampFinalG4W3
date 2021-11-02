@@ -5,12 +5,11 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+import com.mercadolibre.demo.model.SalesAd;
+
 @Getter
 @NoArgsConstructor
 public class ItemOfProductDTO {
-
-    @NotBlank(message = "{quantity.not.blank}")
-    private Long quantity;
-
-    private Long idsalesAd;
+        private Long quantity;
+        private Long salesAd;
 }

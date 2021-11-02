@@ -5,7 +5,6 @@ import com.mercadolibre.demo.model.Buyer;
 import com.mercadolibre.demo.repository.BuyerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,13 +12,8 @@ import java.util.Optional;
 @Service
 public class BuyerService {
 
-
-    private BuyerRepository buyerRepository;
-
     @Autowired
-    public BuyerService(BuyerRepository buyerRepository) {
-        this.buyerRepository = buyerRepository;
-    }
+    private BuyerRepository buyerRepository;
 
     public Buyer save(BuyerDTO dto) {
         Buyer buyer;
@@ -40,10 +34,10 @@ public class BuyerService {
         Optional<Buyer> existBuyer = findById(id);
         if (existBuyer.isPresent()) {
             buyer = convertObjectBuyer(dto);
-            buyer.setIdBuyer(id);
+            buyer.setBuyer(id);
             return buyerRepository.saveAndFlush(buyer);
         } else {
-            throw new Exception("Id não cadastrado");
+            throw new Exception("Id nao casdastrado");
         }
 
     }
@@ -51,7 +45,7 @@ public class BuyerService {
     public void delete(Long id) {
         buyerRepository.deleteById(id);
     }
-
+//tratar dto
     public Buyer convertObjectBuyer(BuyerDTO dto) {
         return new Buyer(dto.getName(), dto.getLastname());
     }
