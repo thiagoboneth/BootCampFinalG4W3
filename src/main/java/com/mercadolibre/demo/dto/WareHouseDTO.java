@@ -2,10 +2,12 @@ package com.mercadolibre.demo.dto;
 
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class WareHouseDTO {
 
 		@NotBlank(message = "{name.not.blank}")

@@ -1,13 +1,12 @@
 package com.mercadolibre.demo.dto;
 
-import com.mercadolibre.demo.model.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
-@AllArgsConstructor
 @Getter
+@NoArgsConstructor
 public class ItemOfProductDTO {
 
     @NotBlank(message = "{quantity.not.blank}")
