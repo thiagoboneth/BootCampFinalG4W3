@@ -2,7 +2,6 @@ package com.mercadolibre.demo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,10 +9,12 @@ import java.io.Serializable;
 import java.util.Optional;
 import javax.persistence.*;
 
-@NoArgsConstructor
-@Data
+
+@Getter
+@Setter
 @Entity
 @Table(name = "sales_ad")
+@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class SalesAd implements Serializable {
 
@@ -43,15 +44,6 @@ public class SalesAd implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idproduct", nullable = false)
     private Product product;
-
-    public SalesAd(Float volume, Float minimumTemperature, Float maximumTemperature, Double price, Seller seller, Product product) {
-        this.volume = volume;
-        this.minimumTemperature = minimumTemperature;
-        this.maximumTemperature = maximumTemperature;
-        this.price = price;
-        this.seller = seller;
-        this.product = product;
-    }
 
     public SalesAd(Float volume, Float minimumTemperature, Float maximumTemperature, Double price, Optional<Seller> obtemSeller, Optional<Product> obtemProduct) {
         this.volume = volume;
