@@ -1,6 +1,8 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.SalesAdDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
+import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.repository.SectionRepository;
@@ -42,7 +44,7 @@ public class SectionService {
         Optional<Section> existSection = findById(id);
         if (existSection.isPresent()) {
             Section section = convertSectionToDTO(dto);
-            section.setSectionCode(id);
+            section.setIdSection(id);
             return sectionRepository.saveAndFlush(section);
         } else {
             throw new Exception("Id não cadastrado");
@@ -56,13 +58,19 @@ public class SectionService {
     public void delete(Long id) {
         sectionRepository.deleteById(id);
     }
-
-    public Section convertSectionToDTO(SectionDTO dto) throws Exception {
+    public Optional<WareHouse> getWareHouse(SectionDTO dto) throws Exception {
         Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
-        if (wareHouse.isPresent()) {
-            return new Section(dto.getCapacity(), dto.getCategory(), wareHouse.get());
+        if (wareHouse.isPresent()){
+            return wareHouse;
+        }else {
+            throw new Exception("Id não cadastrado");
+        }
+    }
+    public Section convertSectionToDTO(SectionDTO dto) throws Exception {
+        if (getWareHouse(dto).isPresent()) {
+            return new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
         } else {
-            throw new Exception("Id nao cadastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
 }
