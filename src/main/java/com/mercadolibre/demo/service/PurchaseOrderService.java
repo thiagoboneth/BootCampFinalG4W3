@@ -3,10 +3,8 @@ package com.mercadolibre.demo.service;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
 import com.mercadolibre.demo.dto.PriceDTO;
-import com.mercadolibre.demo.dto.SellerDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.BuyerRepository;
-import com.mercadolibre.demo.repository.ItemOfProductRepository;
 import com.mercadolibre.demo.repository.PurchaseOrderRepository;
 import com.mercadolibre.demo.repository.SalesAdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +18,20 @@ import java.util.Optional;
 @Service
 public class PurchaseOrderService {
 
-    @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
-    @Autowired
-    private ItemOfProductRepository itemOfProductRepository;
-    @Autowired
     private BuyerRepository buyerRepository;
-    @Autowired
     private SalesAdRepository salesAdRepository;
-    @Autowired
-    private PurchaseOrderService purchaseOrderService;
 
-    public PurchaseOrder save(PurchaseOrderDTO dto) throws Exception {
+
+    @Autowired
+    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, BuyerRepository buyerRepository,
+			SalesAdRepository salesAdRepository) {
+		this.purchaseOrderRepository = purchaseOrderRepository;
+		this.buyerRepository = buyerRepository;
+		this.salesAdRepository = salesAdRepository;
+	}
+
+	public PurchaseOrder save(PurchaseOrderDTO dto) throws Exception {
         PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
         return purchaseOrderRepository.save(purchaseOrder);
     }
@@ -41,7 +41,6 @@ public class PurchaseOrderService {
         return purchaseOrderRepository.findAll();
     }
 
-    //implementar item do produto!
     public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
        PurchaseOrder purchaseOrder = new PurchaseOrder();
         Optional<Buyer> buyer = buyerRepository.findById(dto.getBuyer());
@@ -54,25 +53,15 @@ public class PurchaseOrderService {
         throw new Exception("Erro no carrinho");
     }
 
-//    public ItemOfProduct convertItemOfProduct(ItemOfProduct dto) throws Exception {
-//        Optional<SalesAd> salesAd = salesAdRepository.findById(dto.getSalesAd().getId());
-//        List<ItemOfProduct> itemOfProducts = itemOfProductRepository.findAll();
-//        if (salesAd.isPresent()){
-//            return new ItemOfProduct(dto.getQuantity(),dto.getSalesAd(), dto.getPurchaseOrder());
-//        }
-//        throw new Exception("Erro no carrinho");
-//    }
-
 
     public Optional<PurchaseOrder> findById(Long id) {
         return purchaseOrderRepository.findById(id);
     }
 
     public PurchaseOrder update(PurchaseOrderDTO dto, Long id) throws Exception {
-        PurchaseOrder purchaseOrder;
         Optional<PurchaseOrder> existPurchaseOrder = findById(id);
         if (existPurchaseOrder.isPresent()) {
-            purchaseOrder = convertPurchaseToDTO(dto);
+        	PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
             purchaseOrder.setId(id);
             return purchaseOrderRepository.saveAndFlush(purchaseOrder);
         } else {
@@ -112,8 +101,4 @@ public class PurchaseOrderService {
         priceDTO.setTotalPrice(valor);
         return priceDTO;
     }
-
-
-
-
 }

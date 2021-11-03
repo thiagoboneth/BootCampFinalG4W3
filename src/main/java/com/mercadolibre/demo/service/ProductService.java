@@ -32,10 +32,9 @@ public class ProductService {
 	}
 
 	public Product update(ProductDTO dto, Long id) throws Exception {
-		Product product = new Product();
 		Optional<Product> existProduct = findById(id);
 		if(existProduct.isPresent()) {
-			product = convertProductToDTO(dto);
+			Product product = convertProductToDTO(dto);
 			product.setId(id);
 			return productRepository.saveAndFlush(product);
 		}  else {

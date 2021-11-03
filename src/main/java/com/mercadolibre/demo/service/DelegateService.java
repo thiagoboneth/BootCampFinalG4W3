@@ -13,12 +13,17 @@ import java.util.Optional;
 @Service
 public class DelegateService {
 
-    @Autowired
     private DelegateRepository delegateRepository;
-    @Autowired
     private SectionRepositotory sectionRepositotory;
 
-    public Delegate save(DelegateDTO dto) throws Exception {
+    @Autowired
+    public DelegateService(DelegateRepository delegateRepository, SectionRepositotory sectionRepositotory) {
+		this.delegateRepository = delegateRepository;
+		this.sectionRepositotory = sectionRepositotory;
+	}
+    
+
+	public Delegate save(DelegateDTO dto) throws Exception {
         Delegate delegate = convertDelegateToDTO(dto);
         return delegateRepository.save(delegate);
     }
@@ -32,10 +37,9 @@ public class DelegateService {
     }
 
     public Delegate update(DelegateDTO dto, Long id) throws Exception {
-        Delegate delegate = new Delegate();
         Optional<Delegate> existDelegate = findById(id);
         if (existDelegate.isPresent()) {
-            delegate = convertDelegateToDTO(dto);
+        	Delegate delegate = convertDelegateToDTO(dto);
             delegate.setIdDelegate(id);
             return delegateRepository.saveAndFlush(delegate);
         } else {
