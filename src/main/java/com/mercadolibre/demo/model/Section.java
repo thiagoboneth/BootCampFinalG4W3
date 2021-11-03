@@ -33,8 +33,10 @@ public class Section implements Serializable {
     @JoinColumn(name = "id_ware_house", nullable = false)
     private WareHouse idWareHouse;
 
-    public Section(Long capacity, WareHouse wareHouse) {
+
+    public Section(Long capacity, String category, WareHouse idWareHouse) {
         this.capacity = capacity;
-        this.idWareHouse = wareHouse;
+        this.category = category;
+        this.idWareHouse = idWareHouse;
     }
 }
