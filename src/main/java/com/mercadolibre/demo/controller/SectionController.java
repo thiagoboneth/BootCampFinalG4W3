@@ -2,7 +2,7 @@ package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.model.Section;
-import com.mercadolibre.demo.repository.SectionRepositotory;
+import com.mercadolibre.demo.repository.SectionRepository;
 import com.mercadolibre.demo.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class SectionController {
 	private SectionService sectionService;
 
 	@Autowired
-	private SectionRepositotory sectionRepositotory;
+	private SectionRepository sectionRepository;
 
 
 	@PostMapping(value = "/save")
@@ -46,7 +46,7 @@ public class SectionController {
 	@GetMapping(value = "/listCategory")
 	@ResponseBody
 	public ResponseEntity<List<Section>> listSectionCategory(@RequestParam(name = "name") String name){
-		List<Section> sections = sectionRepositotory.buscarPorSessao(name.trim().toUpperCase(Locale.ROOT));
+		List<Section> sections = sectionService.buscarPorSessao(name);
 		return new ResponseEntity<>(sections, HttpStatus.OK);
 	}
 
