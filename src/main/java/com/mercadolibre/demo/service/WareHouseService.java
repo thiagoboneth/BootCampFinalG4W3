@@ -33,7 +33,7 @@ public class WareHouseService {
         Optional<WareHouse> existWareHouse = findById(id);
         if (existWareHouse.isPresent()) {
             WareHouse wareHouse= convertWareHouseToDTO(dto);
-          //  wareHouse.setIdWareHouse(id);
+            wareHouse.setIdWareHouse(id);
             return wareHouseRepository.saveAndFlush(wareHouse);
         } else {
             throw new Exception("Id não cadastrado");

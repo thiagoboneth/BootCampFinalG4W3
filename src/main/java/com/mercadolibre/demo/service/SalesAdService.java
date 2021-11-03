@@ -14,13 +14,12 @@ import com.mercadolibre.demo.repository.SalesAdRepository;
 
 @Service
 public class SalesAdService {
-    @Autowired
+
     private SalesAdRepository salesAdRepository;
-    @Autowired
     private SellerRepository sellerRepository;
-    @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
     public SalesAdService(SalesAdRepository salesAdRepository, SellerRepository sellerRepository, ProductRepository productRepository) {
         this.salesAdRepository = salesAdRepository;
         this.sellerRepository = sellerRepository;
@@ -50,12 +49,9 @@ public class SalesAdService {
             throw new Exception("Id nao casdastrado");
         }
     }
-
     public void delete(Long batchNumber) {
         salesAdRepository.deleteById(batchNumber);
     }
-
-
     public Optional<Seller> obtemSeller(SalesAdDTO dto) throws Exception {
         Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
         if (seller.isPresent()){
@@ -74,9 +70,11 @@ public class SalesAdService {
     }
     public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
         if (obtemProduct(dto).isPresent() && obtemSeller(dto).isPresent()) {
-            return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(), dto.getPrice(), obtemSeller(dto), obtemProduct(dto));
+            return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(),
+                    dto.getPrice(), obtemSeller(dto), obtemProduct(dto));
         } else {
             throw new Exception("Id nao casdastrado");
         }
     }
+
 }

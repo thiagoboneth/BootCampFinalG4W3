@@ -32,10 +32,9 @@ public class SellerService {
     }
 
     public Seller update(SellerDTO dto, Long id) throws Exception {
-        Seller seller;
         Optional<Seller> existSaller = findById(id);
         if (existSaller.isPresent()) {
-            seller = convertSellerDTO(dto);
+            Seller  seller = convertSellerDTO(dto);
             seller.setIdseller(id);
             return sellerRepository.saveAndFlush(seller);
         } else {

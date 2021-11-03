@@ -12,16 +12,15 @@ import java.util.Optional;
 @Service
 public class BuyerService {
 
-    @Autowired
     private BuyerRepository buyerRepository;
 
+    @Autowired
     public BuyerService(BuyerRepository buyerRepository) {
         this.buyerRepository = buyerRepository;
     }
 
     public Buyer save(BuyerDTO dto) {
-        Buyer buyer;
-        buyer = convertObjectBuyer(dto);
+        Buyer buyer = convertObjectBuyer(dto);
         return buyerRepository.save(buyer);
     }
 
@@ -34,10 +33,9 @@ public class BuyerService {
     }
 
     public Buyer update(BuyerDTO dto, Long id) throws Exception {
-        Buyer buyer;
         Optional<Buyer> existBuyer = findById(id);
         if (existBuyer.isPresent()) {
-            buyer = convertObjectBuyer(dto);
+            Buyer buyer = convertObjectBuyer(dto);
             buyer.setIdBuyer(id);
             return buyerRepository.saveAndFlush(buyer);
         } else {
@@ -49,7 +47,6 @@ public class BuyerService {
     public void delete(Long id) {
         buyerRepository.deleteById(id);
     }
-//tratar dto
     public Buyer convertObjectBuyer(BuyerDTO dto) {
         return new Buyer(dto.getName(), dto.getLastname());
     }
