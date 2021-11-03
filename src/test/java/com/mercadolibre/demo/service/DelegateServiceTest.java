@@ -37,19 +37,15 @@ public class DelegateServiceTest {
 		delegateDTO.setLastname("Motta");
 		delegateDTO.setIdSection(1L);
 
-		List<WareHouse> wareHouseList = new ArrayList<>();
 		WareHouse wareHouse = new WareHouse();
 		wareHouse.setIdWareHouse(1L);
 		wareHouse.setWareHouseName("WareHouse 1");
-		wareHouseList.add(wareHouse);
 
-		List<Section> sectionList = new ArrayList<>();
 		Section section = new Section();
-		section.setSectionCode(1L);
+		section.setIdSection(1L);
 		section.setCapacity(200L);
 		section.setCategory("FRIOS");
 		section.setWareHouse(wareHouse);
-		sectionList.add(section);
 
 		Delegate delegate = new Delegate();
 
@@ -66,7 +62,7 @@ public class DelegateServiceTest {
 		assertEquals(1L, delegate.getIdDelegate());
 		assertEquals("Roberta", delegate.getName());
 		assertEquals("Motta", delegate.getLastname());
-		assertEquals(1L, delegate.getSection().getSectionCode());
+		assertEquals(1L, delegate.getSection().getIdSection());
 
 		assertNotNull(delegate.getIdDelegate());
 		assertNotNull(delegate.getName());
@@ -90,7 +86,7 @@ public class DelegateServiceTest {
 		
 		List<Section> sectionList = new ArrayList<>();
 		Section section = new Section();
-		section.setSectionCode(1L);
+		section.setIdSection(1L);
 		section.setCapacity(200L);
 		section.setCategory("FRIOS");
 		section.setWareHouse(wareHouse);
@@ -100,12 +96,12 @@ public class DelegateServiceTest {
 		
 		Section getSection = delegateService.getSection(delegateDTO).get();
 		
-		assertEquals(1L, getSection.getSectionCode());
+		assertEquals(1L, getSection.getIdSection());
 		assertEquals(200L, getSection.getCapacity());
 		assertEquals("FRIOS", getSection.getCategory());
 		assertEquals(wareHouse, getSection.getWareHouse());
 		
-		assertNotNull(getSection.getSectionCode());
+		assertNotNull(getSection.getIdSection());
 		assertNotNull(getSection.getCapacity());
 		assertNotNull(getSection.getCategory());
 		assertNotNull(getSection.getWareHouse());
@@ -122,7 +118,7 @@ public class DelegateServiceTest {
 		
 		List<Section> sectionList = new ArrayList<>();
 		Section section = new Section();
-		section.setSectionCode(1L);
+		section.setIdSection(1L);
 		section.setCapacity(150L);
 		section.setCategory("QUENTES");
 		section.setWareHouse(wareHouse);
@@ -163,7 +159,7 @@ public class DelegateServiceTest {
 
 		List<Section> sectionList = new ArrayList<>();
 		Section section = new Section();
-		section.setSectionCode(1L);
+		section.setIdSection(1L);
 		section.setCapacity(200L);
 		section.setCategory("FRIOS");
 		section.setWareHouse(wareHouse);
@@ -194,7 +190,7 @@ public class DelegateServiceTest {
 		assertEquals(1L, delegate.getIdDelegate());
 		assertEquals("Flávia", delegate.getName());
 		assertEquals("Braganca", delegate.getLastname());
-		assertEquals(1L, delegate.getSection().getSectionCode());
+		assertEquals(1L, delegate.getSection().getIdSection());
 
 		assertNotNull(delegate.getIdDelegate());
 		assertNotNull(delegate.getName());
@@ -214,7 +210,7 @@ public class DelegateServiceTest {
 
 		List<Section> sectionList = new ArrayList<>();
 		Section section = new Section();
-		section.setSectionCode(1L);
+		section.setIdSection(1L);
 		section.setCapacity(200L);
 		section.setCategory("FRIOS");
 		section.setWareHouse(wareHouse);
@@ -261,7 +257,7 @@ public class DelegateServiceTest {
 
 		List<Section> sectionList = new ArrayList<>();
 		Section section = new Section();
-		section.setSectionCode(1L);
+		section.setIdSection(1L);
 		section.setCapacity(200L);
 		section.setCategory("FRIOS");
 		section.setWareHouse(wareHouse);

@@ -52,12 +52,12 @@ public class SalesAdService {
     public void delete(Long batchNumber) {
         salesAdRepository.deleteById(batchNumber);
     }
-    public Optional<Seller> obtemSeller(SalesAdDTO dto) throws Exception {
+    public Optional<Seller> obtemSeller(SalesAdDTO dto) {
         Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
             return seller;
     }
     
-    public Optional<Product> obtemProduct(SalesAdDTO dto) throws Exception {
+    public Optional<Product> obtemProduct(SalesAdDTO dto){
         Optional<Product> product = productRepository.findById(dto.getIdProduct());
         return product;
     }

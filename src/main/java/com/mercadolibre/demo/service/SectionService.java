@@ -60,11 +60,7 @@ public class SectionService {
     }
     public Optional<WareHouse> getWareHouse(SectionDTO dto) throws Exception {
         Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
-        if (wareHouse.isPresent()){
-            return wareHouse;
-        }else {
-            throw new Exception("Id não cadastrado");
-        }
+        return wareHouse;
     }
     public Section convertSectionToDTO(SectionDTO dto) throws Exception {
         if (getWareHouse(dto).isPresent()) {
