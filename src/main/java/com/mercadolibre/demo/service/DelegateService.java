@@ -51,12 +51,16 @@ public class DelegateService {
         delegateRepository.deleteById(id);
     }
 
+	public Optional<Section> getSection(DelegateDTO dto) throws Exception {
+		Optional<Section> section = sectionRepository.findById(dto.getIdSection());
+		return section;
+	}
+	
     public Delegate convertDelegateToDTO(DelegateDTO dto) throws Exception {
-        Optional<Section> section = sectionRepository.findById(dto.getSectionCode());
-        if (section.isPresent()) {
-            return new Delegate(dto.getName(), dto.getLastname(), section.get());
+        if (getSection(dto).isPresent()) {
+            return new Delegate(dto.getName(), dto.getLastname(), getSection(dto));
         } else {
-            throw new Exception("Id nao cadastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
 }
