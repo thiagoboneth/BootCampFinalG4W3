@@ -25,6 +25,9 @@ public class Section implements Serializable {
 	
     @Column(name = "capacity")
     private Long capacity;
+
+    @Column(name = "category")
+    private String category;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_ware_house", nullable = false)
