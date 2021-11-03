@@ -37,19 +37,15 @@ public class SalesAdServiceTest {
         salesAdDTO.setIdSeller(1L);
         salesAdDTO.setIdProduct(1L);
 
-        List<Product> productList = new ArrayList<Product>();
         Product product = new Product();
         product.setId(1L);
         product.setName("Laranja Lima");
         product.setDescription("Laranja azedinha rica em vitamina c");
-        productList.add(product);
 
-        List<Seller> sellerList = new ArrayList<Seller>();
         Seller seller = new Seller();
         seller.setIdseller(1L);
         seller.setName("Naruto");
         seller.setLastname("Uzumaki");
-        sellerList.add(seller);
         
         SalesAd salesAd = new SalesAd();
 
@@ -111,15 +107,13 @@ public class SalesAdServiceTest {
         salesAdDTO.setIdSeller(1L);
         salesAdDTO.setIdProduct(1L);
 
-        List<Product> productList = new ArrayList<>();
         Product product = new Product();
         product.setId(1L);
         product.setName("Laranja Lima");
         product.setDescription("Laranja azedinha rica em vitamina c");
-        productList.add(product);
 
-        Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(productList.stream().findAny().get()));
 
+        Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(product));
         Product getProduct = salesAdService.obtemProduct(salesAdDTO).get();
 
         assertEquals("Laranja Lima", getProduct.getName());
@@ -220,7 +214,6 @@ public class SalesAdServiceTest {
         Seller seller = new Seller();
         seller.setIdseller(1l);
 
-        List<SalesAd> salesAdList = new ArrayList<>();
         SalesAd salesAd = new SalesAd();
         salesAd.setVolume(500.0F);
         salesAd.setMinimumTemperature(8F);
@@ -229,7 +222,6 @@ public class SalesAdServiceTest {
         salesAd.setId(1L);
         salesAd.setProduct(product);
         salesAd.setSeller(seller);
-        salesAdList.add(salesAd);
 
         SalesAdDTO salesAdDTO = new SalesAdDTO();
         salesAdDTO.setVolume(30.0F);
@@ -264,7 +256,6 @@ public class SalesAdServiceTest {
         Seller seller = new Seller();
         seller.setIdseller(1l);
 
-        List<SalesAd> salesAdList = new ArrayList<>();
         SalesAd salesAd = new SalesAd();
         salesAd.setVolume(500.0F);
         salesAd.setMinimumTemperature(8F);
@@ -273,7 +264,6 @@ public class SalesAdServiceTest {
         salesAd.setId(1L);
         salesAd.setProduct(product);
         salesAd.setSeller(seller);
-        salesAdList.add(salesAd);
 
         salesAdService.delete(1L);
         Mockito.verify(mockSalesAdRepository).deleteById(1L);
