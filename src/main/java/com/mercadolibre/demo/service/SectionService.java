@@ -53,7 +53,7 @@ public class SectionService {
     public Section convertSectionToDTO(SectionDTO dto) throws Exception {
         Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
         if (wareHouse.isPresent()) {
-            return new Section(dto.getCapacity(), wareHouse.get());
+            return new Section(dto.getCapacity(), dto.getCategory(), wareHouse.get());
         } else {
             throw new Exception("Id nao cadastrado");
         }
