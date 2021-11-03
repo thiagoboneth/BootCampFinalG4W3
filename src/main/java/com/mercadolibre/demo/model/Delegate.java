@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
 import javax.persistence.*;
+
 @Getter
 @Setter
 @Entity
