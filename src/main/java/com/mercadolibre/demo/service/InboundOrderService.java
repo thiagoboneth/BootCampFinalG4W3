@@ -6,7 +6,7 @@ import com.mercadolibre.demo.dto.InboundOrderDTO;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.repository.BatchStockRepository;
-import com.mercadolibre.demo.repository.SectionRepositotory;
+import com.mercadolibre.demo.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mercadolibre.demo.model.InboundOrder;
@@ -20,7 +20,7 @@ public class InboundOrderService {
     @Autowired
     private BatchStockRepository batchStockRepository;
     @Autowired
-    private SectionRepositotory sectionRepositotory;
+    private SectionRepository sectionRepository;
     private Object Long;
 
 
@@ -55,7 +55,7 @@ public class InboundOrderService {
 
     public InboundOrder convertInboundOrderToDTO(InboundOrderDTO dto) throws Exception {
         Optional<BatchStock> batchStock = batchStockRepository.findById(dto.getIdBatchStock());
-        Optional<Section> section = sectionRepositotory.findById(dto.getIdSection());
+        Optional<Section> section = sectionRepository.findById(dto.getIdSection());
         if (batchStock.isPresent() && section.isPresent()) {
             return new InboundOrder(dto.getOrderDate(), batchStock.get(), section.get());
         }
