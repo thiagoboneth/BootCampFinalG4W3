@@ -4,7 +4,7 @@ import com.mercadolibre.demo.dto.DelegateDTO;
 import com.mercadolibre.demo.model.Delegate;
 import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.repository.DelegateRepository;
-import com.mercadolibre.demo.repository.SectionRepositotory;
+import com.mercadolibre.demo.repository.SectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,12 +14,12 @@ import java.util.Optional;
 public class DelegateService {
 
     private DelegateRepository delegateRepository;
-    private SectionRepositotory sectionRepositotory;
+    private SectionRepository sectionRepository;
 
     @Autowired
-    public DelegateService(DelegateRepository delegateRepository, SectionRepositotory sectionRepositotory) {
+    public DelegateService(DelegateRepository delegateRepository, SectionRepository sectionRepositotory) {
 		this.delegateRepository = delegateRepository;
-		this.sectionRepositotory = sectionRepositotory;
+		this.sectionRepository = sectionRepositotory;
 	}
     
 
@@ -52,7 +52,7 @@ public class DelegateService {
     }
 
     public Delegate convertDelegateToDTO(DelegateDTO dto) throws Exception {
-        Optional<Section> section = sectionRepositotory.findById(dto.getSectionCode());
+        Optional<Section> section = sectionRepository.findById(dto.getSectionCode());
         if (section.isPresent()) {
             return new Delegate(dto.getName(), dto.getLastname(), section.get());
         } else {
