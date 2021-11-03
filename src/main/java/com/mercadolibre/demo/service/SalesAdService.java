@@ -54,20 +54,14 @@ public class SalesAdService {
     }
     public Optional<Seller> obtemSeller(SalesAdDTO dto) throws Exception {
         Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
-        if (seller.isPresent()){
             return seller;
-        }else {
-            throw new Exception("Id não cadastrado");
-        }
     }
+    
     public Optional<Product> obtemProduct(SalesAdDTO dto) throws Exception {
         Optional<Product> product = productRepository.findById(dto.getIdProduct());
-        if (product.isPresent()){
-            return product;
-        }else {
-            throw new Exception("Id não cadastrado");
-        }
+        return product;
     }
+    
     public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
         if (obtemProduct(dto).isPresent() && obtemSeller(dto).isPresent()) {
             return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(),
