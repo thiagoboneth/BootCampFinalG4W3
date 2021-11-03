@@ -1,13 +1,14 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.SectionDTO;
-import com.mercadolibre.demo.model.Section;
-import com.mercadolibre.demo.model.WareHouse;
-import com.mercadolibre.demo.repository.SectionRepository;
-import com.mercadolibre.demo.repository.WareHouseRepository;
+import com.mercadolibre.demo.dto.SectionTypeDTO;
+import com.mercadolibre.demo.model.*;
+import com.mercadolibre.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +18,17 @@ public class SectionService {
 
     private SectionRepository sectionRepository;
     private WareHouseRepository wareHouseRepository;
+    private InboundOrderRepository inboundOrderRepository;
+    private BatchStockRepository batchStockRepository;
+    private SalesAdRepository salesAdRepository;
 
     @Autowired
-    public SectionService(SectionRepository sectionRepository, WareHouseRepository wareHouseRepository) {
+    public SectionService(SectionRepository sectionRepository, WareHouseRepository wareHouseRepository, InboundOrderRepository inboundOrderRepository, BatchStockRepository batchStockRepository, SalesAdRepository salesAdRepository) {
         this.sectionRepository = sectionRepository;
         this.wareHouseRepository = wareHouseRepository;
+        this.inboundOrderRepository = inboundOrderRepository;
+        this.batchStockRepository = batchStockRepository;
+        this.salesAdRepository = salesAdRepository;
     }
 
     public Section save(SectionDTO dto) throws Exception {
@@ -53,6 +60,29 @@ public class SectionService {
         return sectionRepository.buscarPorSessao(name);
     }
 
+    public List<SectionTypeDTO>sectionTypeDTOS(String category){
+        List<Section>sections = buscarPorSessao(category);
+        List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();
+        Optional<InboundOrder> inboundOrder;
+        Optional<BatchStock> batchStock;
+        Optional<SalesAd> salesAd;
+        SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
+        for (Section section: sections
+             ) {
+            inboundOrder = inboundOrderRepository.findById(section.getSectionCode());
+            batchStock = batchStockRepository.findById(inboundOrder.get().getBatchStock().getBatchNumber());
+            salesAd = salesAdRepository.findById(batchStock.get().getSalesad().getId());
+            sectionTypeDTO.setName(category);
+            sectionTypeDTO.setQuantity(batchStock.get().getCurrentQuantity());
+            sectionTypeDTO.setPrice(salesAd.get().getPrice());
+            sectionTypeDTO.setWareHouse(section.getIdWareHouse().getWareHouseName());
+            sectionTypeDTO.setNameProduct(salesAd.get().getProduct().getName());
+
+            sectionTypeDTOS.add(sectionTypeDTO);
+        }
+        return sectionTypeDTOS;
+    }
+
     public void delete(Long id) {
         sectionRepository.deleteById(id);
     }
@@ -65,4 +95,17 @@ public class SectionService {
             throw new Exception("Id nao cadastrado");
         }
     }
+
+
 }
+
+
+/*
+        String name = dto.getName();
+        Long quantity = dto.getQuantity();
+        Double price = dto.getPrice();
+        String wareHouse = dto.getWareHouse();
+        String nameProduct = dto.getNameProduct();
+
+        return new SectionTypeDTO(name,quantity,price,wareHouse,nameProduct);
+ */
