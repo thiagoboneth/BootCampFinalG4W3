@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class SalesAdBuyerResponseDTO {
+class SalesAdBuyerResponseDTO {
 
     private SalesAd salesAd;
     private Long quantity;

@@ -25,13 +25,18 @@ public class Section implements Serializable {
 	
     @Column(name = "capacity")
     private Long capacity;
+
+    @Column(name = "category")
+    private String category;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_ware_house", nullable = false)
     private WareHouse idWareHouse;
 
-    public Section(Long capacity, WareHouse wareHouse) {
+
+    public Section(Long capacity, String category, WareHouse idWareHouse) {
         this.capacity = capacity;
-        this.idWareHouse = wareHouse;
+        this.category = category;
+        this.idWareHouse = idWareHouse;
     }
 }

@@ -2,6 +2,7 @@ package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.model.Section;
+import com.mercadolibre.demo.repository.SectionRepository;
 import com.mercadolibre.demo.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
@@ -19,6 +21,9 @@ public class SectionController {
 
 	@Autowired
 	private SectionService sectionService;
+
+	@Autowired
+	private SectionRepository sectionRepository;
 
 
 	@PostMapping(value = "/save")
@@ -37,6 +42,14 @@ public class SectionController {
 		List<Section> sections = sectionService.list();
 		return new ResponseEntity<>(sections, HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/listCategory")
+	@ResponseBody
+	public ResponseEntity<List<Section>> listSectionCategory(@RequestParam(name = "name") String name){
+		List<Section> sections = sectionService.buscarPorSessao(name);
+		return new ResponseEntity<>(sections, HttpStatus.OK);
+	}
+
 	@PutMapping(value = "/update/{id}")
 	@ResponseBody
 	public ResponseEntity<Section> updateSection(@RequestBody SectionDTO dto, @PathVariable Long id) throws Exception{
@@ -47,6 +60,7 @@ public class SectionController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
 	@DeleteMapping(value = "/delete")
 	@ResponseBody
 	public ResponseEntity<String> deleteSection(@RequestParam Long id){

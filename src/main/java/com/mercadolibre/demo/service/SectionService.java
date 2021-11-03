@@ -3,9 +3,10 @@ package com.mercadolibre.demo.service;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.model.WareHouse;
-import com.mercadolibre.demo.repository.SectionRepositotory;
+import com.mercadolibre.demo.repository.SectionRepository;
 import com.mercadolibre.demo.repository.WareHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +15,11 @@ import java.util.Optional;
 public class SectionService {
 
 
-    private SectionRepositotory sectionRepository;
+    private SectionRepository sectionRepository;
     private WareHouseRepository wareHouseRepository;
 
     @Autowired
-    public SectionService(SectionRepositotory sectionRepository, WareHouseRepository wareHouseRepository) {
+    public SectionService(SectionRepository sectionRepository, WareHouseRepository wareHouseRepository) {
         this.sectionRepository = sectionRepository;
         this.wareHouseRepository = wareHouseRepository;
     }
@@ -48,6 +49,10 @@ public class SectionService {
         }
     }
 
+    public List<Section> buscarPorSessao(String name){
+        return sectionRepository.buscarPorSessao(name);
+    }
+
     public void delete(Long id) {
         sectionRepository.deleteById(id);
     }
@@ -55,7 +60,7 @@ public class SectionService {
     public Section convertSectionToDTO(SectionDTO dto) throws Exception {
         Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
         if (wareHouse.isPresent()) {
-            return new Section(dto.getCapacity(), wareHouse.get());
+            return new Section(dto.getCapacity(), dto.getCategory(), wareHouse.get());
         } else {
             throw new Exception("Id nao cadastrado");
         }
