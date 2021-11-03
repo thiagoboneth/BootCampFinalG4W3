@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SectionRepositotory extends JpaRepository<Section,Long> {
+public interface SectionRepository extends JpaRepository<Section,Long> {
 
     @Query(value = "select u from Section  u where  upper(trim(u.category)) like %?1%")
     List<Section> buscarPorSessao(String name);
