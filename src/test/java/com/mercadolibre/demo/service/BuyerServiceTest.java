@@ -122,7 +122,7 @@ public class BuyerServiceTest {
 
         BuyerDTO dto = new BuyerDTO();
         dto.setName("Ino");
-        dto.setLastname("Uzumamaki");
+        dto.setLastname("Uzumaki");
 
         when(mock.findById(id)).thenReturn(Optional.of(list.stream().findAny().get()));
         when(mock.saveAndFlush(buyer)).thenReturn(buyer);

@@ -62,7 +62,7 @@ public class SectionService {
         if (wareHouse.isPresent()) {
             return new Section(dto.getCapacity(), dto.getCategory(), wareHouse.get());
         } else {
-            throw new Exception("Id nao cadastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
 }

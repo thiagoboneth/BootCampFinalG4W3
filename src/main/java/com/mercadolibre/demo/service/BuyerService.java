@@ -41,7 +41,6 @@ public class BuyerService {
         } else {
             throw new Exception("Id não cadastrado");
         }
-
     }
 
     public void delete(Long id) {
