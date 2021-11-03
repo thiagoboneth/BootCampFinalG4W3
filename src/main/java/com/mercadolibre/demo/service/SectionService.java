@@ -13,16 +13,18 @@ import java.util.Optional;
 @Service
 public class SectionService {
 
-    @Autowired
-    private SectionRepositotory sectionRepository;
 
-    @Autowired
+    private SectionRepositotory sectionRepository;
     private WareHouseRepository wareHouseRepository;
 
+    @Autowired
+    public SectionService(SectionRepositotory sectionRepository, WareHouseRepository wareHouseRepository) {
+        this.sectionRepository = sectionRepository;
+        this.wareHouseRepository = wareHouseRepository;
+    }
 
     public Section save(SectionDTO dto) throws Exception {
-        Section section;
-        section = convertSectionToDTO(dto);
+        Section section = convertSectionToDTO(dto);
         return sectionRepository.save(section);
     }
 
@@ -35,10 +37,10 @@ public class SectionService {
     }
 
     public Section update(SectionDTO dto, Long id) throws Exception {
-        Section section = new Section();
+
         Optional<Section> existSection = findById(id);
         if (existSection.isPresent()) {
-            section = convertSectionToDTO(dto);
+            Section section = convertSectionToDTO(dto);
             section.setSectionCode(id);
             return sectionRepository.saveAndFlush(section);
         } else {

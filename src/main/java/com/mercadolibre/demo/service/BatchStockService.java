@@ -14,11 +14,14 @@ import com.mercadolibre.demo.repository.BatchStockRepository;
 @Service
 public class BatchStockService {
 
-    @Autowired
     public BatchStockRepository batchStockRepository;
+    public SalesAdRepository salesAdRepository;
 
     @Autowired
-    public SalesAdRepository salesAdRepository;
+    public BatchStockService(BatchStockRepository batchStockRepository, SalesAdRepository salesAdRepository) {
+        this.batchStockRepository = batchStockRepository;
+        this.salesAdRepository = salesAdRepository;
+    }
 
     public BatchStock save(BatchStockDTO dto) throws Exception {
         BatchStock batchStock = convertParaObject(dto);
@@ -34,10 +37,9 @@ public class BatchStockService {
     }
 
     public BatchStock update(BatchStockDTO dto, Long id) throws Exception {
-        BatchStock batchStock;
         Optional<BatchStock> existsBatchStok = findById(id);
         if (existsBatchStok.isPresent()) {
-            batchStock = convertParaObject(dto);
+            BatchStock batchStock = convertParaObject(dto);
             batchStock.setBatchNumber(id);
             return batchStockRepository.saveAndFlush(batchStock);
         }
