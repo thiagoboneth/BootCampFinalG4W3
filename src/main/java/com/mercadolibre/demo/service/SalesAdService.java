@@ -46,7 +46,7 @@ public class SalesAdService {
             salesAd.setId(id);
             return salesAdRepository.saveAndFlush(salesAd);
         } else {
-            throw new Exception("Id nao casdastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
     public void delete(Long batchNumber) {
@@ -57,7 +57,7 @@ public class SalesAdService {
         if (seller.isPresent()){
             return seller;
         }else {
-            throw new Exception("Id nao casdastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
     public Optional<Product> obtemProduct(SalesAdDTO dto) throws Exception {
@@ -65,7 +65,7 @@ public class SalesAdService {
         if (product.isPresent()){
             return product;
         }else {
-            throw new Exception("Id nao casdastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
     public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
@@ -73,7 +73,7 @@ public class SalesAdService {
             return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(),
                     dto.getPrice(), obtemSeller(dto), obtemProduct(dto));
         } else {
-            throw new Exception("Id nao casdastrado");
+            throw new Exception("Id não cadastrado");
         }
     }
 
