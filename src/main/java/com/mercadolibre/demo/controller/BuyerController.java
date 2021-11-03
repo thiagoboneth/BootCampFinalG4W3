@@ -2,7 +2,6 @@ package com.mercadolibre.demo.controller;
 
 
 import com.mercadolibre.demo.dto.BuyerDTO;
-import com.mercadolibre.demo.dto.response.BuyerResponseDTO;
 import com.mercadolibre.demo.model.Buyer;
 import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.service.BuyerService;
