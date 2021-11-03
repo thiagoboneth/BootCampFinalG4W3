@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 public class ErrorObject {
-    private String message;
-    private String field;
-    private Object parameter;
+    private final String message;
+    private final String field;
+    private final Object parameter;
 }
