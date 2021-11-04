@@ -74,7 +74,7 @@ public class SectionServiceTest {
 
 
         Mockito.when(mockSection.findAll()).thenReturn(sectionList);
-        List <Section> listaObtida = mockSection.findAll();
+        List <Section> listaObtida = sectionService.list();
 
 
         assertNotNull(listaObtida);
@@ -173,12 +173,20 @@ public class SectionServiceTest {
         section2.setIdSection(2L);
         sectionList.add(section2);
 
-        Mockito.when(mockSection.buscarPorSessao(section.getCategory())).thenReturn(sectionList);
+        Section section3 = new Section();
+        section3.setCapacity(1350L);
+        section3.setWareHouse(wareHouse);
+        section3.setCategory("Congelados");
+        section3.setIdSection(2L);
+        sectionList.add(section3);
+        Mockito.when(mockSection.buscarPorSessao("Frios")).thenReturn(sectionList);
+        Mockito.when(mockSection.findAll()).thenReturn(sectionList);
+        mockSection.findById(1L);
+        mockSection.buscarPorSessao("Frios");
+        List<Section> listGet = mockSection.buscarPorSessao("Frios");
 
-        mockSection.buscarPorSessao(section.getCategory());
-
-        assertEquals("Frios", sectionList.get(0).getCategory());
-        assertEquals("Frios", sectionList.get(1).getCategory());
+        assertEquals("Frios", listGet.get(0).getCategory());
+        assertEquals("Frios", listGet.get(1).getCategory());
 
         assertNotNull(sectionList);
     }
