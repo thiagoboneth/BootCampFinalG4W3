@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.model.*;
@@ -95,6 +96,11 @@ public class SectionService {
             throw new Exception("Id nao cadastrado");
         }
     }
+
+    public List<SectionCategoryDTO> ListProductForCategory(String category) {
+        return sectionRepository.listProductForCategory(category);
+    }
+
 
 
 }
