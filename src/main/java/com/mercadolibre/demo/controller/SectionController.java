@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.model.Section;
@@ -50,6 +51,15 @@ public class SectionController {
 		List<SectionTypeDTO> sections = sectionService.sectionTypeDTOS(name);
 		return new ResponseEntity<>(sections, HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/productsCategory")
+	@ResponseBody
+	public ResponseEntity<List<SectionCategoryDTO>> ListProductForCategory(@RequestParam(name = "category") String category){
+		List<SectionCategoryDTO> sectionCategoryDTO = sectionService.ListProductForCategory(category);
+		return new ResponseEntity<>(sectionCategoryDTO, HttpStatus.OK);
+	}
+
+
 
 	@PutMapping(value = "/update/{id}")
 	@ResponseBody
