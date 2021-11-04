@@ -9,8 +9,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class SalesAdDTO {
 
 	@NotBlank(message = "{volume.not.blank}")

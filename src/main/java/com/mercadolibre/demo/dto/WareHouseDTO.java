@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class WareHouseDTO {
 
 		@NotBlank(message = "{name.not.blank}")
