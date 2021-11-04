@@ -58,15 +58,15 @@ public class SectionService {
     public void delete(Long id) {
         sectionRepository.deleteById(id);
     }
-    public Optional<WareHouse> getWareHouse(SectionDTO dto) throws Exception {
+    public Optional<WareHouse> getWareHouse(SectionDTO dto){
         Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
         return wareHouse;
     }
-    public Section convertSectionToDTO(SectionDTO dto) throws Exception {
+    public Section convertSectionToDTO(SectionDTO dto){
         if (getWareHouse(dto).isPresent()) {
-            return new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
-        } else {
-            throw new Exception("Id não cadastrado");
+           Section section = new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
+            return section;
         }
+        return null;
     }
 }
