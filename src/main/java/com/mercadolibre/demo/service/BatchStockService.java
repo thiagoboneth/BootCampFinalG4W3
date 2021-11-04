@@ -14,51 +14,55 @@ import com.mercadolibre.demo.repository.BatchStockRepository;
 @Service
 public class BatchStockService {
 
-    public BatchStockRepository batchStockRepository;
-    public SalesAdRepository salesAdRepository;
+	public BatchStockRepository batchStockRepository;
+	public SalesAdRepository salesAdRepository;
 
-    @Autowired
-    public BatchStockService(BatchStockRepository batchStockRepository, SalesAdRepository salesAdRepository) {
-        this.batchStockRepository = batchStockRepository;
-        this.salesAdRepository = salesAdRepository;
-    }
+	@Autowired
+	public BatchStockService(BatchStockRepository batchStockRepository, SalesAdRepository salesAdRepository) {
+		this.batchStockRepository = batchStockRepository;
+		this.salesAdRepository = salesAdRepository;
+	}
 
-    public BatchStock save(BatchStockDTO dto) throws Exception {
-        BatchStock batchStock = convertParaObject(dto);
-        return batchStockRepository.save(batchStock);
-    }
+	public BatchStock save(BatchStockDTO dto) throws Exception {
+		BatchStock batchStock = convertBatchStockToObject(dto);
+		return batchStockRepository.save(batchStock);
+	}
 
-    public List<BatchStock> list() {
-        return batchStockRepository.findAll();
-    }
+	public List<BatchStock> list() {
+		return batchStockRepository.findAll();
+	}
 
-    public Optional<BatchStock> findById(Long id) {
-        return batchStockRepository.findById(id);
-    }
+	public Optional<BatchStock> findById(Long id) {
+		return batchStockRepository.findById(id);
+	}
 
-    public BatchStock update(BatchStockDTO dto, Long id) throws Exception {
-        Optional<BatchStock> existsBatchStok = findById(id);
-        if (existsBatchStok.isPresent()) {
-            BatchStock batchStock = convertParaObject(dto);
-            batchStock.setBatchNumber(id);
-            return batchStockRepository.saveAndFlush(batchStock);
-        }
-        throw new Exception("Id nao casdastrado");
-    }
+	public BatchStock update(BatchStockDTO dto, Long id) throws Exception {
+		Optional<BatchStock> existsBatchStok = findById(id);
+		if (existsBatchStok.isPresent()) {
+			BatchStock batchStock = convertBatchStockToObject(dto);
+			batchStock.setBatchNumber(id);
+			return batchStockRepository.saveAndFlush(batchStock);
+		}
+		throw new Exception("Id não cadastrado");
+	}
 
-    public void delete(Long batchNumber) {
-        batchStockRepository.deleteById(batchNumber);
-    }
+	public void delete(Long batchNumber) {
+		batchStockRepository.deleteById(batchNumber);
+	}
 
-    public BatchStock convertParaObject(BatchStockDTO dto) throws Exception {
-        Optional<SalesAd> salesAd = salesAdRepository.findById(dto.getSalesadId());
-        if (salesAd.isPresent()) {
-            return new BatchStock(dto.getCurrentTemperature(), dto.getMinimumTemperature(),
-                    dto.getInitialQuantity(), dto.getCurrentQuantity(), dto.getManufacturingDate(),
-                    dto.getManufacturingTime(), dto.getDueDate(), salesAd.get());
-        } else {
-            throw new Exception("Id nao casdastrado");
+	public Optional<SalesAd> getSalesAd(BatchStockDTO dto) {
+		Optional<SalesAd> salesAd = salesAdRepository.findById(dto.getIdSalesAd());
+		return salesAd;
+	}
 
-        }
-    }
+	public BatchStock convertBatchStockToObject(BatchStockDTO dto) {
+		if (getSalesAd(dto).isPresent()) {
+			BatchStock batchStock = new BatchStock(dto.getCurrentTemperature(), dto.getMinimumTemperature(),
+					dto.getInitialQuantity(), dto.getCurrentQuantity(), dto.getManufacturingDate(),
+					dto.getManufacturingTime(), dto.getDueDate(), getSalesAd(dto));
+			
+			return batchStock;
+		}	
+		return null;
+	}   
 }

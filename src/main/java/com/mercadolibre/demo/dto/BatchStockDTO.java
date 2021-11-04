@@ -24,6 +24,5 @@ public class BatchStockDTO {
     private LocalDateTime manufacturingTime = LocalDateTime.now();
     @NotBlank(message = "{dueDate.not.blank}")
     private LocalDate dueDate = LocalDate.now();
-    private Long salesadId;
-
+    private Long IdSalesAd;
 }
