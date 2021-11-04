@@ -2,8 +2,11 @@ package com.mercadolibre.demo.service;
 
 
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
+import com.mercadolibre.demo.dto.PriceDTO;
+import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.ItemOfProduct;
 import com.mercadolibre.demo.model.SalesAd;
+import com.mercadolibre.demo.repository.BatchStockRepository;
 import com.mercadolibre.demo.repository.ItemOfProductRepository;
 import com.mercadolibre.demo.repository.PurchaseOrderRepository;
 import com.mercadolibre.demo.repository.SalesAdRepository;
@@ -20,12 +23,14 @@ public class ItemOfProductService {
     private ItemOfProductRepository itemOfProductRepository;
     private SalesAdRepository salesAdRepository;
     private PurchaseOrderRepository purchaseOrderRepository;
+    private BatchStockRepository batchStockRepository;
 
     @Autowired
-    public ItemOfProductService(ItemOfProductRepository itemOfProductRepository, SalesAdRepository salesAdRepository, PurchaseOrderRepository purchaseOrderRepository) {
+    public ItemOfProductService(ItemOfProductRepository itemOfProductRepository, SalesAdRepository salesAdRepository, PurchaseOrderRepository purchaseOrderRepository, BatchStockRepository batchStockRepository) {
         this.itemOfProductRepository = itemOfProductRepository;
         this.salesAdRepository = salesAdRepository;
         this.purchaseOrderRepository = purchaseOrderRepository;
+        this.batchStockRepository = batchStockRepository;
     }
 
     public ItemOfProduct save(ItemOfProductDTO dto) throws Exception {
@@ -58,8 +63,27 @@ public class ItemOfProductService {
         return itemOfProductDTOS;
     }
 
-    public void delete(Long id) {
-        itemOfProductRepository.deleteById(id);
+//    public void delete(Long id) {
+//        itemOfProductRepository.deleteById(id);
+//    }
+
+    public void incrementQuantity(ItemOfProduct item, List<BatchStock> batchStockList) throws Exception {
+        for (BatchStock batchStock : batchStockList) {
+                batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() + item.getQuantity());
+                itemOfProductRepository.saveAndFlush(batchStock);
+                return;
+            }
+    }
+
+    public List<ItemOfProduct> delete(List<ItemOfProduct> lista) throws Exception {
+        for (ItemOfProduct item: lista){
+            List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
+            if(batchStockList != null){
+                incrementQuantity(item,batchStockList);
+                itemOfProductRepository.deleteById(item.getId());
+            }
+        }
+        return lista;
     }
 
 }
