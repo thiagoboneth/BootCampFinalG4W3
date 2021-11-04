@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class SectionDTO {
 
     @NotBlank(message = "{capacity.not.blank}")

@@ -72,7 +72,7 @@ public class SalesAdServiceTest {
     }
 
     @Test
-    void testLGetProductSuccessful() throws Exception {
+    void testGetPSellerSuccessful() throws Exception {
 
         SalesAdDTO salesAdDTO = new SalesAdDTO();
         salesAdDTO.setVolume(30.0F);
@@ -88,16 +88,18 @@ public class SalesAdServiceTest {
         seller.setName("Naruto");
         seller.setLastname("Uzumaki");
         sellerList.add(seller);
+
         Mockito.when(mockSellerRepository.findById(1L)).thenReturn(Optional.of(sellerList.stream().findAny().get()));
+        salesAdService.getSeller(salesAdDTO);
 
-        Seller getSeller = salesAdService.obtemSeller(salesAdDTO).get();
+        assertNotNull( salesAdService.getSeller(salesAdDTO));
 
-        assertEquals("Naruto", getSeller.getName());
-        assertEquals("Uzumaki", getSeller.getLastname());
+        assertEquals("Naruto", seller.getName());
+        assertEquals("Uzumaki", seller.getLastname());
     }
     
     @Test
-    void testGetProductSuccessful() throws Exception {
+    void testGetProductSuccessful() {
 
         SalesAdDTO salesAdDTO = new SalesAdDTO();
         salesAdDTO.setVolume(30.0F);
@@ -107,17 +109,21 @@ public class SalesAdServiceTest {
         salesAdDTO.setIdSeller(1L);
         salesAdDTO.setIdProduct(1L);
 
+        List<Product> productList = new ArrayList<>();
         Product product = new Product();
         product.setId(1L);
         product.setName("Laranja Lima");
         product.setDescription("Laranja azedinha rica em vitamina c");
+        productList.add(product);
 
 
-        Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(product));
-        Product getProduct = salesAdService.obtemProduct(salesAdDTO).get();
+        Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(productList.stream().findAny().get()));
+        salesAdService.getSeller(salesAdDTO);
 
-        assertEquals("Laranja Lima", getProduct.getName());
-        assertEquals("Laranja azedinha rica em vitamina c", getProduct.getDescription());
+        assertNotNull( salesAdService.getProduct(salesAdDTO));
+
+        assertEquals("Laranja Lima", product.getName());
+        assertEquals("Laranja azedinha rica em vitamina c", product.getDescription());
     }
     @Test
     void testGetListSalesAd() {

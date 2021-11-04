@@ -9,7 +9,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
 public class BatchStockDTO {
 
     @NotBlank(message = "{currentTemperature.not.blank}")

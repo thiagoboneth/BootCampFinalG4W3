@@ -10,7 +10,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
 public class InboundOrderDTO {
 
 	@NotBlank(message = "{orderDate.not.blank}")

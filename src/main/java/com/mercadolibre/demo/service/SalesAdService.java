@@ -52,20 +52,20 @@ public class SalesAdService {
     public void delete(Long batchNumber) {
         salesAdRepository.deleteById(batchNumber);
     }
-    public Optional<Seller> obtemSeller(SalesAdDTO dto) {
+    public Optional<Seller> getSeller(SalesAdDTO dto) {
         Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
             return seller;
     }
     
-    public Optional<Product> obtemProduct(SalesAdDTO dto){
+    public Optional<Product> getProduct(SalesAdDTO dto){
         Optional<Product> product = productRepository.findById(dto.getIdProduct());
         return product;
     }
     
     public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
-        if (obtemProduct(dto).isPresent() && obtemSeller(dto).isPresent()) {
+        if (getProduct(dto).isPresent() && getSeller(dto).isPresent()) {
             return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(),
-                    dto.getPrice(), obtemSeller(dto), obtemProduct(dto));
+                    dto.getPrice(), getSeller(dto), getProduct(dto));
         } else {
             throw new Exception("Id não cadastrado");
         }

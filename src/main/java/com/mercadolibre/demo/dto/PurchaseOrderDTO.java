@@ -12,7 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@NoArgsConstructor
 public class PurchaseOrderDTO {
 
     private Long idBuyer;
