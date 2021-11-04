@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -25,6 +24,5 @@ public class BatchStockDTO {
     private LocalDateTime manufacturingTime = LocalDateTime.now();
     @NotBlank(message = "{dueDate.not.blank}")
     private LocalDate dueDate = LocalDate.now();
-    private Long salesadId;
-
+    private Long IdSalesAd;
 }
