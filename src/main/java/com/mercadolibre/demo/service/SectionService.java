@@ -100,18 +100,4 @@ public class SectionService {
     public List<SectionCategoryDTO> ListProductForCategory(String category) {
         return sectionRepository.listProductForCategory(category);
     }
-
-
-
 }
-
-
-/*
-        String name = dto.getName();
-        Long quantity = dto.getQuantity();
-        Double price = dto.getPrice();
-        String wareHouse = dto.getWareHouse();
-        String nameProduct = dto.getNameProduct();
-
-        return new SectionTypeDTO(name,quantity,price,wareHouse,nameProduct);
- */
