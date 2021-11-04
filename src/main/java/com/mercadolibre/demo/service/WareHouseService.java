@@ -52,3 +52,4 @@ public class WareHouseService {
 		return new WareHouse(dto.getWareHouseName());
 	}
 }
+

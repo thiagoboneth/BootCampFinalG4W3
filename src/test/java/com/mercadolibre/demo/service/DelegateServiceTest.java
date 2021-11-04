@@ -131,7 +131,6 @@ public class DelegateServiceTest {
 		delegate.setLastname("Romanov");
 		delegate.setSection(section);
 		
-		mockDelegateRepository.findAll();
 		Mockito.when(mockDelegateRepository.findAll()).thenReturn(delegateList);
 		delegateList = mockDelegateRepository.findAll();
 		delegateService.list();
