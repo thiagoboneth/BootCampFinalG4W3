@@ -62,13 +62,11 @@ public class SalesAdService {
         return product;
     }
     
-    public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
+    public SalesAd convertSalesAdDTO(SalesAdDTO dto) {
         if (getProduct(dto).isPresent() && getSeller(dto).isPresent()) {
-            return new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(),
-                    dto.getPrice(), getSeller(dto), getProduct(dto));
-        } else {
-            throw new Exception("Id não cadastrado");
+            SalesAd  salesAd = new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(), dto.getPrice(), getSeller(dto), getProduct(dto));
+            return salesAd;
         }
+        return null;
     }
-
 }
