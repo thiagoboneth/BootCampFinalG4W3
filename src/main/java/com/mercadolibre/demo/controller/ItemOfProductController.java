@@ -31,30 +31,21 @@ public class ItemOfProductController {
         }
     }
 
-//    @GetMapping(value = "/list")
-//    @ResponseBody
-//    public ResponseEntity<List<ItemOfProduct>> listBuyer() {
-//        List<ItemOfProduct> itemOfProducts = itemOfProductService.list();
-//        return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
-//    }
+    @GetMapping(value = "/list")
+    @ResponseBody
+    public ResponseEntity<List<ItemOfProductDTO>> listBuyer(Long name) {
+        List<ItemOfProductDTO> itemOfProducts = itemOfProductService.list(name);
+        return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
+    }
 
-//    @PutMapping(value = "/update/{id}")
-//    public ResponseEntity<ItemOfProduct> updateWareHouse(@Valid @RequestBody ItemOfProductDTO dto, @PathVariable Long id) throws Exception {
-//        try {
-//            ItemOfProduct itemOfProduct = itemOfProductService.update(dto, id);
-//            return new ResponseEntity<>(itemOfProduct, HttpStatus.CREATED);
-//        } catch (NoSuchElementException e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//    }
 
-//    @DeleteMapping(value = "/delete/{id}")
-//    public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) {
-//        try {
-//            itemOfProductService.delete(id);
-//            return new ResponseEntity<>("Itens de Produto deletados com sucesso", HttpStatus.OK);
-//        } catch (NoSuchElementException e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) {
+        try {
+            itemOfProductService.delete(id);
+            return new ResponseEntity<>("Itens de Produto deletados com sucesso", HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
