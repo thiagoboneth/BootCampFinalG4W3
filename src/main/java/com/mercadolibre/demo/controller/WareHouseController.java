@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
@@ -23,12 +22,8 @@ public class WareHouseController {
 
 	@PostMapping(value = "/save")
 	public ResponseEntity<WareHouse> saveWareHouse(@Valid @RequestBody WareHouseDTO dto){
-		try {
-			WareHouse wareHouse = wareHouseService.save(dto);
-			return new ResponseEntity<>(wareHouse,HttpStatus.CREATED);
-		} catch(NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+		WareHouse wareHouse = wareHouseService.save(dto);
+		return new ResponseEntity<>(wareHouse,HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/list")
@@ -40,20 +35,13 @@ public class WareHouseController {
 
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<WareHouse> updateWareHouse(@Valid @RequestBody WareHouseDTO dto, @PathVariable Long id) throws Exception {
-		try {
-			WareHouse wareHouse = wareHouseService.update(dto, id);
-			return new ResponseEntity<>(wareHouse, HttpStatus.CREATED);
-		} catch(NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+		WareHouse wareHouse = wareHouseService.update(dto, id);
+		return new ResponseEntity<>(wareHouse, HttpStatus.CREATED);
 	}
+
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) {
-		try{
-			wareHouseService.delete(id);
-			return new ResponseEntity<>("Armazem deletado com sucesso", HttpStatus.OK);
-		} catch(NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) throws Exception {
+		wareHouseService.delete(id);
+		return new ResponseEntity<>("Armazem deletado com sucesso", HttpStatus.OK);
 	}
 }

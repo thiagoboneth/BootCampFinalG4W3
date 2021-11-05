@@ -44,8 +44,13 @@ public class WareHouseService {
 		}
 	}
 
-	public void delete(Long id) {
-		wareHouseRepository.deleteById(id);
+	public void delete(Long id) throws Exception {
+		Optional<WareHouse> existWareHouse = findById(id);
+		if (existWareHouse.isPresent()) {
+			wareHouseRepository.deleteById(id);
+		} else {
+			throw new Exception("Id não cadastrado");
+		}
 	}
 
 	public WareHouse convertWareHouseToDTO(WareHouseDTO dto) {
