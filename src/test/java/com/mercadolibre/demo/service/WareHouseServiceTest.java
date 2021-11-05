@@ -131,7 +131,7 @@ class WareHouseServiceTest {
 	}
 	
 	@Test
-	void deleteWareHouseWithSuccess() {
+	void deleteWareHouseWithSuccess() throws Exception {
 		List<WareHouse> list = new ArrayList<>();
 		
 		WareHouse wareHouse = new WareHouse();
