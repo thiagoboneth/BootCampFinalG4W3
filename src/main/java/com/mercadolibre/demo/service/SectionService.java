@@ -50,7 +50,7 @@ public class SectionService {
         Optional<Section> existSection = findById(id);
         if (existSection.isPresent()) {
             Section section = convertSectionToDTO(dto);
-            section.setSectionCode(id);
+            section.setIdSection(id);
             return sectionRepository.saveAndFlush(section);
         } else {
             throw new Exception("Id não cadastrado");
@@ -70,13 +70,13 @@ public class SectionService {
         SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
         for (Section section: sections
              ) {
-            inboundOrder = inboundOrderRepository.findById(section.getSectionCode());
+            inboundOrder = inboundOrderRepository.findById(section.getIdSection());
             batchStock = batchStockRepository.findById(inboundOrder.get().getBatchStock().getBatchNumber());
-            salesAd = salesAdRepository.findById(batchStock.get().getSalesad().getId());
+            salesAd = salesAdRepository.findById(batchStock.get().getSalesAd().getId());
             sectionTypeDTO.setName(category);
             sectionTypeDTO.setQuantity(batchStock.get().getCurrentQuantity());
             sectionTypeDTO.setPrice(salesAd.get().getPrice());
-            sectionTypeDTO.setWareHouse(section.getIdWareHouse().getWareHouseName());
+            sectionTypeDTO.setWareHouse(section.getWareHouse().getWareHouseName());
             sectionTypeDTO.setNameProduct(salesAd.get().getProduct().getName());
 
             sectionTypeDTOS.add(sectionTypeDTO);
