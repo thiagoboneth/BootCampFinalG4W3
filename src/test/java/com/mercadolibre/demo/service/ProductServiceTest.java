@@ -60,8 +60,8 @@ class ProductServiceTest {
 
 		assertTrue(listAll.contains(product1));
 		assertTrue(listAll.contains(product2));
-
 	}
+	
 	@Test
 	void testFindById() {
 		List<Product> list = new ArrayList<>();
@@ -107,7 +107,6 @@ class ProductServiceTest {
 
 		assertNotNull(product.getName());
 		assertNotNull(product.getDescription());
-
 	}
 
 	@Test
@@ -134,11 +133,10 @@ class ProductServiceTest {
 		});
 
 		assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
-
 	}
 
 	@Test
-	void deleteProductWithSuccess() {
+	void deleteProductWithSuccess() throws Exception {
 		List<Product> list = new ArrayList<>();
 
 		Product product = new Product();
@@ -149,6 +147,5 @@ class ProductServiceTest {
 		productService.delete(1L);
 
 		Mockito.verify(mock).deleteById(1L);
-
 	}
 }

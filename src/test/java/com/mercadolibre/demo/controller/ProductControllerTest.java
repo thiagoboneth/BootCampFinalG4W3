@@ -44,32 +44,32 @@ public class ProductControllerTest {
 	MockMvc mockMvc;
 	
 	//@Before
-	public void setUp() throws UnsupportedEncodingException, Exception {
-
-		String json = "{\"user\": \"Helena\", \"senha\": \"123\"}";
-		uri = new URI("/auth");
-		
-		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(uri)
-				.contentType(MediaType.APPLICATION_JSON).content(json);
-		
-		expectedResult = MockMvcResultMatchers.status().isOk();
-		
-		String response = mockMvc.perform(request)
-				.andExpect(expectedResult)
-				.andReturn().getResponse().getContentAsString();
-		
-		JSONObject data = new JSONObject(response);
-		String jwtToken = data.getString("token");
-		
-		request = MockMvcRequestBuilders.post(uri).content(json).header("Content-Type", "application/json")
-				.header("Authorization", "Bearer " + jwtToken);
-		
-		
-		expectedResult = MockMvcResultMatchers.status().isOk();
-
-		mockMvc.perform(request).andExpect(expectedResult);
-						
-	}
+//	public void setUp() throws UnsupportedEncodingException, Exception {
+//
+//		String json = "{\"user\": \"Helena\", \"senha\": \"123\"}";
+//		uri = new URI("/auth");
+//		
+//		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(uri)
+//				.contentType(MediaType.APPLICATION_JSON).content(json);
+//		
+//		expectedResult = MockMvcResultMatchers.status().isOk();
+//		
+//		String response = mockMvc.perform(request)
+//				.andExpect(expectedResult)
+//				.andReturn().getResponse().getContentAsString();
+//		
+//		JSONObject data = new JSONObject(response);
+//		String jwtToken = data.getString("token");
+//		
+//		request = MockMvcRequestBuilders.post(uri).content(json).header("Content-Type", "application/json")
+//				.header("Authorization", "Bearer " + jwtToken);
+//		
+//		
+//		expectedResult = MockMvcResultMatchers.status().isOk();
+//
+//		mockMvc.perform(request).andExpect(expectedResult);
+//						
+//	}
 	
 	@Test
 	public void testListProductGetAll() throws Exception {
