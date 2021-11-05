@@ -38,7 +38,7 @@ public class InboundOrder implements Serializable {
     @JoinColumn(name = "idbatch_number", nullable = false)
     private BatchStock batchStock;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "section_code", nullable = false)
     private Section section;
 

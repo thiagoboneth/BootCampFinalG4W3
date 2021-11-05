@@ -1,21 +1,24 @@
 package com.mercadolibre.demo.service;
 
 
+import com.mercadolibre.demo.dto.InboundOrderDTO;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
+import com.mercadolibre.demo.dto.response.ProductInBathDTO;
 import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
 import com.mercadolibre.demo.model.BatchStock;
+import com.mercadolibre.demo.model.InboundOrder;
 import com.mercadolibre.demo.model.ItemOfProduct;
 import com.mercadolibre.demo.model.SalesAd;
-import com.mercadolibre.demo.repository.BatchStockRepository;
-import com.mercadolibre.demo.repository.ItemOfProductRepository;
-import com.mercadolibre.demo.repository.PurchaseOrderRepository;
-import com.mercadolibre.demo.repository.SalesAdRepository;
+import com.mercadolibre.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemOfProductService {
@@ -24,13 +27,17 @@ public class ItemOfProductService {
     private SalesAdRepository salesAdRepository;
     private PurchaseOrderRepository purchaseOrderRepository;
     private BatchStockRepository batchStockRepository;
+    private InboundOrderRepository inboundOrderRepository;
+    private InboundOrderService inboundOrderService;
 
     @Autowired
-    public ItemOfProductService(ItemOfProductRepository itemOfProductRepository, SalesAdRepository salesAdRepository, PurchaseOrderRepository purchaseOrderRepository, BatchStockRepository batchStockRepository) {
+    public ItemOfProductService(ItemOfProductRepository itemOfProductRepository, SalesAdRepository salesAdRepository, PurchaseOrderRepository purchaseOrderRepository, BatchStockRepository batchStockRepository, InboundOrderRepository inboundOrderRepository, InboundOrderService inboundOrderService) {
         this.itemOfProductRepository = itemOfProductRepository;
         this.salesAdRepository = salesAdRepository;
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.batchStockRepository = batchStockRepository;
+        this.inboundOrderRepository = inboundOrderRepository;
+        this.inboundOrderService = inboundOrderService;
     }
 
     public ItemOfProduct save(ItemOfProductDTO dto) throws Exception {
@@ -81,7 +88,6 @@ public class ItemOfProductService {
                 incrementQuantity(item,batchStockList);
                 item.setQuantity(0L);
                 itemOfProductRepository.saveAndFlush(item);
-             //itemOfProductRepository.deleteById(6L);
             }
         }
         return lista;
@@ -99,18 +105,72 @@ public class ItemOfProductService {
         return productInBatchStockDTOList;
     }
 
-    public List<ItemOfProductDTO> listOrderProduct(String name) {
-        List<ItemOfProduct> lista = new ArrayList<>();
-        if(name == "L"){
-            lista = itemOfProductRepository.listOrderProductL(name);
-        }else
-            if(name == "C"){
-                lista = itemOfProductRepository.listOrderProductC(name);
-            }else
-                if(name == "F"){
-                    lista = itemOfProductRepository.listOrderProductF(name);
-                }
+/*    public List<ProductInBathDTO> listOrderProduct(String name) {
+        List<ProductInBathDTO> lista = new ArrayList<>();
+        List<BatchStock> batchStockList = batchStockRepository.findAll();
 
-        return convertItemOfProductDTO(lista);
+       if(name.equals("L") ){
+           //lista = itemOfProductRepository.listOrderProductL(name);
+           batchStockList.sort(( c1, c2) -> c1.getBatchNumber().compareTo(c2.getBatchNumber()));
+       }else
+            if(name.equals("C") ){
+                //lista = itemOfProductRepository.listOrderProductC(name);
+                batchStockList.sort(( c1, c2) -> c1.getCurrentQuantity().compareTo(c2.getCurrentQuantity()));
+            }else
+                if(name.equals("F")){
+                    //lista = itemOfProductRepository.listOrderProductF(name);
+                    batchStockList.sort(( c1, c2) -> c1.getDueDate().compareTo(c2.getDueDate()));
+
+                }
+        for (BatchStock batchStock:batchStockList) {
+            ProductInBathDTO productInBathDTO = new ProductInBathDTO();
+            productInBathDTO.setIdbatch_number(batchStock.getBatchNumber());
+            productInBathDTO.setName(batchStock.getSalesad().getProduct().getName());
+            productInBathDTO.setDue_date(batchStock.getDueDate());
+            productInBathDTO.setCurrent_quantity(batchStock.getCurrentQuantity());
+
+            Optional<InboundOrder> inboundOrder = inboundOrderService.findById(batchStock.getBatchNumber());
+            productInBathDTO.setCategory(inboundOrder.get().getSection().getCategory());
+            productInBathDTO.setWare_house_name(inboundOrder.get().getSection().getIdWareHouse().getWareHouseName());
+            lista.add(productInBathDTO);
+        }
+        return lista;
+    }*/
+
+    public List<ProductInBathDTO> listOrderProduct(String name) {
+        List<ProductInBathDTO> lista = new ArrayList<>();
+        List<InboundOrder> inboundOrderList = inboundOrderRepository.findAll();
+
+        for (InboundOrder inboundOrder1:inboundOrderList) {
+            ProductInBathDTO productInBathDTO = new ProductInBathDTO();
+            productInBathDTO.setIdbatch_number(inboundOrder1.getBatchStock().getBatchNumber());
+            productInBathDTO.setName(inboundOrder1.getBatchStock().getSalesad().getProduct().getName());
+            productInBathDTO.setDue_date(inboundOrder1.getBatchStock().getDueDate());
+            productInBathDTO.setCurrent_quantity(inboundOrder1.getBatchStock().getCurrentQuantity());
+            productInBathDTO.setCategory(inboundOrder1.getSection().getCategory());
+            productInBathDTO.setWare_house_name(inboundOrder1.getSection().getIdWareHouse().getWareHouseName());
+            lista.add(productInBathDTO);
+        }
+        List<ProductInBathDTO> lista1 = new ArrayList<>();
+
+        if(name.equals("L") ){
+            lista1 = lista.stream()
+                    .sorted(Comparator.comparingLong(ProductInBathDTO::getIdbatch_number))
+                    .collect(Collectors.toList());
+        }else
+        if(name.equals("C") ){
+           lista1 = lista.stream()
+                    .sorted(Comparator.comparingLong(ProductInBathDTO::getCurrent_quantity))
+                    .collect(Collectors.toList());
+        }else
+        if(name.equals("F")){
+            
+            lista1 = lista.stream()
+                    .sorted(Comparator.comparing(ProductInBathDTO::getDue_date))
+                    .collect(Collectors.toList());
+        }
+        return lista1;
     }
+
+
 }
