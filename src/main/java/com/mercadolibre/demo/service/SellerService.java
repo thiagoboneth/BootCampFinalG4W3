@@ -11,44 +11,50 @@ import java.util.Optional;
 @Service
 public class SellerService {
 
+	private SellerRepository sellerRepository;
 
-    private SellerRepository sellerRepository;
-    @Autowired
-    public SellerService(SellerRepository sellerRepository) {
-        this.sellerRepository = sellerRepository;
-    }
+	@Autowired
+	public SellerService(SellerRepository sellerRepository) {
+		this.sellerRepository = sellerRepository;
+	}
 
-    public Seller save(SellerDTO dto) {
-        Seller seller = convertSellerDTO(dto);
-        return sellerRepository.save(seller);
-    }
 
-    public List<Seller> list() {
-        return sellerRepository.findAll();
-    }
+	public Seller save(SellerDTO dto) {
+		Seller seller = convertSellerDTO(dto);
+		return sellerRepository.save(seller);
+	}
 
-    public Optional<Seller> findById(Long id) {
-        return sellerRepository.findById(id);
-    }
+	public List<Seller> list() {
+		return sellerRepository.findAll();
+	}
 
-    public Seller update(SellerDTO dto, Long id) throws Exception {
-        Optional<Seller> existSaller = findById(id);
-        if (existSaller.isPresent()) {
-            Seller  seller = convertSellerDTO(dto);
-            seller.setIdseller(id);
-            return sellerRepository.saveAndFlush(seller);
-        } else {
-            throw new Exception("Id não cadastrado");
-        }
-    }
+	public Optional<Seller> findById(Long id) {
+		return sellerRepository.findById(id);
+	}
 
-    public void delete(Long id) {
-        sellerRepository.deleteById(id);
-    }
+	public Seller update(SellerDTO dto, Long id) throws Exception {
+		Optional<Seller> existSaller = findById(id);
+		if (existSaller.isPresent()) {
+			Seller  seller = convertSellerDTO(dto);
+			seller.setIdseller(id);
+			return sellerRepository.saveAndFlush(seller);
+		} else {
+			throw new Exception("Id não cadastrado");
+		}
+	}
 
-    public Seller convertSellerDTO(SellerDTO dto) {
-        return new Seller(dto.getName(), dto.getLastname());
-    }
+	public void delete(Long id) throws Exception {
+		Optional<Seller> existSaller = findById(id);
+		if (existSaller.isPresent()) {
+			sellerRepository.deleteById(id);
+		} else {
+			throw new Exception("Id não cadastrado");
+		}
+	}
+
+	public Seller convertSellerDTO(SellerDTO dto) {
+		return new Seller(dto.getName(), dto.getLastname());
+	}
 
 }
 

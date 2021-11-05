@@ -27,8 +27,8 @@ public class BuyerServiceTest {
         dto.setName("Tsunade");
         dto.setLastname("Senju");
 
-        Buyer buyer = buyerService.convertObjectBuyer(dto);
-        when(mock.save(Mockito.any(Buyer.class))).thenReturn(buyerService.convertObjectBuyer(dto));
+        Buyer buyer = buyerService.convertBuyerToDTO(dto);
+        when(mock.save(Mockito.any(Buyer.class))).thenReturn(buyerService.convertBuyerToDTO(dto));
         mock.save(buyerService.save(dto));
 
         assertEquals("Tsunade", buyer.getName());
@@ -37,7 +37,6 @@ public class BuyerServiceTest {
         assertNotNull(buyer.getName());
         assertNotNull(buyer.getLastName());
     }
-
 
     @Test
     public void testListProductWithSuccess() {
@@ -62,6 +61,7 @@ public class BuyerServiceTest {
         assertTrue(listAll.contains(buyer));
         assertTrue(listAll.contains(product2));
     }
+    
     @Test
     public void testFindById() {
         Long id = 1L;
@@ -100,7 +100,7 @@ public class BuyerServiceTest {
         when(mock.findById(id)).thenReturn(Optional.of(list.stream().findAny().get()));
         when(mock.saveAndFlush(buyer)).thenReturn(buyer);
 
-        buyer = buyerService.convertObjectBuyer(dto);
+        buyer = buyerService.convertBuyerToDTO(dto);
         buyer.setIdBuyer(id);
         buyerService.update(dto,mock.findById(id).get().getIdBuyer());
 
@@ -108,8 +108,8 @@ public class BuyerServiceTest {
         assertEquals("Uchiha", buyer.getLastName());
         assertNotNull(buyer.getName());
         assertNotNull(buyer.getLastName());
-
     }
+    
     @Test
     public void testUpdateProductNoSuccess() throws Exception {
         Long id = 1L;
@@ -127,7 +127,7 @@ public class BuyerServiceTest {
         when(mock.findById(id)).thenReturn(Optional.of(list.stream().findAny().get()));
         when(mock.saveAndFlush(buyer)).thenReturn(buyer);
 
-        buyer = buyerService.convertObjectBuyer(dto);
+        buyer = buyerService.convertBuyerToDTO(dto);
         buyer.setIdBuyer(id);
 
         Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
@@ -135,10 +135,10 @@ public class BuyerServiceTest {
         });
 
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
-
     }
+    
     @Test
-    void deleteProductWithSuccess() {
+    void deleteProductWithSuccess() throws Exception {
         List<Buyer> list = new ArrayList<Buyer>();
 
         Buyer buyer = new Buyer();
@@ -149,6 +149,5 @@ public class BuyerServiceTest {
         buyerService.delete(1L);
 
         verify(mock).deleteById(1L);
-
     }
 }

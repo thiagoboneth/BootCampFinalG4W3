@@ -134,7 +134,7 @@ public class SellerServiceTest {
 
     }
     @Test
-    void deleteProductWithSuccess() {
+    void deleteProductWithSuccess() throws Exception {
 
         Seller seller = new Seller();
         seller.setIdseller(1L);
