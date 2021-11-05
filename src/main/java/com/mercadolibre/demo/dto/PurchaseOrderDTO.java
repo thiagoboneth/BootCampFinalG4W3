@@ -1,25 +1,19 @@
 package com.mercadolibre.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.mercadolibre.demo.model.Buyer;
-import com.mercadolibre.demo.model.ItemOfProduct;
-import com.mercadolibre.demo.model.OrderStatus;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-@NoArgsConstructor
-@Data
+
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PurchaseOrderDTO {
 
-    private Long buyer;
+    private Long idBuyer;
     private List<ItemOfProductDTO> itemOfProduct;
 
 }

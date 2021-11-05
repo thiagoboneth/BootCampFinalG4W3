@@ -1,7 +1,6 @@
 package com.mercadolibre.demo.controller;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
@@ -25,44 +24,32 @@ import com.mercadolibre.demo.model.Product;
 @RestController
 @RequestMapping("/api/v1/fresh-products/product")
 public class ProductController {
-	
+
 	@Autowired
 	private ProductService productService;
-		
+
 	@PostMapping(value = "/save")
-	public ResponseEntity<Product> saveProduct(@Valid @RequestBody ProductDTO dto) {
-		try {
-			Product product = productService.save(dto);
-			return new ResponseEntity<>(product, HttpStatus.CREATED);
-		} catch(NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+	public ResponseEntity<Product> saveProduct(@RequestBody @Valid ProductDTO dto) {
+		Product product = productService.save(dto);
+		return new ResponseEntity<>(product, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping(value = "/list")
 	@ResponseBody
 	public ResponseEntity<List<Product>> listProducts() {
 		List<Product> products = productService.list();
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
-	
+
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<Product> updateProduct(@Valid @RequestBody ProductDTO dto, @PathVariable Long id) throws Exception {
-		try{
-			Product product = productService.update(dto, id);
-			return new ResponseEntity<>(product, HttpStatus.CREATED);
-		}catch(NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		Product product = productService.update(dto, id);
+		return new ResponseEntity<>(product, HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
-		try {
-			productService.delete(id);
-			return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.OK);
-		} catch(NoSuchElementException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<String> deleteProduct(@PathVariable Long id) throws Exception {
+		productService.delete(id);
+		return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.OK);
 	}
 }

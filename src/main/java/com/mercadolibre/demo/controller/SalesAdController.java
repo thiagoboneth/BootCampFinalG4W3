@@ -1,6 +1,5 @@
 package com.mercadolibre.demo.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
 

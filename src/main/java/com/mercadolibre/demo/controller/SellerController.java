@@ -10,51 +10,36 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/seller")
 public class SellerController {
 
-    @Autowired
-    private SellerService sellerService;
+	@Autowired
+	private SellerService sellerService;
 
-    @PostMapping(value = "/save")
-    public ResponseEntity<Seller> saveSeller(@Valid @RequestBody SellerDTO dto) {
-        try {
-            Seller seller = sellerService.save(dto);
-            return new ResponseEntity<>(seller, HttpStatus.CREATED);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+	@PostMapping(value = "/save")
+	public ResponseEntity<Seller> saveSeller(@Valid @RequestBody SellerDTO dto) {
+		Seller seller = sellerService.save(dto);
+		return new ResponseEntity<>(seller, HttpStatus.CREATED);
+	}
 
-    @GetMapping(value = "/list")
-    @ResponseBody
-    public ResponseEntity<List<Seller>> listSeller() {
-        List<Seller> sellers = sellerService.list();
-        return new ResponseEntity<>(sellers, HttpStatus.OK);
-    }
+	@GetMapping(value = "/list")
+	@ResponseBody
+	public ResponseEntity<List<Seller>> listSeller() {
+		List<Seller> sellers = sellerService.list();
+		return new ResponseEntity<>(sellers, HttpStatus.OK);
+	}
 
-    @PutMapping(value = "/update/{id}")
-    public ResponseEntity<Seller> updateSeller(@Valid @RequestBody SellerDTO sellerDTO, @PathVariable Long id) throws Exception {
-        try {
-            Seller seller = sellerService.update(sellerDTO, id);
-            return new ResponseEntity<>(seller, HttpStatus.CREATED);
+	@PutMapping(value = "/update/{id}")
+	public ResponseEntity<Seller> updateSeller(@Valid @RequestBody SellerDTO sellerDTO, @PathVariable Long id) throws Exception {
+		Seller seller = sellerService.update(sellerDTO, id);
+		return new ResponseEntity<>(seller, HttpStatus.CREATED);
+	}
 
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<String> deleteSeller(@PathVariable Long id) {
-        try {
-            sellerService.delete(id);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>("Seller successfully deleted", HttpStatus.OK);
-    }
-
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<String> deleteSeller(@PathVariable Long id) throws Exception {
+		sellerService.delete(id);
+		return new ResponseEntity<>("Seller successfully deleted", HttpStatus.OK);
+	}
 }

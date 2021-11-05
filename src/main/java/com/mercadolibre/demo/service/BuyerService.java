@@ -12,43 +12,47 @@ import java.util.Optional;
 @Service
 public class BuyerService {
 
-    private BuyerRepository buyerRepository;
+	private BuyerRepository buyerRepository;
 
-    @Autowired
-    public BuyerService(BuyerRepository buyerRepository) {
-        this.buyerRepository = buyerRepository;
-    }
+	@Autowired
+	public BuyerService(BuyerRepository buyerRepository) {
+		this.buyerRepository = buyerRepository;
+	}
 
-    public Buyer save(BuyerDTO dto) {
-        Buyer buyer = convertObjectBuyer(dto);
-        return buyerRepository.save(buyer);
-    }
+	public Buyer save(BuyerDTO dto) {
+		Buyer buyer = convertBuyerToDTO(dto);
+		return buyerRepository.save(buyer);
+	}
 
-    public List<Buyer> list() {
-        return buyerRepository.findAll();
-    }
+	public List<Buyer> list() {
+		return buyerRepository.findAll();
+	}
 
-    public Optional<Buyer> findById(Long id) {
-        return buyerRepository.findById(id);
-    }
+	public Optional<Buyer> findById(Long id) {
+		return buyerRepository.findById(id);
+	}
 
-    public Buyer update(BuyerDTO dto, Long id) throws Exception {
-        Optional<Buyer> existBuyer = findById(id);
-        if (existBuyer.isPresent()) {
-            Buyer buyer = convertObjectBuyer(dto);
-            buyer.setIdBuyer(id);
-            return buyerRepository.saveAndFlush(buyer);
-        } else {
-            throw new Exception("Id não cadastrado");
-        }
+	public Buyer update(BuyerDTO dto, Long id) throws Exception {
+		Optional<Buyer> existBuyer = findById(id);
+		if (existBuyer.isPresent()) {
+			Buyer buyer = convertBuyerToDTO(dto);
+			buyer.setIdBuyer(id);
+			return buyerRepository.saveAndFlush(buyer);
+		} else {
+			throw new Exception("Id não cadastrado");
+		}
+	}
 
-    }
-
-    public void delete(Long id) {
-        buyerRepository.deleteById(id);
-    }
-    public Buyer convertObjectBuyer(BuyerDTO dto) {
-        return new Buyer(dto.getName(), dto.getLastname());
-    }
-
+	public void delete(Long id) throws Exception {
+		Optional<Buyer> existBuyer = findById(id);
+		if (existBuyer.isPresent()) {
+			buyerRepository.deleteById(id);
+		} else {
+			throw new Exception("Id não cadastrado");
+		}
+	}
+	
+	public Buyer convertBuyerToDTO(BuyerDTO dto) {
+		return new Buyer(dto.getName(), dto.getLastname());
+	}
 }
