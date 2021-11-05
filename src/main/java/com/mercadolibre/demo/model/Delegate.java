@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
+import java.util.Optional;
+
 import javax.persistence.*;
 
 @Getter
@@ -28,11 +30,11 @@ public class Delegate implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "section_code", nullable = false)
-    private Section sectionCode;
+    private Section section;
 
-	public Delegate(String name, String lastname, Section sectionCode) {
+	public Delegate(String name, String lastname, Optional<Section> section) {
 		this.name = name;
 		this.lastname = lastname;
-		this.sectionCode = sectionCode;
+		this.section = section.get(); 
 	}
 }

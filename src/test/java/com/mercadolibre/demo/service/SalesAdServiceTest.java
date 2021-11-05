@@ -3,7 +3,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -38,19 +37,16 @@ public class SalesAdServiceTest {
         salesAdDTO.setIdSeller(1L);
         salesAdDTO.setIdProduct(1L);
 
-        List<Product> productList = new ArrayList<Product>();
         Product product = new Product();
         product.setId(1L);
         product.setName("Laranja Lima");
         product.setDescription("Laranja azedinha rica em vitamina c");
-        productList.add(product);
 
-        List<Seller> sellerList = new ArrayList<Seller>();
         Seller seller = new Seller();
         seller.setIdseller(1L);
         seller.setName("Naruto");
         seller.setLastname("Uzumaki");
-        sellerList.add(seller);
+        
         SalesAd salesAd = new SalesAd();
 
         Mockito.when(mockSalesAdRepository.save(Mockito.any(SalesAd.class))).thenReturn(salesAd);
@@ -58,25 +54,25 @@ public class SalesAdServiceTest {
         Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(product));
         Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
 
-        SalesAd salesAd1 = salesAdService.convertSalesAdDTO(salesAdDTO);
+        salesAd = salesAdService.convertSalesAdDTO(salesAdDTO);
 
         mockSalesAdRepository.save(salesAdService.save(salesAdDTO));
-        salesAd1.setId(1L);
+        salesAd.setId(1L);
 
-        assertNotNull(salesAd1.getPrice());
-        assertNotNull(salesAd1.getVolume());
-        assertNotNull(salesAd1.getSeller());
-        assertNotNull(salesAd1.getMaximumTemperature());
+        assertNotNull(salesAd.getPrice());
+        assertNotNull(salesAd.getVolume());
+        assertNotNull(salesAd.getSeller());
+        assertNotNull(salesAd.getMaximumTemperature());
 
-        assertEquals(30.0F, salesAd1.getVolume());
-        assertEquals(0F, salesAd1.getMinimumTemperature());
-        assertEquals(22.0F, salesAd1.getMaximumTemperature());
-        assertEquals(1200.0D, salesAd1.getPrice());
-        assertEquals(1L, salesAd1.getId());
+        assertEquals(30.0F, salesAd.getVolume());
+        assertEquals(0F, salesAd.getMinimumTemperature());
+        assertEquals(22.0F, salesAd.getMaximumTemperature());
+        assertEquals(1200.0D, salesAd.getPrice());
+        assertEquals(1L, salesAd.getId());
     }
 
     @Test
-    void testLGetProductSuccessful() throws Exception {
+    void testGetPSellerSuccessful() throws Exception {
 
         SalesAdDTO salesAdDTO = new SalesAdDTO();
         salesAdDTO.setVolume(30.0F);
@@ -92,15 +88,18 @@ public class SalesAdServiceTest {
         seller.setName("Naruto");
         seller.setLastname("Uzumaki");
         sellerList.add(seller);
+
         Mockito.when(mockSellerRepository.findById(1L)).thenReturn(Optional.of(sellerList.stream().findAny().get()));
+        salesAdService.getSeller(salesAdDTO);
 
-        Seller getSeller = salesAdService.obtemSeller(salesAdDTO).get();
+        assertNotNull( salesAdService.getSeller(salesAdDTO));
 
-        assertEquals("Naruto", getSeller.getName());
-        assertEquals("Uzumaki", getSeller.getLastname());
+        assertEquals("Naruto", seller.getName());
+        assertEquals("Uzumaki", seller.getLastname());
     }
+    
     @Test
-    void testGetProductSuccessful() throws Exception {
+    void testGetProductSuccessful() {
 
         SalesAdDTO salesAdDTO = new SalesAdDTO();
         salesAdDTO.setVolume(30.0F);
@@ -117,12 +116,14 @@ public class SalesAdServiceTest {
         product.setDescription("Laranja azedinha rica em vitamina c");
         productList.add(product);
 
+
         Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(productList.stream().findAny().get()));
+        salesAdService.getSeller(salesAdDTO);
 
-        Product getProduct = salesAdService.obtemProduct(salesAdDTO).get();
+        assertNotNull( salesAdService.getProduct(salesAdDTO));
 
-        assertEquals("Laranja Lima", getProduct.getName());
-        assertEquals("Laranja azedinha rica em vitamina c", getProduct.getDescription());
+        assertEquals("Laranja Lima", product.getName());
+        assertEquals("Laranja azedinha rica em vitamina c", product.getDescription());
     }
     @Test
     void testGetListSalesAd() {
@@ -155,6 +156,7 @@ public class SalesAdServiceTest {
 
         when(mockSalesAdRepository.findAll()).thenReturn(salesAdList);
         List <SalesAd> listaObtida = mockSalesAdRepository.findAll();
+		salesAdService.list();
 
 
         assertNotNull(listaObtida);
@@ -163,50 +165,6 @@ public class SalesAdServiceTest {
 
         assertEquals(1200.0D, listaObtida.get(1).getPrice());
         assertEquals(500.0F, listaObtida.get(0).getVolume());
-    }
-
-    @Test
-    void testUpdateSalesAdtNoSuccess() throws Exception {
-
-        Product product = new Product();
-        product.setId(1L);
-
-        Seller seller = new Seller();
-        seller.setIdseller(1l);
-
-        List<SalesAd> salesAdList = new ArrayList<>();
-        SalesAd salesAd = new SalesAd();
-        salesAd.setVolume(500.0F);
-        salesAd.setMinimumTemperature(8F);
-        salesAd.setMaximumTemperature(45.0F);
-        salesAd.setPrice(1200.0D);
-        salesAd.setId(1L);
-        salesAd.setProduct(product);
-        salesAd.setSeller(seller);
-        salesAdList.add(salesAd);
-
-        SalesAdDTO salesAdDTO = new SalesAdDTO();
-        salesAdDTO.setVolume(30.0F);
-        salesAdDTO.setMinimumTemperature(0F);
-        salesAdDTO.setMaximumTemperature(22.0F);
-        salesAdDTO.setPrice(1800.0D);
-        salesAdDTO.setIdSeller(1L);
-        salesAdDTO.setIdProduct(1L);
-
-        Mockito.when(mockSellerRepository.findById(1L)).thenReturn(Optional.of(seller));
-        Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(product));
-        Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
-        Mockito.when(mockSalesAdRepository.saveAndFlush(salesAd)).thenReturn(salesAd);
-
-        salesAd = salesAdService.convertSalesAdDTO(salesAdDTO);
-        salesAd.setId(1L);
-        salesAdService.update(salesAdDTO,mockSalesAdRepository.findById(1L).get().getId());
-
-        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
-            salesAdService.update(salesAdDTO, 2L);
-        });
-
-        assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
     }
 
     @Test
@@ -240,7 +198,7 @@ public class SalesAdServiceTest {
         Mockito.when(mockSellerRepository.findById(1L)).thenReturn(Optional.of(seller));
         Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(product));
         Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
-        when(mockSalesAdRepository.saveAndFlush(salesAd)).thenReturn(salesAd);
+        Mockito.when(mockSalesAdRepository.saveAndFlush(salesAd)).thenReturn(salesAd);
 
         salesAd = salesAdService.convertSalesAdDTO(salesAdDTO);
         salesAd.setId(1L);
@@ -252,6 +210,49 @@ public class SalesAdServiceTest {
         assertNotNull(salesAd.getSeller().getIdseller());
         assertNotNull(salesAd.getProduct().getId());
     }
+    
+    @Test
+    void testUpdateSalesAdtNoSuccess() throws Exception {
+
+        Product product = new Product();
+        product.setId(1L);
+
+        Seller seller = new Seller();
+        seller.setIdseller(1l);
+
+        SalesAd salesAd = new SalesAd();
+        salesAd.setVolume(500.0F);
+        salesAd.setMinimumTemperature(8F);
+        salesAd.setMaximumTemperature(45.0F);
+        salesAd.setPrice(1200.0D);
+        salesAd.setId(1L);
+        salesAd.setProduct(product);
+        salesAd.setSeller(seller);
+
+        SalesAdDTO salesAdDTO = new SalesAdDTO();
+        salesAdDTO.setVolume(30.0F);
+        salesAdDTO.setMinimumTemperature(0F);
+        salesAdDTO.setMaximumTemperature(22.0F);
+        salesAdDTO.setPrice(1800.0D);
+        salesAdDTO.setIdSeller(1L);
+        salesAdDTO.setIdProduct(1L);
+
+        Mockito.when(mockSellerRepository.findById(1L)).thenReturn(Optional.of(seller));
+        Mockito.when(mockProductRepository.findById(1L)).thenReturn(Optional.of(product));
+        Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
+        Mockito.when(mockSalesAdRepository.saveAndFlush(salesAd)).thenReturn(salesAd);
+
+        salesAd = salesAdService.convertSalesAdDTO(salesAdDTO);
+        salesAd.setId(1L);
+        salesAdService.update(salesAdDTO,mockSalesAdRepository.findById(1L).get().getId());
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            salesAdService.update(salesAdDTO, 2L);
+        });
+
+        assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
+    }
+    
     @Test
     void deleteSalesAdtWithSuccess() {
 
@@ -261,7 +262,6 @@ public class SalesAdServiceTest {
         Seller seller = new Seller();
         seller.setIdseller(1l);
 
-        List<SalesAd> salesAdList = new ArrayList<>();
         SalesAd salesAd = new SalesAd();
         salesAd.setVolume(500.0F);
         salesAd.setMinimumTemperature(8F);
@@ -270,10 +270,9 @@ public class SalesAdServiceTest {
         salesAd.setId(1L);
         salesAd.setProduct(product);
         salesAd.setSeller(seller);
-        salesAdList.add(salesAd);
 
         salesAdService.delete(1L);
-        verify(mockSalesAdRepository).deleteById(1L);
+        Mockito.verify(mockSalesAdRepository).deleteById(1L);
 
     }
   }

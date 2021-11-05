@@ -21,7 +21,7 @@ public class Section implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "section_code")
-    private Long sectionCode;
+    private Long idSection;
 	
     @Column(name = "capacity")
     private Long capacity;
@@ -31,12 +31,12 @@ public class Section implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_ware_house", nullable = false)
-    private WareHouse idWareHouse;
+    private WareHouse WareHouse;
 
 
-    public Section(Long capacity, String category, WareHouse idWareHouse) {
+    public Section(Long capacity, String category, WareHouse WareHouse) {
         this.capacity = capacity;
         this.category = category;
-        this.idWareHouse = idWareHouse;
+        this.WareHouse = WareHouse;
     }
 }
