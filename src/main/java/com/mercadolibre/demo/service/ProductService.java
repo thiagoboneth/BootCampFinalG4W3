@@ -11,9 +11,9 @@ import com.mercadolibre.demo.repository.ProductRepository;
 @Service
 public class ProductService {
 
-	@Autowired
 	private ProductRepository productRepository;
 
+	@Autowired
 	public ProductService(ProductRepository productRepository) {
 		this.productRepository = productRepository;
 	}

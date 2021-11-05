@@ -1,27 +1,43 @@
 package com.mercadolibre.demo.model;
 
-import lombok.*;
 
-import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Setter
 @Getter
+@Setter
 @Entity
-@Table(name = "buyer")
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "buyer")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Buyer implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
-    @Column(name = "idBuyer")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idBuyer")
     private Long idBuyer;
-    @Column(name = "name")
+    
+    @Column(name = "name", nullable = false)
     private String name;
-    @Column(name = "lastName")
+    
+    @Column(name = "lastName", nullable = false)
     private String lastName;
 
     public Buyer(String name, String lastName) {

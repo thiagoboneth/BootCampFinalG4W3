@@ -20,9 +20,11 @@ public class Seller implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idseller")
 	private Long idseller;
-	@Column(name = "name")
+	
+	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name = "lastname")
+	
+	@Column(name = "lastname", nullable = false)
 	private String lastname;
 
 	public Seller(String name, String lastname) {
