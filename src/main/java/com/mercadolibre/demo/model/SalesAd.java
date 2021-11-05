@@ -41,7 +41,7 @@ public class SalesAd implements Serializable {
     @JoinColumn(name = "idseller", nullable = false)
     private Seller seller;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "idproduct", nullable = false)
     private Product product;
 

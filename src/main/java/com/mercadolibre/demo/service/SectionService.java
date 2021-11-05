@@ -1,15 +1,15 @@
 package com.mercadolibre.demo.service;
 
-import com.mercadolibre.demo.dto.SalesAdDTO;
+import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
-import com.mercadolibre.demo.model.Product;
-import com.mercadolibre.demo.model.Section;
-import com.mercadolibre.demo.model.WareHouse;
-import com.mercadolibre.demo.repository.SectionRepository;
-import com.mercadolibre.demo.repository.WareHouseRepository;
+import com.mercadolibre.demo.dto.SectionTypeDTO;
+import com.mercadolibre.demo.model.*;
+import com.mercadolibre.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,11 +19,17 @@ public class SectionService {
 
     private SectionRepository sectionRepository;
     private WareHouseRepository wareHouseRepository;
+    private InboundOrderRepository inboundOrderRepository;
+    private BatchStockRepository batchStockRepository;
+    private SalesAdRepository salesAdRepository;
 
     @Autowired
-    public SectionService(SectionRepository sectionRepository, WareHouseRepository wareHouseRepository) {
+    public SectionService(SectionRepository sectionRepository, WareHouseRepository wareHouseRepository, InboundOrderRepository inboundOrderRepository, BatchStockRepository batchStockRepository, SalesAdRepository salesAdRepository) {
         this.sectionRepository = sectionRepository;
         this.wareHouseRepository = wareHouseRepository;
+        this.inboundOrderRepository = inboundOrderRepository;
+        this.batchStockRepository = batchStockRepository;
+        this.salesAdRepository = salesAdRepository;
     }
 
     public Section save(SectionDTO dto) throws Exception {
@@ -44,7 +50,7 @@ public class SectionService {
         Optional<Section> existSection = findById(id);
         if (existSection.isPresent()) {
             Section section = convertSectionToDTO(dto);
-            section.setIdSection(id);
+            section.setSectionCode(id);
             return sectionRepository.saveAndFlush(section);
         } else {
             throw new Exception("Id não cadastrado");
@@ -55,18 +61,43 @@ public class SectionService {
         return sectionRepository.buscarPorSessao(name);
     }
 
+    public List<SectionTypeDTO>sectionTypeDTOS(String category){
+        List<Section>sections = buscarPorSessao(category);
+        List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();
+        Optional<InboundOrder> inboundOrder;
+        Optional<BatchStock> batchStock;
+        Optional<SalesAd> salesAd;
+        SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
+        for (Section section: sections
+             ) {
+            inboundOrder = inboundOrderRepository.findById(section.getSectionCode());
+            batchStock = batchStockRepository.findById(inboundOrder.get().getBatchStock().getBatchNumber());
+            salesAd = salesAdRepository.findById(batchStock.get().getSalesad().getId());
+            sectionTypeDTO.setName(category);
+            sectionTypeDTO.setQuantity(batchStock.get().getCurrentQuantity());
+            sectionTypeDTO.setPrice(salesAd.get().getPrice());
+            sectionTypeDTO.setWareHouse(section.getIdWareHouse().getWareHouseName());
+            sectionTypeDTO.setNameProduct(salesAd.get().getProduct().getName());
+
+            sectionTypeDTOS.add(sectionTypeDTO);
+        }
+        return sectionTypeDTOS;
+    }
+
     public void delete(Long id) {
         sectionRepository.deleteById(id);
     }
-    public Optional<WareHouse> getWareHouse(SectionDTO dto){
+
+    public Section convertSectionToDTO(SectionDTO dto) throws Exception {
         Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
-        return wareHouse;
-    }
-    public Section convertSectionToDTO(SectionDTO dto){
-        if (getWareHouse(dto).isPresent()) {
-           Section section = new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
-            return section;
+        if (wareHouse.isPresent()) {
+            return new Section(dto.getCapacity(), dto.getCategory(), wareHouse.get());
+        } else {
+            throw new Exception("Id nao cadastrado");
         }
-        return null;
+    }
+
+    public List<SectionCategoryDTO> ListProductForCategory(String category) {
+        return sectionRepository.listProductForCategory(category);
     }
 }

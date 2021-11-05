@@ -43,6 +43,7 @@ public class ItemOfProduct implements Serializable {
         this.salesAd = salesAd;
         this.purchaseOrder = purchaseOrder;
     }
+
     public ItemOfProduct(Long quantity, SalesAd salesAd) {
         this.quantity = quantity;
         this.salesAd = salesAd;

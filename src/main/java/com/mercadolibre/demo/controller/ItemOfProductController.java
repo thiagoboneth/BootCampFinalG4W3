@@ -2,6 +2,7 @@ package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.WareHouseDTO;
+import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
 import com.mercadolibre.demo.model.ItemOfProduct;
 import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.service.ItemOfProductService;
@@ -31,30 +32,35 @@ public class ItemOfProductController {
         }
     }
 
-//    @GetMapping(value = "/list")
-//    @ResponseBody
-//    public ResponseEntity<List<ItemOfProduct>> listBuyer() {
-//        List<ItemOfProduct> itemOfProducts = itemOfProductService.list();
-//        return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
-//    }
-//
-//    @PutMapping(value = "/update/{id}")
-//    public ResponseEntity<ItemOfProduct> updateWareHouse(@Valid @RequestBody ItemOfProductDTO dto, @PathVariable Long id) throws Exception {
-//        try {
-//            ItemOfProduct itemOfProduct = itemOfProductService.update(dto, id);
-//            return new ResponseEntity<>(itemOfProduct, HttpStatus.CREATED);
-//        } catch (NoSuchElementException e) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//    @DeleteMapping(value = "/delete/{id}")
-//    public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) {
-//        try {
-//            itemOfProductService.delete(id);
-//            return new ResponseEntity<>("Itens de Produto deletados com sucesso", HttpStatus.OK);
-//        } catch (NoSuchElementException e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @GetMapping(value = "/list")
+    @ResponseBody
+    public ResponseEntity<List<ItemOfProductDTO>> listBuyer(Long name) {
+        List<ItemOfProductDTO> itemOfProducts = itemOfProductService.list(name);
+        return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/listProductOfBatchStock")
+    @ResponseBody
+    public ResponseEntity<List<ProductInBatchStockDTO>> listProductOfBatchStock() {
+        List<ProductInBatchStockDTO> productInBatchStockDTO = itemOfProductService.listProductOfBatchStock();
+        return new ResponseEntity<>(productInBatchStockDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/listOrderProduct/{name}")
+    @ResponseBody
+    public ResponseEntity<List<ItemOfProductDTO>> listProduct(@PathVariable String name) {
+        List<ItemOfProductDTO> itemOfProducts = itemOfProductService.listOrderProduct(name);
+        return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) throws Exception {
+        try {
+            itemOfProductService.delete(id);
+            return new ResponseEntity<>("Carrinho deletados com sucesso", HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
