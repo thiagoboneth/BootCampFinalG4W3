@@ -63,24 +63,23 @@ public class ItemOfProductService {
         return itemOfProductDTOS;
     }
 
-//    public void delete(Long id) {
-//        itemOfProductRepository.deleteById(id);
-//    }
-
     public void incrementQuantity(ItemOfProduct item, List<BatchStock> batchStockList) throws Exception {
         for (BatchStock batchStock : batchStockList) {
                 batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() + item.getQuantity());
-                itemOfProductRepository.saveAndFlush(batchStock);
+                batchStockRepository.saveAndFlush(batchStock);
                 return;
             }
     }
 
-    public List<ItemOfProduct> delete(List<ItemOfProduct> lista) throws Exception {
+    public List<ItemOfProduct> delete(Long id) throws Exception {
+        List<ItemOfProduct> lista = itemOfProductRepository.orderOfItem(id);
         for (ItemOfProduct item: lista){
             List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
             if(batchStockList != null){
                 incrementQuantity(item,batchStockList);
-                itemOfProductRepository.deleteById(item.getId());
+                item.setQuantity(0L);
+                itemOfProductRepository.saveAndFlush(item);
+              //itemOfProductRepository.deleteById(item.getPurchaseOrder().getId());
             }
         }
         return lista;

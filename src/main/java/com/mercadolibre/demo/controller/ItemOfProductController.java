@@ -40,10 +40,10 @@ public class ItemOfProductController {
 
 
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) {
+    public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) throws Exception {
         try {
             itemOfProductService.delete(id);
-            return new ResponseEntity<>("Itens de Produto deletados com sucesso", HttpStatus.OK);
+            return new ResponseEntity<>("Carrinho deletados com sucesso", HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
