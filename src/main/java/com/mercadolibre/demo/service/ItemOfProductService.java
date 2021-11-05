@@ -2,7 +2,7 @@ package com.mercadolibre.demo.service;
 
 
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
-import com.mercadolibre.demo.dto.PriceDTO;
+import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.ItemOfProduct;
 import com.mercadolibre.demo.model.SalesAd;
@@ -72,17 +72,45 @@ public class ItemOfProductService {
     }
 
     public List<ItemOfProduct> delete(Long id) throws Exception {
+
         List<ItemOfProduct> lista = itemOfProductRepository.orderOfItem(id);
+
         for (ItemOfProduct item: lista){
             List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
             if(batchStockList != null){
                 incrementQuantity(item,batchStockList);
                 item.setQuantity(0L);
                 itemOfProductRepository.saveAndFlush(item);
-              //itemOfProductRepository.deleteById(item.getPurchaseOrder().getId());
+             //itemOfProductRepository.deleteById(6L);
             }
         }
         return lista;
     }
 
+    public List<ProductInBatchStockDTO> listProductOfBatchStock() {
+        List<BatchStock> batchStockList = batchStockRepository.findAll();
+        List<ProductInBatchStockDTO> productInBatchStockDTOList = new ArrayList<>();
+        for (BatchStock batchStock:batchStockList) {
+            ProductInBatchStockDTO productInBatchStockDTO = new ProductInBatchStockDTO();
+            productInBatchStockDTO.setBatchStock(batchStock.getBatchNumber());
+            productInBatchStockDTO.setNameProduct(batchStock.getSalesad().getProduct().getName());
+            productInBatchStockDTOList.add(productInBatchStockDTO);
+        }
+        return productInBatchStockDTOList;
+    }
+
+    public List<ItemOfProductDTO> listOrderProduct(String name) {
+        List<ItemOfProduct> lista = new ArrayList<>();
+        if(name == "L"){
+            lista = itemOfProductRepository.listOrderProductL(name);
+        }else
+            if(name == "C"){
+                lista = itemOfProductRepository.listOrderProductC(name);
+            }else
+                if(name == "F"){
+                    lista = itemOfProductRepository.listOrderProductF(name);
+                }
+
+        return convertItemOfProductDTO(lista);
+    }
 }

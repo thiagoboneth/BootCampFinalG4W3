@@ -52,7 +52,7 @@ public class BatchStock implements Serializable{
 	@Column(name = "due_date", nullable = false)
 	private LocalDate dueDate = LocalDate.now();
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idsales_ad")
 	private SalesAd salesad;
 

@@ -2,6 +2,7 @@ package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.WareHouseDTO;
+import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
 import com.mercadolibre.demo.model.ItemOfProduct;
 import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.service.ItemOfProductService;
@@ -35,6 +36,20 @@ public class ItemOfProductController {
     @ResponseBody
     public ResponseEntity<List<ItemOfProductDTO>> listBuyer(Long name) {
         List<ItemOfProductDTO> itemOfProducts = itemOfProductService.list(name);
+        return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/listProductOfBatchStock")
+    @ResponseBody
+    public ResponseEntity<List<ProductInBatchStockDTO>> listProductOfBatchStock() {
+        List<ProductInBatchStockDTO> productInBatchStockDTO = itemOfProductService.listProductOfBatchStock();
+        return new ResponseEntity<>(productInBatchStockDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/listOrderProduct/{name}")
+    @ResponseBody
+    public ResponseEntity<List<ItemOfProductDTO>> listProduct(@PathVariable String name) {
+        List<ItemOfProductDTO> itemOfProducts = itemOfProductService.listOrderProduct(name);
         return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
     }
 

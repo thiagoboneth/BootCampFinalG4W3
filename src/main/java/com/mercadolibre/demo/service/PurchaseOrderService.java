@@ -2,7 +2,7 @@ package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
-import com.mercadolibre.demo.dto.PriceDTO;
+import com.mercadolibre.demo.dto.response.PriceDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.BatchStockRepository;
 import com.mercadolibre.demo.repository.BuyerRepository;
