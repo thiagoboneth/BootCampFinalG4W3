@@ -1,9 +1,5 @@
 package com.mercadolibre.demo.dto;
-
-import javax.validation.constraints.NotBlank;
-
 import lombok.Getter;
-
 import lombok.Setter;
 
 @Getter
@@ -14,6 +10,6 @@ public class SalesAdDTO {
     private Float minimumTemperature;
     private Float maximumTemperature;
     private Double price;
-    private Long sellerCode;
-    private Long productCode;
+    private Long idSeller;
+    private Long idProduct;
 }
