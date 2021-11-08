@@ -1,6 +1,5 @@
 package com.mercadolibre.demo.config;
 
-
 import com.mercadolibre.demo.repository.UserRepository;
 import com.mercadolibre.demo.service.AutenticacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @Configuration
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AutenticacaoService autenticacaoService;
