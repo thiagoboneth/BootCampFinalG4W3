@@ -86,7 +86,7 @@ public class BatchStockServiceTest {
 		assertEquals(-5F, batchStock.getMinimumTemperature());
 		assertEquals(1000L, batchStock.getInitialQuantity());
 		assertEquals(800L, batchStock.getCurrentQuantity());
-		assertEquals(salesAd, batchStock.getSalesAd());
+		assertEquals(salesAd, batchStock.getIdSalesAd());
 
 		assertNotNull(batchStock.getBatchNumber());
 		assertNotNull(batchStock.getCurrentTemperature());
@@ -96,7 +96,7 @@ public class BatchStockServiceTest {
 		assertNotNull(batchStock.getManufacturingDate());
 		assertNotNull(batchStock.getManufacturingTime());
 		assertNotNull(batchStock.getDueDate());
-		assertNotNull(batchStock.getSalesAd());
+		assertNotNull(batchStock.getIdSalesAd());
 	}
 
 	@Test
@@ -195,7 +195,7 @@ public class BatchStockServiceTest {
 		batchStock.setManufacturingDate(LocalDate.now());
 		batchStock.setManufacturingTime(LocalDateTime.now());
 		batchStock.setDueDate(LocalDate.now());
-		batchStock.setSalesAd(salesAd);
+		batchStock.setIdSalesAd(salesAd);
 		batchStockList.add(batchStock);
 
 		Mockito.when(mockBatchStockRepository.findAll()).thenReturn(batchStockList);
@@ -207,7 +207,7 @@ public class BatchStockServiceTest {
 		assertEquals(0F, batchStock.getMinimumTemperature());
 		assertEquals(40L, batchStock.getInitialQuantity());
 		assertEquals(40L, batchStock.getCurrentQuantity());
-		assertEquals(salesAd, batchStock.getSalesAd());
+		assertEquals(salesAd, batchStock.getIdSalesAd());
 
 		assertNotNull(batchStock.getBatchNumber());
 		assertNotNull(batchStock.getCurrentTemperature());
@@ -217,7 +217,7 @@ public class BatchStockServiceTest {
 		assertNotNull(batchStock.getManufacturingDate());
 		assertNotNull(batchStock.getManufacturingTime());
 		assertNotNull(batchStock.getDueDate());
-		assertNotNull(batchStock.getSalesAd());
+		assertNotNull(batchStock.getIdSalesAd());
 	}
 
 	@Test
@@ -258,7 +258,7 @@ public class BatchStockServiceTest {
 		batchStock.setManufacturingDate(LocalDate.now());
 		batchStock.setManufacturingTime(LocalDateTime.now());
 		batchStock.setDueDate(LocalDate.now());
-		batchStock.setSalesAd(salesAd);
+		batchStock.setIdSalesAd(salesAd);
 
 		BatchStockDTO batchStockDTO = new BatchStockDTO();
 		batchStockDTO.setCurrentTemperature(0F);
@@ -282,7 +282,7 @@ public class BatchStockServiceTest {
 		assertEquals(-5F, batchStock.getMinimumTemperature());
 		assertEquals(1000L, batchStock.getInitialQuantity());
 		assertEquals(800L, batchStock.getCurrentQuantity());
-		assertEquals(salesAd, batchStock.getSalesAd());
+		assertEquals(salesAd, batchStock.getIdSalesAd());
 
 		assertNotNull(batchStock.getBatchNumber());
 		assertNotNull(batchStock.getCurrentTemperature());
@@ -292,7 +292,7 @@ public class BatchStockServiceTest {
 		assertNotNull(batchStock.getManufacturingDate());
 		assertNotNull(batchStock.getManufacturingTime());
 		assertNotNull(batchStock.getDueDate());
-		assertNotNull(batchStock.getSalesAd());
+		assertNotNull(batchStock.getIdSalesAd());
 	}
 
 	@Test
@@ -333,7 +333,7 @@ public class BatchStockServiceTest {
 		batchStock.setManufacturingDate(LocalDate.now());
 		batchStock.setManufacturingTime(LocalDateTime.now());
 		batchStock.setDueDate(LocalDate.now());
-		batchStock.setSalesAd(salesAd);
+		batchStock.setIdSalesAd(salesAd);
 
 		BatchStockDTO batchStockDTO = new BatchStockDTO();
 		batchStockDTO.setCurrentTemperature(0F);
@@ -397,7 +397,7 @@ public class BatchStockServiceTest {
 		batchStock.setManufacturingDate(LocalDate.now());
 		batchStock.setManufacturingTime(LocalDateTime.now());
 		batchStock.setDueDate(LocalDate.now());
-		batchStock.setSalesAd(salesAd);
+		batchStock.setIdSalesAd(salesAd);
 
 		BatchStockDTO batchStockDTO = new BatchStockDTO();
 		batchStockDTO.setCurrentTemperature(0F);
