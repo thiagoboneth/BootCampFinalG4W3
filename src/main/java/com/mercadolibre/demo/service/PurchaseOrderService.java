@@ -97,7 +97,7 @@ public class PurchaseOrderService {
 
     public PriceDTO PriceLista(List<ItemOfProduct> lista) throws Exception {
         Long product = 0L;
-        Double valor = 0.0;
+        double valor = 0.0;
         for (ItemOfProduct item: lista){
             List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
             valor += item.getSalesAd().getPrice() * item.getQuantity();
