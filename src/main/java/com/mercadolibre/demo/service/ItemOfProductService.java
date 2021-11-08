@@ -97,7 +97,7 @@ public class ItemOfProductService {
         for (BatchStock batchStock:batchStockList) {
             ProductInBatchStockDTO productInBatchStockDTO = new ProductInBatchStockDTO();
             productInBatchStockDTO.setBatchStock(batchStock.getBatchNumber());
-            productInBatchStockDTO.setNameProduct(batchStock.getSalesAd().getProduct().getName());
+            productInBatchStockDTO.setNameProduct(batchStock.getIdSalesAd().getProduct().getName());
             productInBatchStockDTOList.add(productInBatchStockDTO);
         }
         return productInBatchStockDTOList;
@@ -110,7 +110,7 @@ public class ItemOfProductService {
         for (InboundOrder inboundOrder1:inboundOrderList) {
             ProductInBathDTO productInBathDTO = new ProductInBathDTO();
             productInBathDTO.setIdbatch_number(inboundOrder1.getBatchStock().getBatchNumber());
-            productInBathDTO.setName(inboundOrder1.getBatchStock().getSalesAd().getProduct().getName());
+            productInBathDTO.setName(inboundOrder1.getBatchStock().getIdSalesAd().getProduct().getName());
             productInBathDTO.setDue_date(inboundOrder1.getBatchStock().getDueDate());
             productInBathDTO.setCurrent_quantity(inboundOrder1.getBatchStock().getCurrentQuantity());
             productInBathDTO.setCategory(inboundOrder1.getSection().getCategory());
