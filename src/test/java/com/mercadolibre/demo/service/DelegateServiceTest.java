@@ -62,12 +62,12 @@ public class DelegateServiceTest {
 		assertEquals(1L, delegate.getIdDelegate());
 		assertEquals("Roberta", delegate.getName());
 		assertEquals("Motta", delegate.getLastname());
-		assertEquals(1L, delegate.getSection().getIdSection());
+		assertEquals(1L, delegate.getIdSection().getIdSection());
 
 		assertNotNull(delegate.getIdDelegate());
 		assertNotNull(delegate.getName());
 		assertNotNull(delegate.getLastname());
-		assertNotNull(delegate.getSection());
+		assertNotNull(delegate.getIdDelegate());
 	}
 	
 	@Test
@@ -129,7 +129,7 @@ public class DelegateServiceTest {
 		delegate.setIdDelegate(1L);
 		delegate.setName("Katarina");
 		delegate.setLastname("Romanov");
-		delegate.setSection(section);
+		delegate.setIdSection(section);
 		
 		Mockito.when(mockDelegateRepository.findAll()).thenReturn(delegateList);
 		delegateList = mockDelegateRepository.findAll();
@@ -138,13 +138,13 @@ public class DelegateServiceTest {
 		assertEquals(1L, delegate.getIdDelegate());
 		assertEquals("Katarina", delegate.getName());
 		assertEquals("Romanov", delegate.getLastname());
-		assertEquals(section, delegate.getSection());
+		assertEquals(section, delegate.getIdSection());
 		
 		assertNotNull(delegateList);
 		assertNotNull(delegate.getIdDelegate());
 		assertNotNull(delegate.getName());
 		assertNotNull(delegate.getLastname());
-		assertNotNull(delegate.getSection());
+		assertNotNull(delegate.getIdSection());
 	}
 	
 	@Test
@@ -168,7 +168,7 @@ public class DelegateServiceTest {
 		delegate.setIdDelegate(1L);
 		delegate.setName("Roberta");
 		delegate.setLastname("Motta");
-		delegate.setSection(section);
+		delegate.setIdSection(section);
 		
 		DelegateDTO delegateDTO = new DelegateDTO();
 		delegateDTO.setName("Flávia");
@@ -189,12 +189,12 @@ public class DelegateServiceTest {
 		assertEquals(1L, delegate.getIdDelegate());
 		assertEquals("Flávia", delegate.getName());
 		assertEquals("Braganca", delegate.getLastname());
-		assertEquals(1L, delegate.getSection().getIdSection());
+		assertEquals(1L, delegate.getIdSection().getIdSection());
 
 		assertNotNull(delegate.getIdDelegate());
 		assertNotNull(delegate.getName());
 		assertNotNull(delegate.getLastname());
-		assertNotNull(delegate.getSection());
+		assertNotNull(delegate.getIdSection());
 		
 	}
 	
@@ -219,7 +219,7 @@ public class DelegateServiceTest {
 		delegate.setIdDelegate(1L);
 		delegate.setName("Roberta");
 		delegate.setLastname("Motta");
-		delegate.setSection(section);
+		delegate.setIdSection(section);
 		
 		DelegateDTO delegateDTO = new DelegateDTO();
 		delegateDTO.setName("Flávia");
@@ -266,7 +266,7 @@ public class DelegateServiceTest {
 		delegate.setIdDelegate(1L);
 		delegate.setName("Roberta");
 		delegate.setLastname("Motta");
-		delegate.setSection(section);
+		delegate.setIdSection(section);
 		
 		DelegateDTO delegateDTO = new DelegateDTO();
 		delegateDTO.setName("Flávia");
