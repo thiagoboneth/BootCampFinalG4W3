@@ -72,7 +72,7 @@ public class SectionService {
              ) {
             inboundOrder = inboundOrderRepository.findById(section.getIdSection());
             batchStock = batchStockRepository.findById(inboundOrder.get().getBatchStock().getBatchNumber());
-            salesAd = salesAdRepository.findById(batchStock.get().getSalesAd().getId());
+            salesAd = salesAdRepository.findById(batchStock.get().getIdSalesAd().getId());
             sectionTypeDTO.setName(category);
             sectionTypeDTO.setQuantity(batchStock.get().getCurrentQuantity());
             sectionTypeDTO.setPrice(salesAd.get().getPrice());

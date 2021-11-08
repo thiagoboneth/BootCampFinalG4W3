@@ -52,14 +52,14 @@ public class BatchStock implements Serializable{
 	private LocalDateTime manufacturingTime = LocalDateTime.now();
 
 	@Column(name = "due_date", nullable = false)
-	private LocalDate dueDate = LocalDate.now();
+	private LocalDate dueDate;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idsales_ad")
-	private SalesAd salesAd;
+	private SalesAd idSalesAd;
 
 	public BatchStock(Float currentTemperature, Float minimumTemperature, Long initialQuantity, Long currentQuantity,
-			LocalDate manufacturingDate, LocalDateTime manufacturingTime, LocalDate dueDate, Optional<SalesAd> salesAd) {
+			LocalDate manufacturingDate, LocalDateTime manufacturingTime, LocalDate dueDate, Optional<SalesAd> idSalesAd) {
 		this.currentTemperature = currentTemperature;
 		this.minimumTemperature = minimumTemperature;
 		this.initialQuantity = initialQuantity;
@@ -67,6 +67,6 @@ public class BatchStock implements Serializable{
 		this.manufacturingDate = manufacturingDate;
 		this.manufacturingTime = manufacturingTime;
 		this.dueDate = dueDate;
-		this.salesAd = salesAd.get();
+		this.idSalesAd = idSalesAd.get();
 	}
 }

@@ -30,11 +30,11 @@ public class Delegate implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "section_code", nullable = false)
-    private Section section;
+    private Section idSection;
 
-	public Delegate(String name, String lastname, Optional<Section> section) {
+	public Delegate(String name, String lastname, Optional<Section> idSection) {
 		this.name = name;
 		this.lastname = lastname;
-		this.section = section.get(); 
+		this.idSection = idSection.get();
 	}
 }

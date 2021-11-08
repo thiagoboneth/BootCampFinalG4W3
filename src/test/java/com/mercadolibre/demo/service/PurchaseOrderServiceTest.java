@@ -45,7 +45,7 @@ public class PurchaseOrderServiceTest {
         purchaseOrderService.save(purchaseOrderDTO);
 
         assertNotNull(purchaseOrder.getId());
-        assertNotNull(purchaseOrder.getBuyer().getIdBuyer());
+        assertNotNull(purchaseOrder.getIdBuyer().getIdBuyer());
 
     }
 }

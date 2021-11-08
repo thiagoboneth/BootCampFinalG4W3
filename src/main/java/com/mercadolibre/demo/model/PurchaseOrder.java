@@ -34,28 +34,9 @@ public class PurchaseOrder implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_buyer")
-    private Buyer buyer;
+    private Buyer idBuyer;
 
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<ItemOfProduct> itemOfProduct;
 
-/*    public PurchaseOrder(LocalDate date, OrderStatus orderStatus, Buyer buyer, List<ItemOfProduct> itemOfProduct) {
-        this.date = date;
-        this.orderStatus = orderStatus;
-        this.buyer = buyer;
-        this.itemOfProduct = itemOfProduct;
-    }
-
-    public PurchaseOrder(Buyer buyer, List<ItemOfProduct> itemOfProduct) {
-        this.buyer = buyer;
-        this.itemOfProduct = itemOfProduct;
-        this.date = getDate();
-        this.orderStatus = OrderStatus.CARRINHO;
-    }
-
-    public PurchaseOrder(Buyer buyer) {
-        this.buyer = buyer;
-        this.date = getDate();
-        this.orderStatus = OrderStatus.CARRINHO;
-    }*/
 }

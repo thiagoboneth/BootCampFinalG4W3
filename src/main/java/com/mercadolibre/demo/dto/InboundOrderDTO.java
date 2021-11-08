@@ -11,7 +11,6 @@ import lombok.Setter;
 @Getter
 public class InboundOrderDTO {
 
-	@NotBlank(message = "{orderDate.not.blank}")
     private LocalDate orderDate = LocalDate.now();
 
     private Long idBatchStock;
