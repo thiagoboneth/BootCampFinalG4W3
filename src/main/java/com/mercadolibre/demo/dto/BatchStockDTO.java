@@ -10,20 +10,17 @@ import lombok.Setter;
 @Getter
 public class BatchStockDTO {
 
-    @NotBlank(message = "{currentTemperature.not.blank}")
+
     private Float currentTemperature;
-    
-    @NotBlank(message = "{minimumTemperature.not.blank}")
+
     private Float minimumTemperature;
-    
-    @NotBlank(message = "{initialQuantity.not.blank}")
+
     private Long initialQuantity;
-    
-    @NotBlank(message = "{currentQuantity.not.blank}")
+
     private Long currentQuantity;
     
     private LocalDate manufacturingDate = LocalDate.now();
     private LocalDateTime manufacturingTime = LocalDateTime.now();
-    private LocalDate dueDate = LocalDate.now();
-    private Long IdSalesAd;
+    private LocalDate dueDate;
+    private Long idSalesAd;
 }
