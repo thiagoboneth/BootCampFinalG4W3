@@ -11,15 +11,15 @@ import com.mercadolibre.demo.repository.ProductRepository;
 @Service
 public class ProductService {
 
-	@Autowired
 	private ProductRepository productRepository;
 
+	@Autowired
 	public ProductService(ProductRepository productRepository) {
 		this.productRepository = productRepository;
 	}
 
 	public Product save(ProductDTO dto) {
-		 Product product = convertProductToDTO(dto);
+		Product product = convertProductToDTO(dto);
 		return productRepository.save(product);
 	}
 
@@ -32,10 +32,9 @@ public class ProductService {
 	}
 
 	public Product update(ProductDTO dto, Long id) throws Exception {
-		Product product = new Product();
 		Optional<Product> existProduct = findById(id);
 		if(existProduct.isPresent()) {
-			product = convertProductToDTO(dto);
+			Product product = convertProductToDTO(dto);
 			product.setId(id);
 			return productRepository.saveAndFlush(product);
 		}  else {
@@ -43,8 +42,13 @@ public class ProductService {
 		}
 	}
 
-	public void delete(Long id) {
-		productRepository.deleteById(id);
+	public void delete(Long id) throws Exception {
+		Optional<Product> existProduct = findById(id);
+		if(existProduct.isPresent()) {
+			productRepository.deleteById(id);
+		} else {
+			throw new Exception("Id não cadastrado");
+		}
 	}
 
 	public Product convertProductToDTO(ProductDTO dto) {

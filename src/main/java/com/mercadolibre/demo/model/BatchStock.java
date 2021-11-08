@@ -3,6 +3,8 @@ package com.mercadolibre.demo.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,14 +52,14 @@ public class BatchStock implements Serializable{
 	private LocalDateTime manufacturingTime = LocalDateTime.now();
 
 	@Column(name = "due_date", nullable = false)
-	private LocalDate dueDate = LocalDate.now();
+	private LocalDate dueDate;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "idsales_ad")
-	private SalesAd salesad;
+	private SalesAd idSalesAd;
 
 	public BatchStock(Float currentTemperature, Float minimumTemperature, Long initialQuantity, Long currentQuantity,
-			LocalDate manufacturingDate, LocalDateTime manufacturingTime, LocalDate dueDate, SalesAd salesad) {
+			LocalDate manufacturingDate, LocalDateTime manufacturingTime, LocalDate dueDate, Optional<SalesAd> idSalesAd) {
 		this.currentTemperature = currentTemperature;
 		this.minimumTemperature = minimumTemperature;
 		this.initialQuantity = initialQuantity;
@@ -65,6 +67,6 @@ public class BatchStock implements Serializable{
 		this.manufacturingDate = manufacturingDate;
 		this.manufacturingTime = manufacturingTime;
 		this.dueDate = dueDate;
-		this.salesad = salesad;
+		this.idSalesAd = idSalesAd.get();
 	}
 }

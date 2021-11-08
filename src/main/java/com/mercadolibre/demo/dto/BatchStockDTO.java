@@ -4,28 +4,23 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-@NoArgsConstructor
 public class BatchStockDTO {
 
-    @NotBlank(message = "{currentTemperature.not.blank}")
-    private Float currentTemperature;
-    @NotBlank(message = "{minimumTemperature.not.blank}")
-    private Float minimumTemperature;
-    @NotBlank(message = "{initialQuantity.not.blank}")
-    private Long initialQuantity;
-    @NotBlank(message = "{currentQuantity.not.blank}")
-    private Long currentQuantity;
-    @NotBlank(message = "{manufacturingDate.not.blank}")
-    private LocalDate manufacturingDate = LocalDate.now();
-    @NotBlank(message = "{manufacturingTime.not.blank}")
-    private LocalDateTime manufacturingTime = LocalDateTime.now();
-    @NotBlank(message = "{dueDate.not.blank}")
-    private LocalDate dueDate = LocalDate.now();
-    private Long salesadId;
 
+    private Float currentTemperature;
+
+    private Float minimumTemperature;
+
+    private Long initialQuantity;
+
+    private Long currentQuantity;
+    
+    private LocalDate manufacturingDate = LocalDate.now();
+    private LocalDateTime manufacturingTime = LocalDateTime.now();
+    private LocalDate dueDate;
+    private Long idSalesAd;
 }

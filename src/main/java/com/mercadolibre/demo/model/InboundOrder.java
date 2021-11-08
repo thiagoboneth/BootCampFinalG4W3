@@ -2,6 +2,8 @@ package com.mercadolibre.demo.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Optional;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,13 +38,13 @@ public class InboundOrder implements Serializable {
     @JoinColumn(name = "idbatch_number", nullable = false)
     private BatchStock batchStock;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "section_code", nullable = false)
     private Section section;
 
-	public InboundOrder(LocalDate orderDate, BatchStock batchStock, Section section) {
+	public InboundOrder(LocalDate orderDate, Optional<BatchStock> batchStock, Optional<Section> section) {
 		this.orderDate = orderDate;
-		this.batchStock = batchStock;
-		this.section = section;
+		this.batchStock = batchStock.get();
+		this.section = section.get();
 	}
 }

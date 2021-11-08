@@ -1,4 +1,4 @@
-package com.mercadolibre.demo.dto;
+package com.mercadolibre.demo.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;

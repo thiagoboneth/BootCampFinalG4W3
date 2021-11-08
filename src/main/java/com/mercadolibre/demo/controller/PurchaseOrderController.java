@@ -1,7 +1,7 @@
 package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
-import com.mercadolibre.demo.dto.PriceDTO;
+import com.mercadolibre.demo.dto.response.PriceDTO;
 import com.mercadolibre.demo.model.PurchaseOrder;
 import com.mercadolibre.demo.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,7 @@ public class PurchaseOrderController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
     @GetMapping(value = "/list")
     @ResponseBody
     public ResponseEntity<List<PurchaseOrder>> listOfItem(){

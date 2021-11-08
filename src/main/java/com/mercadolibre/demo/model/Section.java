@@ -21,17 +21,22 @@ public class Section implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "section_code")
-    private Long sectionCode;
+    private Long idSection;
 	
     @Column(name = "capacity")
     private Long capacity;
-    
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_ware_house", nullable = false)
-    private WareHouse idWareHouse;
 
-    public Section(Long capacity, WareHouse wareHouse) {
+    @Column(name = "category")
+    private String category;
+    
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_ware_house", nullable = false)
+    private WareHouse WareHouse;
+
+
+    public Section(Long capacity, String category, WareHouse WareHouse) {
         this.capacity = capacity;
-        this.idWareHouse = wareHouse;
+        this.category = category;
+        this.WareHouse = WareHouse;
     }
 }

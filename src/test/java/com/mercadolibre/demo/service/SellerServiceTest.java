@@ -41,60 +41,50 @@ public class SellerServiceTest {
         assertNotNull(Seller.getLastname());
     }
 
-
     @Test
-    public void testListProductWithSuccess() {
-
+    public void testFindAllSeller() {
         List<Seller> list = new ArrayList<Seller>();
         Seller seller = new Seller();
         seller.setIdseller(1L);
-        seller.setName("Rock");
-        seller.setLastname("Lee");
-
-
-        Seller seller2 = new Seller();
-        seller2.setIdseller(2L);
-        seller2.setName("Sasuke");
-        seller2.setLastname("Uchiha");
-
-        list.add(seller);
-        list.add(seller2)
-        ;
-        when(mock.findAll()).thenReturn(list);
-        List <Seller> listAll = mock.findAll();
-        sellerService.list();
-        assertNotNull(list);
-        assertTrue(listAll.contains(seller));
-        assertTrue(listAll.contains(seller2));
-
-    }
-    @Test
-    public void testFindById() {
-        Long id = 1L;
-        List<Seller> list = new ArrayList<Seller>();
-        Seller seller = new Seller();
-        seller.setIdseller(id);
         seller.setName("Kakashi");
         seller.setLastname("Sensei");
 
         list.add(seller);
         mock.findAll();
-        when(mock.findById(id)).thenReturn(Optional.of(list.stream().findAny().get()));
-        mock.findById(id);
+        when(mock.findAll()).thenReturn(list);
+        sellerService.list();
 
-        assertEquals("Kakashi", seller.getName());
-        assertEquals("Sensei", seller.getLastname());
+        assertEquals("Kakashi", list.get(0).getName());
+        assertEquals("Sensei", list.get(0).getLastname());
 
-        assertNotNull(seller.getName());
-        assertNotNull(seller.getLastname());
+        assertNotNull(list);
+    }
+    @Test
+    public void testFindSellerById() {
+
+        List<Seller> list = new ArrayList<>();
+        Seller seller = new Seller();
+        seller.setIdseller(1L);
+        seller.setName("Kakashi");
+        seller.setLastname("Sensei");
+        list.add(seller);
+
+        when(mock.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
+        mock.findById(1L);
+
+        assertNotNull(mock.findById(1L));
+
+        assertEquals("Kakashi", mock.findById(1l).get().getName());
+        assertEquals("Sensei", mock.findById(1l).get().getLastname());
     }
 
     @Test
     public void testUpdateProductWithSuccess() throws Exception {
-        Long id = 1L;
-        List<Seller> list = new ArrayList<Seller>();
+
+        List<Seller> list = new ArrayList<>();
         Seller seller = new Seller();
-        seller.setIdseller(id);
+
+        seller.setIdseller(1L);
         seller.setName("Naruto");
         seller.setLastname("Uzumaki");
         list.add(seller);
@@ -103,12 +93,12 @@ public class SellerServiceTest {
         dto.setName("Naruto");
         dto.setLastname("Hokage");
 
-        when(mock.findById(id)).thenReturn(Optional.of(list.stream().findAny().get()));
+        when(mock.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
         when(mock.saveAndFlush(seller)).thenReturn(seller);
 
         seller = sellerService.convertSellerDTO(dto);
-        seller.setIdseller(id);
-        sellerService.update(dto,mock.findById(id).get().getIdseller());
+        seller.setIdseller(1L);
+        sellerService.update(dto,mock.findById(1L).get().getIdseller());
 
         assertEquals("Naruto", seller.getName());
         assertEquals("Hokage", seller.getLastname());
@@ -117,11 +107,11 @@ public class SellerServiceTest {
 
     }
     @Test
-    public void testUpdateProductNoSuccess() throws Exception {
-        Long id = 1L;
-        List<Seller> list = new ArrayList<Seller>();
+    public void testUpdateProductNoSuccess(){
+
+        List<Seller> list = new ArrayList<>();
         Seller seller = new Seller();
-        seller.setIdseller(id);
+        seller.setIdseller(1L);
         seller.setName("Hinata");
         seller.setLastname("Hyuga");
         list.add(seller);
@@ -130,11 +120,11 @@ public class SellerServiceTest {
         dto.setName("Hinata");
         dto.setLastname("Uchiha");
 
-        when(mock.findById(id)).thenReturn(Optional.of(list.stream().findAny().get()));
+        when(mock.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
         when(mock.saveAndFlush(seller)).thenReturn(seller);
 
         seller = sellerService.convertSellerDTO(dto);
-        seller.setIdseller(id);
+        seller.setIdseller(1L);
 
         Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
             sellerService.update(dto, 2L);
@@ -144,14 +134,12 @@ public class SellerServiceTest {
 
     }
     @Test
-    void deleteProductWithSuccess() {
-        List<Seller> list = new ArrayList<Seller>();
+    void deleteProductWithSuccess() throws Exception {
 
         Seller seller = new Seller();
         seller.setIdseller(1L);
         seller.setName("Orochimaru");
         seller.setLastname("Sannin");
-        list.add(seller);
         sellerService.delete(1L);
 
         verify(mock).deleteById(1L);

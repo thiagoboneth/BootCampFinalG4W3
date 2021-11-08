@@ -1,6 +1,5 @@
 package com.mercadolibre.demo.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.mercadolibre.demo.dto.SalesAdDTO;
-import com.mercadolibre.demo.dto.response.SalesAdResponseDTO;
 import com.mercadolibre.demo.model.SalesAd;
 import com.mercadolibre.demo.service.SalesAdService;
 
