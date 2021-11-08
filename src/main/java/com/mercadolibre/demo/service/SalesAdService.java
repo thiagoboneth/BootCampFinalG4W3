@@ -52,6 +52,7 @@ public class SalesAdService {
     public void delete(Long batchNumber) {
         salesAdRepository.deleteById(batchNumber);
     }
+
     public Optional<Seller> getSeller(SalesAdDTO dto) {
         Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
             return seller;
