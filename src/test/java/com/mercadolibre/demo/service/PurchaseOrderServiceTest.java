@@ -4,6 +4,7 @@ import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
 import com.mercadolibre.demo.model.Buyer;
 import com.mercadolibre.demo.model.PurchaseOrder;
+import com.mercadolibre.demo.repository.BatchStockRepository;
 import com.mercadolibre.demo.repository.BuyerRepository;
 import com.mercadolibre.demo.repository.PurchaseOrderRepository;
 import com.mercadolibre.demo.repository.SalesAdRepository;
@@ -20,7 +21,8 @@ public class PurchaseOrderServiceTest {
     PurchaseOrderRepository mockPurchaseOrderRepository = Mockito.mock(PurchaseOrderRepository.class);
     BuyerRepository mockBuyerRepository = Mockito.mock(BuyerRepository.class);
     SalesAdRepository mockSalesAdRepository = Mockito.mock(SalesAdRepository.class);
-    PurchaseOrderService purchaseOrderService = new PurchaseOrderService(mockPurchaseOrderRepository,mockBuyerRepository,mockSalesAdRepository);
+    BatchStockRepository mockBatchStockRepository = Mockito.mock(BatchStockRepository.class);
+    PurchaseOrderService purchaseOrderService = new PurchaseOrderService(mockPurchaseOrderRepository,mockBuyerRepository,mockSalesAdRepository,mockBatchStockRepository);
 
     @Test
     void testSavePurchaseOrderWithSuccess() throws Exception {
