@@ -1,10 +1,8 @@
 package com.mercadolibre.demo.repository;
 
-import com.mercadolibre.demo.dto.ItemOfProductDTO;
+import com.mercadolibre.demo.dto.response.ProductInBathDTO;
 import com.mercadolibre.demo.model.ItemOfProduct;
-import com.mercadolibre.demo.model.Section;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -32,14 +30,14 @@ public interface ItemOfProductRepository extends JpaRepository<ItemOfProduct, Lo
 
 
     // lista de produto
-    @Query(nativeQuery = true, value = "SELECT s.* from  item_of_product s ORDER BY quantity ASC")
-    List<ItemOfProduct> listOrderProductL (String name);
+    @Query(nativeQuery = true, value = "SELECT p.name,bs.due_date, bs.current_quantity,  s.category, wh.ware_house_name, bs.idbatch_number from sales_ad sa, batch_stock bs, inbound_order io, section s ,products p, ware_house wh where sa.idsales_ad = bs.idsales_ad AND bs.idbatch_number = io.idbatch_number AND io.section_code = s.section_code AND p.idproduct = sa.idproduct AND s.id_ware_house = wh.id_ware_house")
+    List<ProductInBathDTO> listOrderProductL (String name);
 
     @Query(nativeQuery = true, value = "SELECT s.* from  item_of_product s where upper(trim(s.id_purchase_order)) = ?1")
-    List<ItemOfProduct> listOrderProductC (String name);
+    List<ProductInBathDTO> listOrderProductC (String name);
 
     @Query(nativeQuery = true, value = "SELECT s.* from  item_of_product s where upper(trim(s.id_purchase_order)) = ?1")
-    List<ItemOfProduct> listOrderProductF (String name);
+    List<ProductInBathDTO> listOrderProductF (String name);
 
 
 

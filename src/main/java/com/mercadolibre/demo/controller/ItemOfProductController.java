@@ -1,10 +1,9 @@
 package com.mercadolibre.demo.controller;
 
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
-import com.mercadolibre.demo.dto.WareHouseDTO;
+import com.mercadolibre.demo.dto.response.ProductInBathDTO;
 import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
 import com.mercadolibre.demo.model.ItemOfProduct;
-import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.service.ItemOfProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,8 +47,8 @@ public class ItemOfProductController {
 
     @GetMapping(value = "/listOrderProduct/{name}")
     @ResponseBody
-    public ResponseEntity<List<ItemOfProductDTO>> listProduct(@PathVariable String name) {
-        List<ItemOfProductDTO> itemOfProducts = itemOfProductService.listOrderProduct(name);
+    public ResponseEntity<List<ProductInBathDTO>> listProduct(@PathVariable String name) {
+        List<ProductInBathDTO> itemOfProducts = itemOfProductService.listOrderProduct(name);
         return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
     }
 

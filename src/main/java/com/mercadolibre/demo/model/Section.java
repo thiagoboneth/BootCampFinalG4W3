@@ -29,7 +29,7 @@ public class Section implements Serializable {
     @Column(name = "category")
     private String category;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_ware_house", nullable = false)
     private WareHouse WareHouse;
 

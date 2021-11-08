@@ -46,7 +46,7 @@ public class PurchaseOrderService {
 
     public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-        Optional<Buyer> buyer = buyerRepository.findById(dto.getBuyer());
+        Optional<Buyer> buyer = buyerRepository.findById(dto.getIdBuyer());
         purchaseOrder.setBuyer(buyer.get());
         if (buyer.isPresent()) {
             List<ItemOfProduct> itemOfProducts = convertItemOfProduct(dto.getItemOfProduct(), purchaseOrder);
