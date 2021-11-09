@@ -3,6 +3,7 @@ package com.mercadolibre.demo.controller;
 import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
+import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
 import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,13 @@ public class SectionController {
 	public ResponseEntity<List<SectionTypeDTO>> listSectionCategory(@RequestParam(name = "name") String name){
 		List<SectionTypeDTO> sections = sectionService.sectionTypeDTOS(name);
 		return new ResponseEntity<>(sections, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/listProduct/{id}")
+	@ResponseBody
+	public ResponseEntity<WareHouseProductItensDTO> listProduct(@PathVariable Long id) {
+		WareHouseProductItensDTO wareHouseList = sectionService.listProduct(id);
+		return new ResponseEntity<>(wareHouseList, HttpStatus.CREATED);
 	}
 
 	@GetMapping(value = "/productsCategory")

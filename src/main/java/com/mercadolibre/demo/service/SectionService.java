@@ -3,6 +3,8 @@ package com.mercadolibre.demo.service;
 import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
+import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
+import com.mercadolibre.demo.dto.response.WareHouseProductListDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +103,24 @@ public class SectionService {
 
     public List<SectionCategoryDTO> ListProductForCategory(String category) {
         return sectionRepository.listProductForCategory(category);
+    }
+
+
+    public WareHouseProductItensDTO listProduct(Long idProduct) {
+
+        List<InboundOrder> inboundOrderList = inboundOrderRepository.buscarSessaoInboundOrder(idProduct);
+        WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
+        List<WareHouseProductListDTO> wareHouseProductListDTO = new ArrayList<>();
+        WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
+        requisiteFour.setIdProduct(idProduct);
+        wareHouseProductDTO.setQuantity(0L);
+        for (InboundOrder item : inboundOrderList) {
+            wareHouseProductDTO.setWareHouseName(item.getSection().getWareHouse().getWareHouseName());
+            wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getBatchStock().getCurrentQuantity());
+        }
+        wareHouseProductListDTO.add(wareHouseProductDTO);
+        requisiteFour.setList(wareHouseProductListDTO);
+        return requisiteFour;
+
     }
 }
