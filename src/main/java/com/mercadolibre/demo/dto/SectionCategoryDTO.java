@@ -1,5 +1,10 @@
 package com.mercadolibre.demo.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SectionCategoryDTO {
 
     private Long section_code;
