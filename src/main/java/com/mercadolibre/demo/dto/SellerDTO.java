@@ -8,7 +8,10 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class SellerDTO {
 
+	
+	@NotBlank(message = "{name.not.blank}")
     private String name;
 
+	@NotBlank(message = "{description.not.blank}")
     private String lastname;
 }

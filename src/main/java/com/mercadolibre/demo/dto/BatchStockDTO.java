@@ -21,6 +21,6 @@ public class BatchStockDTO {
     
     private LocalDate manufacturingDate = LocalDate.now();
     private LocalDateTime manufacturingTime = LocalDateTime.now();
-    private LocalDate dueDate;
+    private LocalDate dueDate = LocalDate.now();
     private Long idSalesAd;
 }

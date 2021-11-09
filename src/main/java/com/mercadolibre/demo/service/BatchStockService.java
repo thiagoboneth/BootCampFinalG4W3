@@ -40,7 +40,7 @@ public class BatchStockService {
 		Optional<BatchStock> existsBatchStok = findById(id);
 		if (existsBatchStok.isPresent()) {
 			BatchStock batchStock = convertBatchStockToObject(dto);
-			batchStock.setBatchNumber(id);
+			batchStock.setIdBatchNumber(id);
 			return batchStockRepository.saveAndFlush(batchStock);
 		}
 		throw new Exception("Id não cadastrado");

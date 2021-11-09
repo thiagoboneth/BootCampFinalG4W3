@@ -48,6 +48,6 @@ public class BuyerController {
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<String> deleteBuyer(@PathVariable Long id) throws Exception {
 		buyerService.delete(id);
-		return new ResponseEntity<>("Comprador deletado com sucesso", HttpStatus.OK);
+		return new ResponseEntity<>("Comprador com Id " + id + " deletado com sucesso", HttpStatus.OK);
 	}
 }

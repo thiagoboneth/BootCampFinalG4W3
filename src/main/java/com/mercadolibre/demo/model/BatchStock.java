@@ -31,7 +31,7 @@ public class BatchStock implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idbatch_number", nullable = false)
-	private Long batchNumber;
+	private Long idBatchNumber;
 
 	@Column(name = "current_temperature", nullable = false)
 	private Float currentTemperature;
@@ -46,10 +46,10 @@ public class BatchStock implements Serializable{
 	private Long currentQuantity;
 
 	@Column(name = "manufacturing_date", nullable = false)
-	private LocalDate manufacturingDate = LocalDate.now();
+	private LocalDate manufacturingDate;
 
 	@Column(name = "manufacturing_time", nullable = false)
-	private LocalDateTime manufacturingTime = LocalDateTime.now();
+	private LocalDateTime manufacturingTime;
 
 	@Column(name = "due_date", nullable = false)
 	private LocalDate dueDate;
