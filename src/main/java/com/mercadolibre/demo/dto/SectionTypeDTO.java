@@ -18,5 +18,6 @@ public class SectionTypeDTO {
     private String nameProduct;
 
     public SectionTypeDTO() {
+    	
     }
 }

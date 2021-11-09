@@ -96,7 +96,7 @@ public class ItemOfProductService {
         List<ProductInBatchStockDTO> productInBatchStockDTOList = new ArrayList<>();
         for (BatchStock batchStock:batchStockList) {
             ProductInBatchStockDTO productInBatchStockDTO = new ProductInBatchStockDTO();
-            productInBatchStockDTO.setBatchStock(batchStock.getBatchNumber());
+            productInBatchStockDTO.setBatchStock(batchStock.getIdBatchNumber());
             productInBatchStockDTO.setNameProduct(batchStock.getIdSalesAd().getProduct().getName());
             productInBatchStockDTOList.add(productInBatchStockDTO);
         }
@@ -109,7 +109,7 @@ public class ItemOfProductService {
 
         for (InboundOrder inboundOrder1:inboundOrderList) {
             ProductInBathDTO productInBathDTO = new ProductInBathDTO();
-            productInBathDTO.setIdbatch_number(inboundOrder1.getBatchStock().getBatchNumber());
+            productInBathDTO.setIdbatch_number(inboundOrder1.getBatchStock().getIdBatchNumber());
             productInBathDTO.setName(inboundOrder1.getBatchStock().getIdSalesAd().getProduct().getName());
             productInBathDTO.setDue_date(inboundOrder1.getBatchStock().getDueDate());
             productInBathDTO.setCurrent_quantity(inboundOrder1.getBatchStock().getCurrentQuantity());
@@ -117,6 +117,7 @@ public class ItemOfProductService {
             productInBathDTO.setWare_house_name(inboundOrder1.getSection().getWareHouse().getWareHouseName());
             lista.add(productInBathDTO);
         }
+        
         List<ProductInBathDTO> lista1 = new ArrayList<>();
 
         if(name.equals("L") ){
@@ -137,6 +138,4 @@ public class ItemOfProductService {
         }
         return lista1;
     }
-
-
 }

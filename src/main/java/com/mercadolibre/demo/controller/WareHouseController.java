@@ -38,10 +38,4 @@ public class WareHouseController {
 		WareHouse wareHouse = wareHouseService.update(dto, id);
 		return new ResponseEntity<>(wareHouse, HttpStatus.CREATED);
 	}
-
-	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) throws Exception {
-		wareHouseService.delete(id);
-		return new ResponseEntity<>("Armazem deletado com sucesso", HttpStatus.OK);
-	}
 }
