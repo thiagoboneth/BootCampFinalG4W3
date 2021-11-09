@@ -61,6 +61,8 @@ public class SectionService {
         return sectionRepository.buscarPorSessao(name);
     }
 
+    
+    // Refatorar em 3 métodos e chamar os métodos em sectionTypeDTOS para ter cobertura nos testes
     public List<SectionTypeDTO>sectionTypeDTOS(String category){
         List<Section>sections = buscarPorSessao(category);
         List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();

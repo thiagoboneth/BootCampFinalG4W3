@@ -4,7 +4,6 @@ import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.model.Section;
-import com.mercadolibre.demo.repository.SectionRepository;
 import com.mercadolibre.demo.service.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
@@ -23,10 +21,6 @@ public class SectionController {
 
 	@Autowired
 	private SectionService sectionService;
-
-	@Autowired
-	private SectionRepository sectionRepository;
-
 
 	@PostMapping(value = "/save")
 	public ResponseEntity<Section> saveSection(@Valid @RequestBody SectionDTO dto) throws Exception{
@@ -58,8 +52,6 @@ public class SectionController {
 		List<SectionCategoryDTO> sectionCategoryDTO = sectionService.ListProductForCategory(category);
 		return new ResponseEntity<>(sectionCategoryDTO, HttpStatus.OK);
 	}
-
-
 
 	@PutMapping(value = "/update/{id}")
 	@ResponseBody

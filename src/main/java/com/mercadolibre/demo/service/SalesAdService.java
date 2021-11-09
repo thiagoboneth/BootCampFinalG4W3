@@ -49,8 +49,15 @@ public class SalesAdService {
             throw new Exception("Id não cadastrado");
         }
     }
-    public void delete(Long batchNumber) {
-        salesAdRepository.deleteById(batchNumber);
+    
+    // REMOVER DELETE
+    public void delete(Long id) throws Exception {
+        Optional<SalesAd> existSalesAd = findById(id);
+        if (existSalesAd.isPresent()) {
+	        salesAdRepository.deleteById(id);
+        } else {
+        	throw new Exception("Id não cadastrado");
+        }
     }
 
     public Optional<Seller> getSeller(SalesAdDTO dto) {
