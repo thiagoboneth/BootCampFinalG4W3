@@ -1,7 +1,6 @@
 package com.mercadolibre.demo.controller;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +22,9 @@ public class BatchStockController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<BatchStock> saveBatchStock(@Valid @RequestBody BatchStockDTO dto) throws Exception {
-        try {
             BatchStock batchStock = batchStockService.save(dto);
             return new ResponseEntity<>(batchStock, HttpStatus.CREATED);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        
     }
 
     @GetMapping(value = "/list")
@@ -41,22 +37,7 @@ public class BatchStockController {
     @PutMapping(value = "/update/{id}")
     @ResponseBody
     public ResponseEntity<BatchStock> updateSalesAd(@Valid @RequestBody BatchStockDTO dto, @PathVariable Long id) throws Exception {
-        try {
             BatchStock batchStock = batchStockService.update(dto, id);
             return new ResponseEntity<>(batchStock, HttpStatus.CREATED);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<String> deleteBatchStock(@PathVariable Long id) {
-        try {
-            batchStockService.delete(id);
-            return new ResponseEntity<>("BatchStock successfully deleted", HttpStatus.OK);
-
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }
