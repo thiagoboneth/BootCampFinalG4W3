@@ -30,4 +30,9 @@ public class WareHouse implements Serializable {
     public WareHouse(String name) {
         this.wareHouseName = name;
     }
+
+    public WareHouse(Long idWareHouse, String wareHouseName) {
+        this.idWareHouse = idWareHouse;
+        this.wareHouseName = wareHouseName;
+    }
 }

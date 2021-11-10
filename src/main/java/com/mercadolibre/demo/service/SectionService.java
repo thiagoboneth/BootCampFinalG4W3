@@ -129,7 +129,4 @@ public class SectionService {
 			throw new Exception("Id nao cadastrado");
 		}
 	}
-
-
-
 }

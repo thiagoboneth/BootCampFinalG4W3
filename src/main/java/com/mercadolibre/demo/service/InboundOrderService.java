@@ -1,9 +1,12 @@
 package com.mercadolibre.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.mercadolibre.demo.dto.InboundOrderDTO;
+import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
+import com.mercadolibre.demo.dto.response.WareHouseProductListDTO;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.Section;
 import com.mercadolibre.demo.repository.BatchStockRepository;
