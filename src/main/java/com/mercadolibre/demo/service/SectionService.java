@@ -77,23 +77,8 @@ public class SectionService {
 		return sectionTypeDTOS;
 	}
 
-	public List<Long> convertInboundOrderToList(Long idProduct) throws Exception {
-		List<InboundOrder> inboundOrderList = inboundOrderRepository.buscarSessaoInboundOrder(idProduct);
-		List<Long> id = new ArrayList<>();
-		for (InboundOrder itemWareHOuse : inboundOrderList) {
-			id.add(itemWareHOuse.getSection().getWareHouse().getIdWareHouse());
-		}
-			return id;
-	}
 	public WareHouseProductItensDTO listProduct(Long idProduct) {
-/*		List<Long> idWarehouse = new ArrayList<>();
-		idWarehouse = convertInboundOrderToList(idProduct);
-		idWarehouse.addAll(convertInboundOrderToList(idProduct));*/
-
 		List<WareHouse> idWarehouse = wareHouseRepository.findAll();
-
-		//List<WareHouse> wareHouseList = inboundOrderRepository.buscarSessaoWareHouse(idProduct);
-
 
 		WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
 		List<WareHouseProductListDTO> wareHouseProductListDTO = new ArrayList<>();
