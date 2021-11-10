@@ -21,7 +21,7 @@ public class PurchaseOrderController {
     private PurchaseOrderService purchaseOrderService;
 
     @PostMapping(value = "/add")
-    private ResponseEntity<PriceDTO> addItem(@RequestBody PurchaseOrderDTO dto) throws Exception {
+    private ResponseEntity<PriceDTO> addItem(@Valid @RequestBody PurchaseOrderDTO dto) throws Exception {
            PurchaseOrder purchaseOrder = purchaseOrderService.save(dto);
             return new ResponseEntity<>(purchaseOrderService.PriceLista(purchaseOrder.getItemOfProduct()), HttpStatus.CREATED);
     }
