@@ -36,21 +36,21 @@ public class SectionController {
 
 	@GetMapping(value = "/listCategory/{category}")
 	@ResponseBody
-	public ResponseEntity<List<SectionTypeDTO>> listSectionCategory(@PathVariable String category){
+	public ResponseEntity<List<SectionTypeDTO>> listSectionCategory(@Valid @PathVariable String category){
 		List<SectionTypeDTO> sections = sectionService.findSectionCategories(category);
 		return new ResponseEntity<>(sections, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/listProductsForCategory/{idProduct}")
 	@ResponseBody
-	public ResponseEntity<List<SectionCategoryDTO>> listProductForCategory(@PathVariable String idProduct){
+	public ResponseEntity<List<SectionCategoryDTO>> listProductForCategory(@Valid @PathVariable String idProduct){
 		List<SectionCategoryDTO> sectionCategoryDTO = sectionService.ListProductForCategory(idProduct);
 		return new ResponseEntity<>(sectionCategoryDTO, HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/update/{id}")
 	@ResponseBody
-	public ResponseEntity<Section> updateSection(@RequestBody SectionDTO dto, @PathVariable Long id) throws Exception{
+	public ResponseEntity<Section> updateSection(@Valid @RequestBody SectionDTO dto, @PathVariable Long id) throws Exception{
 		Section section = sectionService.update(dto, id);
 		return new ResponseEntity<>(section, HttpStatus.CREATED);
 
