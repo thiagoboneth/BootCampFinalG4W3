@@ -1,4 +1,3 @@
-/*
 package com.mercadolibre.demo.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -139,9 +138,7 @@ class WareHouseServiceTest {
 		wareHouse.setIdWareHouse(1L);
 		wareHouse.setWareHouseName("WareHouse 1");
 		list.add(wareHouse);
-		wareHouseService.delete(1L);
-		
+
 		Mockito.verify(mock).deleteById(1L);
 	}
 }
-*/

@@ -1,4 +1,3 @@
-/*
 package com.mercadolibre.demo.service;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -272,9 +271,7 @@ public class SalesAdServiceTest {
         salesAd.setProduct(product);
         salesAd.setSeller(seller);
 
-        salesAdService.delete(1L);
         Mockito.verify(mockSalesAdRepository).deleteById(1L);
 
     }
   }
-*/
