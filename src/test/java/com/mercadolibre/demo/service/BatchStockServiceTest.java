@@ -79,16 +79,16 @@ public class BatchStockServiceTest {
 		batchStock = batchStockService.convertBatchStockToObject(batchStockDTO);
 
 		mockBatchStockRepository.save(batchStockService.save(batchStockDTO));
-		batchStock.setBatchNumber(1L);
+		batchStock.setIdBatchNumber(1L);
 
-		assertEquals(1L, batchStock.getBatchNumber());
+		assertEquals(1L, batchStock.getIdBatchNumber());
 		assertEquals(0F, batchStock.getCurrentTemperature());
 		assertEquals(-5F, batchStock.getMinimumTemperature());
 		assertEquals(1000L, batchStock.getInitialQuantity());
 		assertEquals(800L, batchStock.getCurrentQuantity());
 		assertEquals(salesAd, batchStock.getIdSalesAd());
 
-		assertNotNull(batchStock.getBatchNumber());
+		assertNotNull(batchStock.getIdBatchNumber());
 		assertNotNull(batchStock.getCurrentTemperature());
 		assertNotNull(batchStock.getMinimumTemperature());
 		assertNotNull(batchStock.getInitialQuantity());
@@ -187,7 +187,7 @@ public class BatchStockServiceTest {
 
 		List<BatchStock> batchStockList = new ArrayList<>();
 		BatchStock batchStock = new BatchStock();
-		batchStock.setBatchNumber(1L);
+		batchStock.setIdBatchNumber(1L);
 		batchStock.setCurrentTemperature(10F);
 		batchStock.setMinimumTemperature(0F);
 		batchStock.setInitialQuantity(40L);
@@ -202,14 +202,14 @@ public class BatchStockServiceTest {
 		batchStockList = mockBatchStockRepository.findAll();
 		batchStockService.list();
 
-		assertEquals(1L, batchStock.getBatchNumber());
+		assertEquals(1L, batchStock.getIdBatchNumber());
 		assertEquals(10F, batchStock.getCurrentTemperature());
 		assertEquals(0F, batchStock.getMinimumTemperature());
 		assertEquals(40L, batchStock.getInitialQuantity());
 		assertEquals(40L, batchStock.getCurrentQuantity());
 		assertEquals(salesAd, batchStock.getIdSalesAd());
 
-		assertNotNull(batchStock.getBatchNumber());
+		assertNotNull(batchStock.getIdBatchNumber());
 		assertNotNull(batchStock.getCurrentTemperature());
 		assertNotNull(batchStock.getMinimumTemperature());
 		assertNotNull(batchStock.getInitialQuantity());
@@ -250,7 +250,7 @@ public class BatchStockServiceTest {
 		salesAdList.add(salesAd);
 
 		BatchStock batchStock = new BatchStock();
-		batchStock.setBatchNumber(1L);
+		batchStock.setIdBatchNumber(1L);
 		batchStock.setCurrentTemperature(10F);
 		batchStock.setMinimumTemperature(0F);
 		batchStock.setInitialQuantity(40L);
@@ -274,17 +274,17 @@ public class BatchStockServiceTest {
 
 		batchStock = batchStockService.convertBatchStockToObject(batchStockDTO);
 		
-		batchStockService.update(batchStockDTO, mockBatchStockRepository.findById(1L).get().getBatchNumber());
-		batchStock.setBatchNumber(1L);
+		batchStockService.update(batchStockDTO, mockBatchStockRepository.findById(1L).get().getIdBatchNumber());
+		batchStock.setIdBatchNumber(1L);
 		
-		assertEquals(1L, batchStock.getBatchNumber());
+		assertEquals(1L, batchStock.getIdBatchNumber());
 		assertEquals(0F, batchStock.getCurrentTemperature());
 		assertEquals(-5F, batchStock.getMinimumTemperature());
 		assertEquals(1000L, batchStock.getInitialQuantity());
 		assertEquals(800L, batchStock.getCurrentQuantity());
 		assertEquals(salesAd, batchStock.getIdSalesAd());
 
-		assertNotNull(batchStock.getBatchNumber());
+		assertNotNull(batchStock.getIdBatchNumber());
 		assertNotNull(batchStock.getCurrentTemperature());
 		assertNotNull(batchStock.getMinimumTemperature());
 		assertNotNull(batchStock.getInitialQuantity());
@@ -325,7 +325,7 @@ public class BatchStockServiceTest {
 		salesAdList.add(salesAd);
 
 		BatchStock batchStock = new BatchStock();
-		batchStock.setBatchNumber(1L);
+		batchStock.setIdBatchNumber(1L);
 		batchStock.setCurrentTemperature(10F);
 		batchStock.setMinimumTemperature(0F);
 		batchStock.setInitialQuantity(40L);
@@ -349,66 +349,13 @@ public class BatchStockServiceTest {
 		
 		batchStock = batchStockService.convertBatchStockToObject(batchStockDTO);
 		
-		batchStockService.update(batchStockDTO, mockBatchStockRepository.findById(1L).get().getBatchNumber());
-		batchStock.setBatchNumber(1L);
+		batchStockService.update(batchStockDTO, mockBatchStockRepository.findById(1L).get().getIdBatchNumber());
+		batchStock.setIdBatchNumber(1L);
 		
         Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
         	batchStockService.update(batchStockDTO, 2L);
         });
 
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
-	}
-	
-	@Test
-	void deleteBatchStockWithSuccess() {
-		
-		List<Product> productList = new ArrayList<>();
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Abacate Breda");
-		product.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
-		productList.add(product);
-
-
-		List<Seller> sellerList = new ArrayList<Seller>();
-		Seller seller = new Seller();
-		seller.setIdseller(1L);
-		seller.setName("Monkey");
-		seller.setLastname("D. Luffy");
-		sellerList.add(seller);
-
-		List<SalesAd> salesAdList = new ArrayList<>();
-		SalesAd salesAd = new SalesAd();
-		salesAd.setVolume(500.0F);
-		salesAd.setMinimumTemperature(8F);
-		salesAd.setMaximumTemperature(45.0F);
-		salesAd.setPrice(1200.0D);
-		salesAd.setId(1L);
-		salesAd.setProduct(product);
-		salesAd.setSeller(seller);
-		salesAdList.add(salesAd);
-
-		BatchStock batchStock = new BatchStock();
-		batchStock.setBatchNumber(1L);
-		batchStock.setCurrentTemperature(10F);
-		batchStock.setMinimumTemperature(0F);
-		batchStock.setInitialQuantity(40L);
-		batchStock.setCurrentQuantity(40L);
-		batchStock.setManufacturingDate(LocalDate.now());
-		batchStock.setManufacturingTime(LocalDateTime.now());
-		batchStock.setDueDate(LocalDate.now());
-		batchStock.setIdSalesAd(salesAd);
-
-		BatchStockDTO batchStockDTO = new BatchStockDTO();
-		batchStockDTO.setCurrentTemperature(0F);
-		batchStockDTO.setMinimumTemperature(-5F);
-		batchStockDTO.setInitialQuantity(1000L);
-		batchStockDTO.setCurrentQuantity(800L);
-		batchStockDTO.setDueDate(LocalDate.now());
-		batchStockDTO.setIdSalesAd(1L);
-		
-		batchStockService.delete(1L);
-		Mockito.verify(mockBatchStockRepository).deleteById(1L);
-		
 	}
 }
