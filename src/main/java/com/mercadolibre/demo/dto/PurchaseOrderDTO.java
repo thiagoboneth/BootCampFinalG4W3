@@ -7,13 +7,17 @@ import lombok.Setter;
 
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PurchaseOrderDTO {
-
+  
+    @NotNull(message = "{id.not.null}")
     private Long idBuyer;
+   
     private List<ItemOfProductDTO> itemOfProduct;
 
 }
