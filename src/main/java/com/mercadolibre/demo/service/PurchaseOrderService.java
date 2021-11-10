@@ -44,19 +44,6 @@ public class PurchaseOrderService {
         return purchaseOrderRepository.findAll();
     }
 
-    public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
-        PurchaseOrder purchaseOrder = new PurchaseOrder();
-        Optional<Buyer> buyer = buyerRepository.findById(dto.getIdBuyer());
-        purchaseOrder.setIdBuyer(buyer.get());
-        if (buyer.isPresent()) {
-            List<ItemOfProduct> itemOfProducts = convertItemOfProduct(dto.getItemOfProduct(), purchaseOrder);
-            purchaseOrder.setItemOfProduct(itemOfProducts);
-            return purchaseOrder;
-        }
-        throw new Exception("Erro no carrinho");
-    }
-
-
     public Optional<PurchaseOrder> findById(Long id) {
         return purchaseOrderRepository.findById(id);
     }
@@ -72,28 +59,24 @@ public class PurchaseOrderService {
         }
     }
 
-
-    public void delete(Long id) {
-        purchaseOrderRepository.deleteById(id);
-    }
-
     public List<ItemOfProduct> convertItemOfProduct(List<ItemOfProductDTO> dto, PurchaseOrder purchOrder) throws Exception {
 
         List<ItemOfProduct> listOfProducts = new ArrayList<>();
         for (ItemOfProductDTO item : dto) {
             try {
-                Optional<SalesAd> salesAd = salesAdRepository.findById(item.getSalesAd());
+                Optional<SalesAd> salesAd = salesAdRepository.findById(item.getIdSalesAd());
                 if (salesAd.isPresent()) {
                     ItemOfProduct product = new ItemOfProduct(item.getQuantity(), salesAd.get(), purchOrder);
                     listOfProducts.add(product);
                 }
 
             } catch (Exception e) {
-                throw new Exception("Erro no item do produto");
+                throw new Exception("Existe valores nulos ou vázios em itemOfProduct");
             }
         }
         return listOfProducts;
     }
+    
 
     public PriceDTO PriceLista(List<ItemOfProduct> lista) throws Exception {
         Long product = 0L;
@@ -118,5 +101,17 @@ public class PurchaseOrderService {
                 return;
             }
         }
+    }
+    
+    public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        Optional<Buyer> buyer = buyerRepository.findById(dto.getIdBuyer());
+        purchaseOrder.setIdBuyer(buyer.get());
+        if (buyer.isPresent()) {
+            List<ItemOfProduct> itemOfProducts = convertItemOfProduct(dto.getItemOfProduct(), purchaseOrder);
+            purchaseOrder.setItemOfProduct(itemOfProducts);
+            return purchaseOrder;
+        }
+        throw new Exception("Erro no carrinho");
     }
 }
