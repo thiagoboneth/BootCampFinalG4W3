@@ -35,19 +35,15 @@ public class BatchStockService {
 	public Optional<BatchStock> findById(Long id) {
 		return batchStockRepository.findById(id);
 	}
-
+	
 	public BatchStock update(BatchStockDTO dto, Long id) throws Exception {
 		Optional<BatchStock> existsBatchStok = findById(id);
 		if (existsBatchStok.isPresent()) {
 			BatchStock batchStock = convertBatchStockToObject(dto);
-			batchStock.setBatchNumber(id);
+			batchStock.setIdBatchNumber(id);
 			return batchStockRepository.saveAndFlush(batchStock);
 		}
 		throw new Exception("Id não cadastrado");
-	}
-
-	public void delete(Long batchNumber) {
-		batchStockRepository.deleteById(batchNumber);
 	}
 
 	public Optional<SalesAd> getSalesAd(BatchStockDTO dto) {
@@ -55,14 +51,16 @@ public class BatchStockService {
 		return salesAd;
 	}
 
-	public BatchStock convertBatchStockToObject(BatchStockDTO dto) {
+	public BatchStock convertBatchStockToObject(BatchStockDTO dto) throws Exception {
 		if (getSalesAd(dto).isPresent()) {
 			BatchStock batchStock = new BatchStock(dto.getCurrentTemperature(), dto.getMinimumTemperature(),
 					dto.getInitialQuantity(), dto.getCurrentQuantity(), dto.getManufacturingDate(),
 					dto.getManufacturingTime(), dto.getDueDate(), getSalesAd(dto));
 			
 			return batchStock;
-		}	
-		return null;
+		} else {
+			throw new Exception("Nao há um SalesAd cadastrado com o Id informado");
+		}
+
 	}   
 }

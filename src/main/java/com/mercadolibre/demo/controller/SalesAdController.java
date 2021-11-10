@@ -23,12 +23,8 @@ public class SalesAdController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<SalesAd> saveSalesAd(@Valid @RequestBody SalesAdDTO dto) throws Exception {
-        try {
             SalesAd salesAd = salesAdService.save(dto);
             return new ResponseEntity<>(salesAd, HttpStatus.CREATED);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
     }
 
     @GetMapping(value = "/list")
@@ -49,14 +45,11 @@ public class SalesAdController {
         }
     }
 
+    
+    // REMOVER ENDPOINT DE DELETE
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<String> deleteSalesAd(@PathVariable Long id) {
-        try {
+    public ResponseEntity<String> deleteSalesAd(@PathVariable Long id) throws Exception {
             salesAdService.delete(id);
             return new ResponseEntity<>("SalesAd successfully deleted", HttpStatus.OK);
-
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }
