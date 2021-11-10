@@ -47,10 +47,6 @@ public class DelegateService {
         }
     }
 
-    public void delete(Long id) {
-        delegateRepository.deleteById(id);
-    }
-
 	public Optional<Section> getSection(DelegateDTO dto){
 		Optional<Section> section = sectionRepository.findById(dto.getIdSection());
 		return section;
