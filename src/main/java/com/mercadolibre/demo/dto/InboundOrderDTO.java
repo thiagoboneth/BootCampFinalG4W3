@@ -2,7 +2,7 @@ package com.mercadolibre.demo.dto;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +13,9 @@ public class InboundOrderDTO {
 
     private LocalDate orderDate = LocalDate.now();
 
+	@NotNull(message = "{id.not.null}")
     private Long idBatchStock;
 
+	@NotNull(message = "{id.not.null}")
     private Long idSection;
-
 }
