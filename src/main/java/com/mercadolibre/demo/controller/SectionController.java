@@ -62,11 +62,4 @@ public class SectionController {
 		return new ResponseEntity<>(section, HttpStatus.CREATED);
 
 	}
-
-	@DeleteMapping(value = "/delete")
-	@ResponseBody
-	public ResponseEntity<String> deleteSection(@RequestParam Long id){
-		sectionService.delete(id);
-		return new ResponseEntity<>("Secao deletada com sucesso", HttpStatus.OK);
-	}
 }

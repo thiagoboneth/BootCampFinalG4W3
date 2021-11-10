@@ -129,16 +129,4 @@ class WareHouseServiceTest {
 
 		assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
 	}
-	
-	@Test
-	void deleteWareHouseWithSuccess() throws Exception {
-		List<WareHouse> list = new ArrayList<>();
-		
-		WareHouse wareHouse = new WareHouse();
-		wareHouse.setIdWareHouse(1L);
-		wareHouse.setWareHouseName("WareHouse 1");
-		list.add(wareHouse);
-
-		Mockito.verify(mock).deleteById(1L);
-	}
 }

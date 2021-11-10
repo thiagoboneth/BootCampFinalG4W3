@@ -253,25 +253,4 @@ public class SalesAdServiceTest {
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
     }
     
-    @Test
-    void deleteSalesAdtWithSuccess() {
-
-        Product product = new Product();
-        product.setId(1L);
-
-        Seller seller = new Seller();
-        seller.setIdseller(1l);
-
-        SalesAd salesAd = new SalesAd();
-        salesAd.setVolume(500.0F);
-        salesAd.setMinimumTemperature(8F);
-        salesAd.setMaximumTemperature(45.0F);
-        salesAd.setPrice(1200.0D);
-        salesAd.setId(1L);
-        salesAd.setProduct(product);
-        salesAd.setSeller(seller);
-
-        Mockito.verify(mockSalesAdRepository).deleteById(1L);
-
-    }
   }

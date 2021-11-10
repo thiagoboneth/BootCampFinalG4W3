@@ -1,13 +1,15 @@
 /*
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.SalesAdDTO;
+import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
+import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +38,7 @@ public class SectionServiceTest {
         inboundOrder.setId(1L);
 
         BatchStock batchStock = new BatchStock();
-        batchStock.setBatchNumber(1L);
+        batchStock.setIdBatchNumber(1L);
 
         SalesAd salesAd = new SalesAd();
         salesAd.setId(1L);
@@ -70,7 +72,6 @@ public class SectionServiceTest {
     }
     @Test
     void testGetListSection() {
-
         List<Section> sectionList = new ArrayList<>();
 
         WareHouse wareHouse = new WareHouse();
@@ -103,41 +104,31 @@ public class SectionServiceTest {
         assertEquals("Frutas", listaObtida.get(0).getCategory());
         assertEquals(850L, listaObtida.get(1).getCapacity());
     }
-
     @Test
-    void testUpdateSectiontNoSuccess() throws Exception {
-
+    void testGetWareHouse() {
         WareHouse wareHouse = new WareHouse();
         wareHouse.setIdWareHouse(1L);
 
-        List<Section> sectionList = new ArrayList<>();
-        Section section = new Section();
-        section.setCapacity(1350L);
-        section.setWareHouse(wareHouse);
-        section.setCategory("Frios");
-        section.setIdSection(1L);
-        sectionList.add(section);
+        InboundOrder inboundOrder = new InboundOrder();
+        inboundOrder.setId(1L);
+
+        BatchStock batchStock = new BatchStock();
+        batchStock.setIdBatchNumber(1L);
+
+        SalesAd salesAd = new SalesAd();
+        salesAd.setId(1L);
 
         SectionDTO sectionDTO = new SectionDTO();
-        sectionDTO.setCapacity(1350L);
+        sectionDTO.setCapacity(850L);
         sectionDTO.setCategory("Frutas");
         sectionDTO.setIdWareHouse(1L);
+        List<WareHouse> wareHouseList = new ArrayList<>();
 
         Mockito.when(mockWareHouseRepository.findById(1L)).thenReturn(Optional.of(wareHouse));
-        Mockito.when(mockSectionRepository.findById(1L)).thenReturn(Optional.of(section));
-        Mockito.when(mockSectionRepository.saveAndFlush(section)).thenReturn(section);
 
-        section = sectionService.convertSectionToDTO(sectionDTO);
-        section.setIdSection(1L);
-        sectionService.update(sectionDTO, 1L);
+        assertNotNull( sectionService.getWareHouse(sectionDTO));
 
-
-        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
-            sectionService.update(sectionDTO, 2L);
-        });
-
-        assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
-    }
+       }
 
     @Test
     void testUpdateSectionWithSuccess() throws Exception {
@@ -173,7 +164,41 @@ public class SectionServiceTest {
         assertEquals(1350L, section.getCapacity());
     }
     @Test
-    void findByname() {
+    void testUpdateSectiontNoSuccess() throws Exception {
+
+        WareHouse wareHouse = new WareHouse();
+        wareHouse.setIdWareHouse(1L);
+
+        List<Section> sectionList = new ArrayList<>();
+        Section section = new Section();
+        section.setCapacity(1350L);
+        section.setWareHouse(wareHouse);
+        section.setCategory("Frios");
+        section.setIdSection(1L);
+        sectionList.add(section);
+
+        SectionDTO sectionDTO = new SectionDTO();
+        sectionDTO.setCapacity(1350L);
+        sectionDTO.setCategory("Frutas");
+        sectionDTO.setIdWareHouse(1L);
+
+        Mockito.when(mockWareHouseRepository.findById(1L)).thenReturn(Optional.of(wareHouse));
+        Mockito.when(mockSectionRepository.findById(1L)).thenReturn(Optional.of(section));
+        Mockito.when(mockSectionRepository.saveAndFlush(section)).thenReturn(section);
+
+        section = sectionService.convertSectionToDTO(sectionDTO);
+        section.setIdSection(1L);
+        sectionService.update(sectionDTO, 1L);
+
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            sectionService.update(sectionDTO, 2L);
+        });
+
+        assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
+    }
+    @Test
+    void findSectionBySessao() {
 
         WareHouse wareHouse = new WareHouse();
 
@@ -209,6 +234,7 @@ public class SectionServiceTest {
 
         assertNotNull(sectionList);
     }
+
     @Test
     void findByID() {
 

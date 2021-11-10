@@ -245,36 +245,4 @@ public class DelegateServiceTest {
 		
 	}
 	
-	@Test
-	void deleteDelegateWithSuccess() {
-		
-		List<WareHouse> wareHouseList = new ArrayList<>();
-		WareHouse wareHouse = new WareHouse();
-		wareHouse.setIdWareHouse(1L);
-		wareHouse.setWareHouseName("WareHouse 1");
-		wareHouseList.add(wareHouse);
-
-		List<Section> sectionList = new ArrayList<>();
-		Section section = new Section();
-		section.setIdSection(1L);
-		section.setCapacity(200L);
-		section.setCategory("FRIOS");
-		section.setWareHouse(wareHouse);
-		sectionList.add(section);
-
-		Delegate delegate = new Delegate();
-		delegate.setIdDelegate(1L);
-		delegate.setName("Roberta");
-		delegate.setLastname("Motta");
-		delegate.setIdSection(section);
-		
-		DelegateDTO delegateDTO = new DelegateDTO();
-		delegateDTO.setName("Flávia");
-		delegateDTO.setLastname("Braganca");
-		delegateDTO.setIdSection(1L);
-		
-		delegateService.delete(1L);
-		Mockito.verify(mockDelegateRepository).deleteById(1L);
-	}
-	
 }
