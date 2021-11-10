@@ -1,9 +1,12 @@
 package com.mercadolibre.demo.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.Temporal;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.mercadolibre.demo.dto.response.DueDateDTO;
 import com.mercadolibre.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,5 +54,12 @@ public class ProductController {
 	public ResponseEntity<String> deleteProduct(@PathVariable Long id) throws Exception {
 		productService.delete(id);
 		return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/duedatelist/{numberOfDay}/{idSection}")
+	@ResponseBody
+	public ResponseEntity<List<DueDateDTO>> dueDate(@PathVariable Long numberOfDay, @PathVariable Long idSection) {
+		List<DueDateDTO> dueDate = productService.dueDate(numberOfDay,idSection);
+		return new ResponseEntity<>(dueDate, HttpStatus.OK);
 	}
 }
