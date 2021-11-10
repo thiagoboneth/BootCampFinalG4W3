@@ -1,10 +1,12 @@
 package com.mercadolibre.demo.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,19 +14,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
 @Entity
 @Table(name = "purchase_order")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PurchaseOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_purchase_order")
     private Long id;
-
 
     @Column(name = "date")
     private LocalDate date = LocalDate.now();
