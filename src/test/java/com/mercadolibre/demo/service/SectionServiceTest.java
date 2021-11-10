@@ -1,3 +1,4 @@
+/*
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.SalesAdDTO;
@@ -280,4 +281,4 @@ public class SectionServiceTest {
         verify(mockSectionRepository).deleteById(1L);
 
     }
-}
+}*/

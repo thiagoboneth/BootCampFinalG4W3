@@ -129,5 +129,4 @@ class WareHouseServiceTest {
 
 		assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
 	}
-
 }

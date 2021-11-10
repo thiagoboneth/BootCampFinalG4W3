@@ -72,7 +72,7 @@ public class SalesAdServiceTest {
     }
 
     @Test
-    void testGetSellerSuccessful() throws Exception {
+    void testGetPSellerSuccessful() throws Exception {
 
         SalesAdDTO salesAdDTO = new SalesAdDTO();
         salesAdDTO.setVolume(30.0F);
@@ -252,5 +252,5 @@ public class SalesAdServiceTest {
 
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
     }
-
+    
   }
