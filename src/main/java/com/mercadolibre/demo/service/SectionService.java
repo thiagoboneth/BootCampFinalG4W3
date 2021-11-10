@@ -3,7 +3,6 @@ package com.mercadolibre.demo.service;
 import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
-import com.mercadolibre.demo.dto.response.IdDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductListDTO;
 import com.mercadolibre.demo.model.*;
