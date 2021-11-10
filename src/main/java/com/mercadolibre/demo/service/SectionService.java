@@ -3,14 +3,17 @@ package com.mercadolibre.demo.service;
 import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
+import com.mercadolibre.demo.dto.response.IdDTO;
+import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
+import com.mercadolibre.demo.dto.response.WareHouseProductListDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 public class SectionService {
@@ -73,6 +76,45 @@ public class SectionService {
 		}
 		return sectionTypeDTOS;
 	}
+
+	public List<Long> convertInboundOrderToList(Long idProduct) throws Exception {
+		List<InboundOrder> inboundOrderList = inboundOrderRepository.buscarSessaoInboundOrder(idProduct);
+		List<Long> id = new ArrayList<>();
+		for (InboundOrder itemWareHOuse : inboundOrderList) {
+			id.add(itemWareHOuse.getSection().getWareHouse().getIdWareHouse());
+		}
+			return id;
+	}
+	public WareHouseProductItensDTO listProduct(Long idProduct) {
+/*		List<Long> idWarehouse = new ArrayList<>();
+		idWarehouse = convertInboundOrderToList(idProduct);
+		idWarehouse.addAll(convertInboundOrderToList(idProduct));*/
+
+		List<WareHouse> idWarehouse = wareHouseRepository.findAll();
+
+		//List<WareHouse> wareHouseList = inboundOrderRepository.buscarSessaoWareHouse(idProduct);
+
+
+		WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
+		List<WareHouseProductListDTO> wareHouseProductListDTO = new ArrayList<>();
+		requisiteFour.setIdProduct(idProduct);
+		for (WareHouse itemWareHOuse : idWarehouse) {
+			WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
+			List<InboundOrder> inboundOrderList = inboundOrderRepository.buscarSessaoInboundOrder(idProduct, itemWareHOuse.getIdWareHouse());
+			wareHouseProductDTO.setQuantity(0L);
+				for (InboundOrder item : inboundOrderList) {
+					if(itemWareHOuse.getIdWareHouse()!=item.getSection().getWareHouse().getIdWareHouse()){
+						break;
+					}
+					wareHouseProductDTO.setWareHouseName(item.getSection().getWareHouse().getWareHouseName());
+					wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getBatchStock().getCurrentQuantity());
+				}
+				wareHouseProductListDTO.add(wareHouseProductDTO);
+		}
+		requisiteFour.setList(wareHouseProductListDTO);
+		return requisiteFour;
+
+	}
 	
 	public Optional<Section> findById(Long id) {
 		return sectionRepository.findById(id);
@@ -102,4 +144,7 @@ public class SectionService {
 			throw new Exception("Id nao cadastrado");
 		}
 	}
+
+
+
 }
