@@ -52,7 +52,6 @@ public class ItemOfProductService {
     }
 
     public List<ItemOfProductDTO> list(Long name) {
-        List<ItemOfProductDTO> itemOfProductDTOS;
         return convertItemOfProductDTO(itemOfProductRepository.orderOfItem(name));
     }
 
