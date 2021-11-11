@@ -17,9 +17,4 @@ public interface SectionRepository extends JpaRepository<Section,Long> {
     @Query(nativeQuery = true, value = "SELECT s.* from  section s where upper(trim(s.category)) like %?1%")
     List<Section> buscarPorSessao(String name);
 
-    @Query(nativeQuery = true, value = "SELECT s.section_code, sa.price,p.name,s.category, wh.ware_house_name from sales_ad sa, batch_stock bs, inbound_order io, section s ,products p, ware_house wh where sa.idsales_ad = bs.idsales_ad AND bs.idbatch_number = io.idbatch_number AND io.section_code = s.section_code AND p.idproduct = sa.idproduct AND s.id_ware_house = wh.id_ware_house AND upper(trim(s.category)) like %?1%")
-    List<SectionCategoryDTO> listProductForCategory(String category);
-
 }
-
-//.category, iop.quantity, sa.price, wh.wareHouseName, p.name

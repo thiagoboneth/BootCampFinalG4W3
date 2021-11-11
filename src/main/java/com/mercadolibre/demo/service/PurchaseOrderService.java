@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.ItemOfProduct2DTO;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
 import com.mercadolibre.demo.dto.response.PriceDTO;
@@ -59,10 +60,10 @@ public class PurchaseOrderService {
         }
     }
 
-    public List<ItemOfProduct> convertItemOfProduct(List<ItemOfProductDTO> dto, PurchaseOrder purchOrder) throws Exception {
+    public List<ItemOfProduct> convertItemOfProduct(List<ItemOfProduct2DTO> dto, PurchaseOrder purchOrder) throws Exception {
 
         List<ItemOfProduct> listOfProducts = new ArrayList<>();
-        for (ItemOfProductDTO item : dto) {
+        for (ItemOfProduct2DTO item : dto) {
             try {
                 Optional<SalesAd> salesAd = salesAdRepository.findById(item.getIdSalesAd());
                 if (salesAd.isPresent()) {

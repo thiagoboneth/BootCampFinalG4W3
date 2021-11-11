@@ -4,6 +4,8 @@ package com.mercadolibre.demo.service;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
 import com.mercadolibre.demo.dto.response.ProductInBathDTO;
+import com.mercadolibre.demo.dto.response.ProductItenDTO;
+import com.mercadolibre.demo.dto.response.ProductItenForCarsDTO;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.InboundOrder;
 import com.mercadolibre.demo.model.ItemOfProduct;
@@ -26,6 +28,7 @@ public class ItemOfProductService {
     private PurchaseOrderRepository purchaseOrderRepository;
     private BatchStockRepository batchStockRepository;
     private InboundOrderRepository inboundOrderRepository;
+    private ItemOfProduct itemOfProduct;
     private InboundOrderService inboundOrderService;
 
     @Autowired
@@ -44,9 +47,9 @@ public class ItemOfProductService {
     }
 
     public ItemOfProduct convertItemOfProduct(ItemOfProductDTO dto) throws Exception {
-        Optional<SalesAd> salesAd = salesAdRepository.findById(dto.getSalesAd());
-        if (salesAd.isPresent()){
-             return new ItemOfProduct(dto.getQuantity(),salesAd.get());
+        Optional<SalesAd> salesAd = salesAdRepository.findById(dto.getIdSalesAd());
+        if (salesAd.isPresent()) {
+            return new ItemOfProduct(dto.getQuantity(), salesAd.get());
         }
         throw new Exception("Erro no carrinho");
     }
@@ -55,12 +58,12 @@ public class ItemOfProductService {
         return convertItemOfProductDTO(itemOfProductRepository.orderOfItem(name));
     }
 
-    public List<ItemOfProductDTO> convertItemOfProductDTO(List<ItemOfProduct> list){
+    public List<ItemOfProductDTO> convertItemOfProductDTO(List<ItemOfProduct> list) {
         List<ItemOfProductDTO> itemOfProductDTOS = new ArrayList<>();
         ItemOfProductDTO itemOfProductDTO = new ItemOfProductDTO();
-        for (ItemOfProduct item: list) {
+        for (ItemOfProduct item : list) {
             itemOfProductDTO.setQuantity(item.getQuantity());
-            itemOfProductDTO.setSalesAd(item.getSalesAd().getId());
+            itemOfProductDTO.setIdSalesAd(item.getSalesAd().getId());
             itemOfProductDTO.setNameProduct(item.getSalesAd().getProduct().getName());
             itemOfProductDTOS.add(itemOfProductDTO);
         }
@@ -69,20 +72,20 @@ public class ItemOfProductService {
 
     public void incrementQuantity(ItemOfProduct item, List<BatchStock> batchStockList) throws Exception {
         for (BatchStock batchStock : batchStockList) {
-                batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() + item.getQuantity());
-                batchStockRepository.saveAndFlush(batchStock);
-                return;
-            }
+            batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() + item.getQuantity());
+            batchStockRepository.saveAndFlush(batchStock);
+            return;
+        }
     }
 
     public List<ItemOfProduct> delete(Long id) throws Exception {
 
         List<ItemOfProduct> lista = itemOfProductRepository.orderOfItem(id);
 
-        for (ItemOfProduct item: lista){
+        for (ItemOfProduct item : lista) {
             List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
-            if(batchStockList != null){
-                incrementQuantity(item,batchStockList);
+            if (batchStockList != null) {
+                incrementQuantity(item, batchStockList);
                 item.setQuantity(0L);
                 itemOfProductRepository.saveAndFlush(item);
             }
@@ -93,7 +96,7 @@ public class ItemOfProductService {
     public List<ProductInBatchStockDTO> listProductOfBatchStock() {
         List<BatchStock> batchStockList = batchStockRepository.findAll();
         List<ProductInBatchStockDTO> productInBatchStockDTOList = new ArrayList<>();
-        for (BatchStock batchStock:batchStockList) {
+        for (BatchStock batchStock : batchStockList) {
             ProductInBatchStockDTO productInBatchStockDTO = new ProductInBatchStockDTO();
             productInBatchStockDTO.setBatchStock(batchStock.getIdBatchNumber());
             productInBatchStockDTO.setNameProduct(batchStock.getIdSalesAd().getProduct().getName());
@@ -101,12 +104,12 @@ public class ItemOfProductService {
         }
         return productInBatchStockDTOList;
     }
-    
+
     public List<ProductInBathDTO> listOrderProduct(String name) {
         List<ProductInBathDTO> lista = new ArrayList<>();
         List<InboundOrder> inboundOrderList = inboundOrderRepository.findAll();
 
-        for (InboundOrder inboundOrder1:inboundOrderList) {
+        for (InboundOrder inboundOrder1 : inboundOrderList) {
             ProductInBathDTO productInBathDTO = new ProductInBathDTO();
             productInBathDTO.setIdbatch_number(inboundOrder1.getBatchStock().getIdBatchNumber());
             productInBathDTO.setName(inboundOrder1.getBatchStock().getIdSalesAd().getProduct().getName());
@@ -116,25 +119,40 @@ public class ItemOfProductService {
             productInBathDTO.setWare_house_name(inboundOrder1.getSection().getWareHouse().getWareHouseName());
             lista.add(productInBathDTO);
         }
-        
+
         List<ProductInBathDTO> lista1 = new ArrayList<>();
 
-        if(name.equals("L") ){
+        if (name.equals("L")) {
             lista1 = lista.stream()
                     .sorted(Comparator.comparingLong(ProductInBathDTO::getIdbatch_number))
                     .collect(Collectors.toList());
-        }else
-        if(name.equals("C") ){
-           lista1 = lista.stream()
+        } else if (name.equals("C")) {
+            lista1 = lista.stream()
                     .sorted(Comparator.comparingLong(ProductInBathDTO::getCurrent_quantity))
                     .collect(Collectors.toList());
-        }else
-        if(name.equals("F")){
+        } else if (name.equals("F")) {
 
             lista1 = lista.stream()
                     .sorted(Comparator.comparing(ProductInBathDTO::getDue_date))
                     .collect(Collectors.toList());
         }
         return lista1;
+    }
+
+    public ProductItenForCarsDTO intensDoCarrinho(Long idCar) {
+        ProductItenForCarsDTO Requisito2e4 = new ProductItenForCarsDTO();
+        List<ItemOfProduct> ItemOfProduct = itemOfProductRepository.findAll();
+        List<ItemOfProduct> ItemOfProduct2  = ItemOfProduct.stream().filter(p -> p.getPurchaseOrder().getId().equals(idCar)).collect(Collectors.toList());
+         Requisito2e4.setId_purchase_order(idCar);
+        List<ProductItenDTO> lista = new ArrayList<>();
+        for (ItemOfProduct item : ItemOfProduct2) {
+            ProductItenDTO productItenDTO = new ProductItenDTO();
+            productItenDTO.setQuantity(item.getQuantity());
+            productItenDTO.setProductName(item.getSalesAd().getProduct().getName());
+            lista.add(productItenDTO);
+        }
+        Requisito2e4.setList(lista);
+
+        return Requisito2e4;
     }
 }

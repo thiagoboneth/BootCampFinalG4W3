@@ -18,6 +18,6 @@ public class PurchaseOrderDTO {
     @NotNull(message = "{id.not.null}")
     private Long idBuyer;
    
-    private List<ItemOfProductDTO> itemOfProduct;
+    private List<ItemOfProduct2DTO> itemOfProduct;
 
 }
