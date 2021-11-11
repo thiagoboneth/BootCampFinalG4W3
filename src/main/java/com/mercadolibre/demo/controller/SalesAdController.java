@@ -44,12 +44,4 @@ public class SalesAdController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
-    
-    // REMOVER ENDPOINT DE DELETE
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<String> deleteSalesAd(@PathVariable Long id) throws Exception {
-            salesAdService.delete(id);
-            return new ResponseEntity<>("SalesAd successfully deleted", HttpStatus.OK);
-    }
 }

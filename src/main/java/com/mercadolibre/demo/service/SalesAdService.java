@@ -20,7 +20,9 @@ public class SalesAdService {
     private ProductRepository productRepository;
 
     @Autowired
-    public SalesAdService(SalesAdRepository salesAdRepository, SellerRepository sellerRepository, ProductRepository productRepository) {
+    public SalesAdService(SalesAdRepository salesAdRepository,
+                          SellerRepository sellerRepository,
+                          ProductRepository productRepository) {
         this.salesAdRepository = salesAdRepository;
         this.sellerRepository = sellerRepository;
         this.productRepository = productRepository;
@@ -39,6 +41,15 @@ public class SalesAdService {
         return salesAdRepository.findById(id);
     }
 
+    public Optional<Seller> getSeller(SalesAdDTO dto) {
+        Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
+            return seller;
+    }
+    
+    public Optional<Product> getProduct(SalesAdDTO dto){
+        Optional<Product> product = productRepository.findById(dto.getIdProduct());
+        return product;
+    }
     public SalesAd update(SalesAdDTO dto, Long id) throws Exception {
         Optional<SalesAd> existSalesAd = findById(id);
         if (existSalesAd.isPresent()) {
@@ -49,30 +60,10 @@ public class SalesAdService {
             throw new Exception("Id não cadastrado");
         }
     }
-    
-    // REMOVER DELETE
-    public void delete(Long id) throws Exception {
-        Optional<SalesAd> existSalesAd = findById(id);
-        if (existSalesAd.isPresent()) {
-	        salesAdRepository.deleteById(id);
-        } else {
-        	throw new Exception("Id não cadastrado");
-        }
-    }
-
-    public Optional<Seller> getSeller(SalesAdDTO dto) {
-        Optional<Seller> seller = sellerRepository.findById(dto.getIdSeller());
-            return seller;
-    }
-    
-    public Optional<Product> getProduct(SalesAdDTO dto){
-        Optional<Product> product = productRepository.findById(dto.getIdProduct());
-        return product;
-    }
-    
     public SalesAd convertSalesAdDTO(SalesAdDTO dto) {
         if (getProduct(dto).isPresent() && getSeller(dto).isPresent()) {
-            SalesAd  salesAd = new SalesAd(dto.getVolume(), dto.getMinimumTemperature(), dto.getMaximumTemperature(), dto.getPrice(), getSeller(dto), getProduct(dto));
+            SalesAd  salesAd = new SalesAd(dto.getVolume(), dto.getMinimumTemperature(),
+                    dto.getMaximumTemperature(), dto.getPrice(), getSeller(dto), getProduct(dto));
             return salesAd;
         }
         return null;
