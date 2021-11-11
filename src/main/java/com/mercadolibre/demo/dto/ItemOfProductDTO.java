@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import com.mercadolibre.demo.model.SalesAd;
 import lombok.Setter;
 
 @Getter
@@ -13,7 +13,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ItemOfProductDTO {
 
-        private Long quantity;
-        private Long idSalesAd;
-        private String nameProduct;
+	@NotNull(message = "{quantity.not.null}")
+	private Long quantity;
+	
+	@NotNull(message = "{id.not.null}")
+	private Long idSalesAd;
+	
+	@NotBlank(message = "{name.not.blank}")
+	private String nameProduct;
 }
