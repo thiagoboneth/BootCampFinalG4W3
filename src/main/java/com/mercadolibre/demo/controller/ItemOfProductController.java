@@ -3,6 +3,7 @@ package com.mercadolibre.demo.controller;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.response.ProductInBathDTO;
 import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
+import com.mercadolibre.demo.dto.response.ProductItenForCarsDTO;
 import com.mercadolibre.demo.model.ItemOfProduct;
 import com.mercadolibre.demo.service.ItemOfProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/v1/fresh-products/itemOfProduct")
+    @RequestMapping("/api/v1/fresh-products/itemOfProduct")
 public class ItemOfProductController {
 
     @Autowired
@@ -49,6 +50,13 @@ public class ItemOfProductController {
     @ResponseBody
     public ResponseEntity<List<ProductInBathDTO>> listProduct(@PathVariable String name) {
         List<ProductInBathDTO> itemOfProducts = itemOfProductService.listOrderProduct(name);
+        return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/lisProductForCar/{idCar}")
+    @ResponseBody
+    public ResponseEntity<ProductItenForCarsDTO> listProduct(@PathVariable Long idCar) {
+        ProductItenForCarsDTO itemOfProducts = itemOfProductService.intensDoCarrinho(idCar);
         return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
     }
 

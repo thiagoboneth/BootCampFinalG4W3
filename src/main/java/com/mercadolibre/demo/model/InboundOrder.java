@@ -34,7 +34,7 @@ public class InboundOrder implements Serializable {
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate = LocalDate.now();
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "idbatch_number", nullable = false)
     private BatchStock batchStock;
 

@@ -42,15 +42,14 @@ public class SectionService {
 		return sectionRepository.findAll();
 	}
 	
-	public List<SectionCategoryDTO> ListProductForCategory(String category) {
+/*	public List<SectionCategoryDTO> ListProductForCategory(String category) {
 		return sectionRepository.listProductForCategory(category);
-	}
+	}*/
 	
 	public List<Section> buscarPorSessao(String name){
 		return sectionRepository.buscarPorSessao(name);
 	}
 
-	// Refatorar em 3 métodos e chamar os métodos em sectionTypeDTOS para ter cobertura nos testes
 	public List<SectionTypeDTO>findSectionCategories(String category){
 		List<Section>sections = buscarPorSessao(category);
 		List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();
