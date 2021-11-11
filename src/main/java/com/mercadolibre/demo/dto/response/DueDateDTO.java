@@ -13,5 +13,4 @@ public class DueDateDTO {
     String productTypeID;
     LocalDate dueDate;
     Long quantity;
-
 }

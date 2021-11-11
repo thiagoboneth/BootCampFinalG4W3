@@ -62,4 +62,11 @@ public class ProductController {
 		List<DueDateDTO> dueDate = productService.dueDate(numberOfDay,idSection);
 		return new ResponseEntity<>(dueDate, HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/duedatelist/list/{numberOfDay}/{CategoryName}/{typeOfList}")
+	@ResponseBody
+	public ResponseEntity<List<DueDateDTO>> dueDateCustom(@PathVariable Long numberOfDay, @PathVariable String CategoryName, @PathVariable String typeOfList) throws Exception {
+		List<DueDateDTO> dueDateCustom = productService.dueDateCustom(numberOfDay,CategoryName, typeOfList);
+		return new ResponseEntity<>(dueDateCustom, HttpStatus.OK);
+	}
 }
