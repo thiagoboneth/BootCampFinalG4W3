@@ -55,7 +55,7 @@ public class ItemOfProductController {
 
     @GetMapping(value = "/lisProductForCar/{idCar}")
     @ResponseBody
-    public ResponseEntity<ProductItenForCarsDTO> listProduct(@PathVariable Long idCar) {
+    public ResponseEntity<ProductItenForCarsDTO> lisProductForCar(@PathVariable Long idCar) {
         ProductItenForCarsDTO itemOfProducts = itemOfProductService.intensDoCarrinho(idCar);
         return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
     }
