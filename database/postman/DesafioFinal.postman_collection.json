@@ -20,13 +20,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\":\"Nhoque de batata com farofa\",\n    \"description\": \"200 gramas de nhoque, 100 farofa\"\n}\n\n// {\n//     \"name\":\"Marmita Fitness de filé de frango com salada de legumes\",\n//     \"description\": \"250 gramas de filé de frango, 100 gramas de salada de legumes\"\n// }\n\n// {\n//     \"name\":\"Filé de Merluza com Batata\",\n//     \"description\": \"Filé de primeira linha com batata grelhada com azeitonas\"\n// }\n\n// {\n//     \"name\":\"Carré de Cordeiro\",\n//     \"description\": \"Carré com carne macia\"\n// }\n\n\n// {\n//     \"name\":\"Sorvete Napolitano Dona Maria\",\n//     \"description\": \"Sorvete caseiro produzido com carinho\"\n// }\n\n// {\n//     \"name\":\"Acerola\",\n//     \"description\": \"Acerola rica em vitamina C\"\n// }\n\n// {\n//     \"name\":\"Tambaqui\",\n//     \"description\": \"Peixe fresco do Rio Amazonas\"\n// }\n\n// {\n//     \"name\":\"Castanha do Pará\",\n//     \"description\": \"Castanha que é do Amazonas, mas é do Pará\"\n// }\n\n// {\n//     \"name\":\"Pizza quatro queijos\",\n//     \"description\": \"Pizza de quatro queijos, com massa fina e saborosa\"\n// }\n\n// {\n//     \"name\":\"Abacate Breda\",\n//     \"description\": \"Abacate com casca verde vibrante e  sabor adocido\"\n// }\n"
+							"raw": "{\n    \"name\":\"Abacate Breda\",\n    \"description\": \"Abacate com casca verde vibrante e  sabor adocido\"\n}\n\n// {\n//     \"name\":\"Pizza quatro queijos\",\n//     \"description\": \"Pizza de quatro queijos, com massa fina e saborosa\"\n// }\n\n// {\n//     \"name\":\"Castanha do Pará\",\n//     \"description\": \"Castanha que é do Amazonas, mas é do Pará\"\n// }\n\n// {\n//     \"name\":\"Tambaqui\",\n//     \"description\": \"Peixe fresco do Rio Amazonas\"\n// }\n\n// {\n//     \"name\":\"Acerola\",\n//     \"description\": \"Acerola rica em vitamina C\"\n// }\n\n// {\n//     \"name\":\"Sorvete Napolitano Dona Maria\",\n//     \"description\": \"Sorvete caseiro produzido com carinho\"\n// }\n\n// {\n//     \"name\":\"Carré de Cordeiro\",\n//     \"description\": \"Carré com carne macia\"\n// }\n\n// {\n//     \"name\":\"Filé de Merluza com Batata\",\n//     \"description\": \"Filé de primeira linha com batata grelhada com azeitonas\"\n// }\n\n// {\n//     \"name\":\"Marmita Fitness de filé de frango com salada de legumes\",\n//     \"description\": \"250 gramas de filé de frango, 100 gramas de salada de legumes\"\n// }\n\n// {\n//     \"name\":\"Nhoque de batata com farofa\",\n//     \"description\": \"200 gramas de nhoque, 100 farofa\"\n// }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/product/save",
@@ -53,7 +53,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -87,7 +87,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/product/duedatelist/list/100/FRIOS/asc",
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/duedatelist/list/500/FRIOS/desc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -100,9 +100,9 @@
 								"product",
 								"duedatelist",
 								"list",
-								"100",
+								"500",
 								"FRIOS",
-								"asc"
+								"desc"
 							]
 						}
 					},
@@ -120,7 +120,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/product/duedatelist/100/1",
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/duedatelist/500/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -132,8 +132,8 @@
 								"fresh-products",
 								"product",
 								"duedatelist",
-								"100",
-								"1"
+								"500",
+								"2"
 							]
 						}
 					},
@@ -245,13 +245,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Yuna\",\n    \"lastname\": \"Sonjo\"\n}\n\n\n// {\n//     \"name\": \"Glória\",\n//     \"lastname\": \"Pérez\"\n// }\n\n// {\n//     \"name\": \"Jhon\",\n//     \"lastname\": \"Jon\"\n// }"
+							"raw": "{\n    \"name\": \"Patricia\",\n    \"lastname\": \"Campos\"\n}\n\n// {\n//     \"name\": \"Jhon\",\n//     \"lastname\": \"Jon\"\n// }\n\n// {\n//     \"name\": \"Glória\",\n//     \"lastname\": \"Pérez\"\n// }\n\n\n// {\n//     \"name\": \"Yuna\",\n//     \"lastname\": \"Sonjo\"\n// }\n\n\n"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/seller/save",
@@ -294,7 +294,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -440,13 +440,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Paulo\",\n    \"lastname\": \"Gustavo\"\n}\n\n// {\n//     \"name\": \"Carlota\",\n//     \"lastname\": \"Joaquina\"\n// }\n\n\n// {\n//     \"name\": \"Jose\",\n//     \"lastname\": \"Zé\"\n// }\n\n\n// {\n//     \"name\": \"Naiane\",\n//     \"lastname\": \"Ramos\"\n// }\n\n\n\n// {\n//     \"name\": \"Antonio\",\n//     \"lastname\": \"Oliveira\"\n// }\n\n\n// {\n//     \"name\": \"Anna\",\n//     \"lastname\": \"Maria III\"\n// }"
+							"raw": "{\n    \"name\": \"Anna\",\n    \"lastname\": \"Maria III\"\n}\n\n\n// {\n//     \"name\": \"Antonio\",\n//     \"lastname\": \"Oliveira\"\n// }\n\n// {\n//     \"name\": \"Naiane\",\n//     \"lastname\": \"Ramos\"\n// }\n\n\n// {\n//     \"name\": \"Jose\",\n//     \"lastname\": \"Zé\"\n// }\n\n\n// {\n//     \"name\": \"Carlota\",\n//     \"lastname\": \"Joaquina\"\n// }\n\n\n\n// {\n//     \"name\": \"Paulo\",\n//     \"lastname\": \"Gustavo\"\n// }\n\n"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/buyer/save",
@@ -492,7 +492,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -631,13 +631,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"volume\": 200.0,\n    \"minimumTemperature\": -4,\n    \"maximumTemperature\": 0,\n    \"price\": 40,\n    \"idSeller\": 1,\n    \"idProduct\": 6\n}"
+							"raw": "\n// AMBIENTE\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": 0,\n//     \"maximumTemperature\": 20,\n//     \"price\": 8,\n//     \"idSeller\": 2,\n//     \"idProduct\": 10\n// }\n\n// QUENTE\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": 20,\n//     \"maximumTemperature\": 35,\n//     \"price\": 35,\n//     \"idSeller\": 1,\n//     \"idProduct\": 9\n// }\n\n// FRIOS\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": -5,\n//     \"maximumTemperature\": 0,\n//     \"price\": 50,\n//     \"idSeller\": 3,\n//     \"idProduct\": 7\n// }\n\n\n// CONGELADOS\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": -10,\n//     \"maximumTemperature\": -1,\n//     \"price\": 15,\n//     \"idSeller\": 1,\n//     \"idProduct\": 5\n// }"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/salesad/save",
@@ -672,7 +672,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -710,13 +710,18 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
+							"mode": "raw",
+							"raw": "{\n\n    \"volume\": 1.0,\n    \"minimumTemperature\": -4.0,\n    \"maximumTemperature\": 0.0,\n    \"price\": 20.0,\n    \"idSeller\": 2,\n    \"idProduct\": 2\n}\n\n\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": 0,\n//     \"maximumTemperature\": 15,\n//     \"price\": 40,\n//     \"idSeller\": 2,\n//     \"idProduct\": 2\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/salesad/update/2",
@@ -784,13 +789,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"currentTemperature\": -2,\n    \"minimumTemperature\": -10,\n    \"initialQuantity\": 200,\n    \"currentQuantity\": 200,\n    \"idSalesAd\": 1\n}"
+							"raw": "{\n    \"currentTemperature\": 0,\n    \"minimumTemperature\": -5,\n    \"initialQuantity\": 3000,\n    \"currentQuantity\": 3000,\n    \"idSalesAd\": 10\n}\n\n\n\n\n\n// {\n//     \"currentTemperature\": 28,\n//     \"minimumTemperature\": 20,\n//     \"initialQuantity\": 450,\n//     \"currentQuantity\": 450,\n//     \"idSalesAd\": 9\n// }\n\n\n\n// {\n//     \"currentTemperature\": 0,\n//     \"minimumTemperature\": -5,\n//     \"initialQuantity\": 4000,\n//     \"currentQuantity\": 4000,\n//     \"idSalesAd\": 8\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -5,\n//     \"initialQuantity\": 400,\n//     \"currentQuantity\": 400,\n//     \"idSalesAd\": 7\n// }\n\n\n\n\n\n// {\n//     \"currentTemperature\": -5,\n//     \"minimumTemperature\": -1,\n//     \"initialQuantity\": 2000,\n//     \"currentQuantity\": 2000,\n//     \"idSalesAd\": 5\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -10,\n//     \"initialQuantity\": 200,\n//     \"currentQuantity\": 0,\n//     \"idSalesAd\": 3\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -10,\n//     \"initialQuantity\": 300,\n//     \"currentQuantity\": 0,\n//     \"idSalesAd\": 2\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -10,\n//     \"initialQuantity\": 100,\n//     \"currentQuantity\": 0,\n//     \"idSalesAd\": 1\n// }"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/save",
@@ -825,7 +830,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -858,13 +863,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"currentTemperature\": 1,\n    \"minimumTemperature\": 1,\n    \"initialQuantity\": 450,\n    \"currentQuantity\": 38,\n    \"idSalesAd\": 100\n}",
+							"raw": "{\n    \"currentTemperature\": -30,\n    \"minimumTemperature\": -1,\n    \"initialQuantity\": 2000,\n    \"currentQuantity\": 350,\n    \"idSalesAd\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -872,7 +877,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/update/1",
+							"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/update/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -884,7 +889,7 @@
 								"fresh-products",
 								"batchstock",
 								"update",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -947,13 +952,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"wareHouseName\":\"WareHouse 3\"\n}"
+							"raw": "{\n    \"wareHouseName\":\"WareHouse 5\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/save",
@@ -988,7 +993,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -1052,36 +1057,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "deleteWareHouse",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/delete/5",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"fresh-products",
-								"warehouse",
-								"delete",
-								"5"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -1100,13 +1075,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\n    \"capacity\": 8000,\n    \"category\": \"CONGELADOS\",\n    \"idWareHouse\": 3\n}"
+							"raw": " {\n    \"capacity\": 20000,\n    \"category\": \"QUENTE\",\n    \"idWareHouse\": 5\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/section/save",
@@ -1141,7 +1116,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -1184,7 +1159,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/section/listCategory/FRIOS",
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/listCategory/QUENTES",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1196,7 +1171,7 @@
 								"fresh-products",
 								"section",
 								"listCategory",
-								"FRIOS"
+								"QUENTES"
 							]
 						}
 					},
@@ -1255,7 +1230,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/section/listProduct/6",
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/listProduct/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1267,7 +1242,7 @@
 								"fresh-products",
 								"section",
 								"listProduct",
-								"6"
+								"3"
 							]
 						}
 					},
@@ -1286,7 +1261,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": " {\n    \"capacity\": 4000,\n    \"category\": \"QUENTES\",\n    \"idWareHouse\": 1\n}",
+							"raw": " {\n    \"capacity\": 4000,\n    \"category\": \"TEST\",\n    \"idWareHouse\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1294,7 +1269,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/section/update/2",
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/update/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1306,7 +1281,7 @@
 								"fresh-products",
 								"section",
 								"update",
-								"2"
+								"4"
 							]
 						}
 					},
@@ -1319,7 +1294,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzUzNjI2NzEsImV4cCI6MTYzNTQ0OTA3MX0.cALY0uKdXri93apkEq3OWvHhJ-Lbmd-cHNmiVO6DPno",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
 								"type": "text"
 							}
 						],
@@ -1335,7 +1310,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/section/delete/1",
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/delete/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1347,7 +1322,7 @@
 								"fresh-products",
 								"section",
 								"delete",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -1370,13 +1345,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
+							"mode": "raw",
+							"raw": "\n{\n    \"name\": \"Karollina\",\n    \"lastname\": \"Bekenbouer\",\n    \"idSection\": 20\n}\n\n// {\n//     \"name\": \"Katharina\",\n//     \"lastname\": \"Romanov\",\n//     \"idSection\": 1\n// }\n\n"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/delegate/save",
@@ -1408,7 +1383,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -1516,13 +1491,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"idBatchStock\": 1,\n    \"idSection\": 1\n}"
+							"raw": "{\n    \"idBatchStock\": 10,\n    \"idSection\": 19\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder/save",
@@ -1557,7 +1532,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY1Njc5MzQsImV4cCI6MTYzNjY1NDMzNH0.LXwMEldtlQR2FyealRRS7jgypE9UJ_W8PnUx-pkKz38",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
@@ -1584,7 +1559,7 @@
 					"response": []
 				},
 				{
-					"name": "updateInboundOrder - requisito 2.2",
+					"name": "updateInboundOrder - requisito 1.2",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1685,13 +1660,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"idBuyer\": 1,\n  \"itemOfProduct\": [\n    {\n      \"idSalesAd\": 1,\n      \"quantity\": 150\n    },\n    {\n      \"idSalesAd\": 1,\n      \"quantity\": 50\n    }\n  ]\n}"
+							"raw": "{\n  \"idBuyer\": 6,\n  \"itemOfProduct\": [\n    {\n      \"idSalesAd\": 9,\n      \"quantity\": 60\n    },\n    {\n      \"idSalesAd\": 10,\n      \"quantity\": 100\n    }\n  ]\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8080/api/v1/fresh-products/purchaseorder/add",
@@ -1812,7 +1787,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/lisProductForCar/1",
+							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/lisProductForCar/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1824,7 +1799,7 @@
 								"fresh-products",
 								"itemOfProduct",
 								"lisProductForCar",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -1881,7 +1856,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/listOrderProduct/",
+							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/listOrderProduct/F",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1893,7 +1868,7 @@
 								"fresh-products",
 								"itemOfProduct",
 								"listOrderProduct",
-								""
+								"F"
 							]
 						}
 					},
@@ -1916,7 +1891,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/delete/1",
+							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/delete/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1928,7 +1903,7 @@
 								"fresh-products",
 								"itemOfProduct",
 								"delete",
-								"1"
+								"3"
 							]
 						}
 					},
