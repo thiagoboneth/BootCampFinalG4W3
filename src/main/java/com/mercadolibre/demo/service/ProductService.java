@@ -72,12 +72,14 @@ public class ProductService {
 
 		for (InboundOrder itemInboundOrder : dueDateList){
 			DueDateDTO requisiteFive = new DueDateDTO();
+			if(itemInboundOrder.getSection().getIdSection().equals(idSection)){
 			requisiteFive.setBatchNumber(itemInboundOrder.getBatchStock().getIdBatchNumber());
 			requisiteFive.setProductId(itemInboundOrder.getBatchStock().getIdSalesAd().getProduct().getName());
 			requisiteFive.setProductTypeID(itemInboundOrder.getSection().getCategory());
 			requisiteFive.setDueDate(itemInboundOrder.getBatchStock().getDueDate());
 			requisiteFive.setQuantity(itemInboundOrder.getBatchStock().getCurrentQuantity());
 			dueDateDTOList.add(requisiteFive);
+			}
 		}
 		List<DueDateDTO> result = dueDateDTOList.stream().filter(d -> d.getDueDate().isAfter(daysExpire)).collect(Collectors.toList());
 
