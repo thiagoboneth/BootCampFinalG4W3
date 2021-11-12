@@ -92,6 +92,8 @@ public class ProductService {
 		List<InboundOrder> dueDateList = inboundOrderRepository.findAll();
 		List<DueDateDTO> dueDateDTOList = new ArrayList<>();
 
+		final LocalDate dataAtual = LocalDate.now();
+		LocalDate daysExpire = dataAtual.minusDays(numberOfDay);
 
 		for (InboundOrder itemInboundOrder : dueDateList){
 			DueDateDTO requisiteFive = new DueDateDTO();
@@ -106,9 +108,11 @@ public class ProductService {
 		List<DueDateDTO> filter = dueDateDTOList.stream().filter(f->f.getProductTypeID().equals(CategoryName)).collect(Collectors.toList());
 
 		if (typeOfList.equals("asc")){
-			Collections.sort(filter, Comparator.comparing(DueDateDTO::getDueDate));
+			Collections.sort(dueDateDTOList, Comparator.comparing(DueDateDTO::getDueDate));
+
 		}else if (typeOfList.equals("desc")){
 			Collections.sort(dueDateDTOList, Comparator.comparing(DueDateDTO::getDueDate));
+
 		}
 		else {
 			throw new Exception("Escreva asc para ascendente ou desc para descendente");
