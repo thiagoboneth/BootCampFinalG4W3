@@ -1,267 +1,1948 @@
 {
 	"info": {
-		"_postman_id": "dcc4588f-8703-4edb-a9ee-c7a0460456fb",
-		"name": "ProjetoFinalW3G4",
+		"_postman_id": "96af8031-fa92-4699-8f28-b2fe8a123a54",
+		"name": "Desafio Final",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "inboundOrder",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"cpf\":\"223.456.789-20\",\n    \"nome\":\"Thiago\",\n    \"sobrenome\":\"Boneth\",\n    \"dataNascimento\":\"25/10/92\",\n    \"idMedico\":1,\n    \"numeroRegistro\":\"4560\",\n    \"especialidade\":\"Animais de Fazenda\"\n}"
+			"name": "Product",
+			"item": [
+				{
+					"name": "saveProduct",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Abacate Breda\",\n    \"description\": \"Abacate com casca verde vibrante e  sabor adocido\"\n}\n\n// {\n//     \"name\":\"Pizza quatro queijos\",\n//     \"description\": \"Pizza de quatro queijos, com massa fina e saborosa\"\n// }\n\n// {\n//     \"name\":\"Castanha do Pará\",\n//     \"description\": \"Castanha que é do Amazonas, mas é do Pará\"\n// }\n\n// {\n//     \"name\":\"Tambaqui\",\n//     \"description\": \"Peixe fresco do Rio Amazonas\"\n// }\n\n// {\n//     \"name\":\"Acerola\",\n//     \"description\": \"Acerola rica em vitamina C\"\n// }\n\n// {\n//     \"name\":\"Sorvete Napolitano Dona Maria\",\n//     \"description\": \"Sorvete caseiro produzido com carinho\"\n// }\n\n// {\n//     \"name\":\"Carré de Cordeiro\",\n//     \"description\": \"Carré com carne macia\"\n// }\n\n// {\n//     \"name\":\"Filé de Merluza com Batata\",\n//     \"description\": \"Filé de primeira linha com batata grelhada com azeitonas\"\n// }\n\n// {\n//     \"name\":\"Marmita Fitness de filé de frango com salada de legumes\",\n//     \"description\": \"250 gramas de filé de frango, 100 gramas de salada de legumes\"\n// }\n\n// {\n//     \"name\":\"Nhoque de batata com farofa\",\n//     \"description\": \"200 gramas de nhoque, 100 farofa\"\n// }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"save"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/veterinario/cadastra",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"veterinario",
-						"cadastra"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "WhareHouse",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"ware_house_name\":\"WhareHouse 1\"\n}"
+				{
+					"name": "listProducts - requisito 2.1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"list"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"warehouse",
-						"save"
-					]
+				{
+					"name": "dueDate - requisito 5.2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/duedatelist/list/500/FRIOS/desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"duedatelist",
+								"list",
+								"500",
+								"FRIOS",
+								"desc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dueDateCustom - requisito 5.1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/duedatelist/500/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"duedatelist",
+								"500",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProduct",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Pizza quatro queijos\",\n    \"description\": \"Pizza de quatro queijos, com massa fina e saborosa\"\n}\n\n// {\n//     \"name\":\"Abacate Misto\",\n//     \"description\": \"Abacate com casca verde vibrante e  sabor adocido\"\n// }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/update/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Abacate Breda\",\n    \"description\": \"Abacate com casca verde vibrante e  sabor adocido\"\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/delete/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"delete",
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "Seller",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\":\"Thiago\",\n    \"lastname\":\"Boneth\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/fresh-products/seller/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
+			"item": [
+				{
+					"name": "saveSeller",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"seller",
-						"save"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Patricia\",\n    \"lastname\": \"Campos\"\n}\n\n// {\n//     \"name\": \"Jhon\",\n//     \"lastname\": \"Jon\"\n// }\n\n// {\n//     \"name\": \"Glória\",\n//     \"lastname\": \"Pérez\"\n// }\n\n\n// {\n//     \"name\": \"Yuna\",\n//     \"lastname\": \"Sonjo\"\n// }\n\n\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/seller/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"seller",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listSeller",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/seller/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"seller",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSeller",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Salvador\",\n    \"lastname\": \"Dali\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/seller/update/122",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"seller",
+								"update",
+								"122"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSeller",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzU0MzQ2NjIsImV4cCI6MTYzNTUyMTA2Mn0.rJ7avJSqRhcghDBd3fj0AA5RDNXSRccLQkV7KdDD2I4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/seller/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"seller",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "products",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            \n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/fresh-products/product/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
+			"name": "Buyer",
+			"item": [
+				{
+					"name": "saveBuyer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"product",
-						"save"
-					]
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Anna\",\n    \"lastname\": \"Maria III\"\n}\n\n\n// {\n//     \"name\": \"Antonio\",\n//     \"lastname\": \"Oliveira\"\n// }\n\n// {\n//     \"name\": \"Naiane\",\n//     \"lastname\": \"Ramos\"\n// }\n\n\n// {\n//     \"name\": \"Jose\",\n//     \"lastname\": \"Zé\"\n// }\n\n\n// {\n//     \"name\": \"Carlota\",\n//     \"lastname\": \"Joaquina\"\n// }\n\n\n\n// {\n//     \"name\": \"Paulo\",\n//     \"lastname\": \"Gustavo\"\n// }\n\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/buyer/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"buyer",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listBuyer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/buyer/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"buyer",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBuyer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Francesca\",\n    \"lastname\": \"Pasqualli\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/buyer/update/1123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"buyer",
+								"update",
+								"1123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBuyer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/buyer/delete/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"buyer",
+								"delete",
+								"4"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Section",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"capacity\":20,\n    \"wareHouse\":{\n    \"ware_house_name\":\"WhareHouse 1\"\n}\n}"
+			"name": "SalesAd",
+			"item": [
+				{
+					"name": "saveSalesAd",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n// AMBIENTE\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": 0,\n//     \"maximumTemperature\": 20,\n//     \"price\": 8,\n//     \"idSeller\": 2,\n//     \"idProduct\": 10\n// }\n\n// QUENTE\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": 20,\n//     \"maximumTemperature\": 35,\n//     \"price\": 35,\n//     \"idSeller\": 1,\n//     \"idProduct\": 9\n// }\n\n// FRIOS\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": -5,\n//     \"maximumTemperature\": 0,\n//     \"price\": 50,\n//     \"idSeller\": 3,\n//     \"idProduct\": 7\n// }\n\n\n// CONGELADOS\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": -10,\n//     \"maximumTemperature\": -1,\n//     \"price\": 15,\n//     \"idSeller\": 1,\n//     \"idProduct\": 5\n// }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/salesad/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"salesad",
+								"save"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/fresh-products/section/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"section",
-						"save"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "salesad",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n            \"volume\":35,\n            \"minimumTemperature\":0,\n            \"maximumTemperature\":10,\n            \"price\":100,\n            \"seller\":{\n               \"name\":\"Dona\",\n               \"lastname\":\"Florinda\"\n            },\n            \"product\":{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            }\n}"
+				{
+					"name": "listSalesAd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/salesad/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"salesad",
+								"list"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"batchstock",
-						"save"
-					]
+				{
+					"name": "updateSalesAd",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"volume\": 1.0,\n    \"minimumTemperature\": -4.0,\n    \"maximumTemperature\": 0.0,\n    \"price\": 20.0,\n    \"idSeller\": 2,\n    \"idProduct\": 2\n}\n\n\n// {\n//     \"volume\": 1.0,\n//     \"minimumTemperature\": 0,\n//     \"maximumTemperature\": 15,\n//     \"price\": 40,\n//     \"idSeller\": 2,\n//     \"idProduct\": 2\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/salesad/update/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"salesad",
+								"update",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSalesAd",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/salesad/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"salesad",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
 			"name": "BatchStock",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n         \"minimumTemperature\":1,\n         \"initialQuantity\":100,\n         \"currentQuantity\":25,\n         \"salesad\":{\n            \"volume\":35,\n            \"minimumTemperature\":0,\n            \"maximumTemperature\":10,\n            \"price\":100,\n            \"seller\":{\n               \"name\":\"Dona\",\n               \"lastname\":\"Florinda\"\n            },\n            \"product\":{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            }\n         }\n      \n}"
+			"item": [
+				{
+					"name": "saveBatchStock - requisito 1.1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currentTemperature\": 0,\n    \"minimumTemperature\": -5,\n    \"initialQuantity\": 3000,\n    \"currentQuantity\": 3000,\n    \"idSalesAd\": 10\n}\n\n\n\n\n\n// {\n//     \"currentTemperature\": 28,\n//     \"minimumTemperature\": 20,\n//     \"initialQuantity\": 450,\n//     \"currentQuantity\": 450,\n//     \"idSalesAd\": 9\n// }\n\n\n\n// {\n//     \"currentTemperature\": 0,\n//     \"minimumTemperature\": -5,\n//     \"initialQuantity\": 4000,\n//     \"currentQuantity\": 4000,\n//     \"idSalesAd\": 8\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -5,\n//     \"initialQuantity\": 400,\n//     \"currentQuantity\": 400,\n//     \"idSalesAd\": 7\n// }\n\n\n\n\n\n// {\n//     \"currentTemperature\": -5,\n//     \"minimumTemperature\": -1,\n//     \"initialQuantity\": 2000,\n//     \"currentQuantity\": 2000,\n//     \"idSalesAd\": 5\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -10,\n//     \"initialQuantity\": 200,\n//     \"currentQuantity\": 0,\n//     \"idSalesAd\": 3\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -10,\n//     \"initialQuantity\": 300,\n//     \"currentQuantity\": 0,\n//     \"idSalesAd\": 2\n// }\n\n// {\n//     \"currentTemperature\": -1,\n//     \"minimumTemperature\": -10,\n//     \"initialQuantity\": 100,\n//     \"currentQuantity\": 0,\n//     \"idSalesAd\": 1\n// }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"batchstock",
+								"save"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/save",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"batchstock",
-						"save"
-					]
+				{
+					"name": "listBatchStock",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currentTemperature\": 38,\n    \"minimumTemperature\": 1,\n    \"initialQuantity\": 100,\n    \"currentQuantity\": 25,\n    \"salesad\":{\n    \"volume\": 35,\n    \"minimumTemperature\": 0,\n    \"maximumTemperature\": 10,\n    \"price\": 100,\n    \"seller\": {\n        \"name\": \"Dona\",\n        \"lastname\": \"Florinda\"\n        },\n        \"product\": {\n            \"name\": \"Abacate Breda\",\n            \"description\": \"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"batchstock",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBatchStock",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currentTemperature\": -30,\n    \"minimumTemperature\": -1,\n    \"initialQuantity\": 2000,\n    \"currentQuantity\": 350,\n    \"idSalesAd\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/batchstock/update/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"batchstock",
+								"update",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBatchStock",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"delete"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "inboundOrderNew",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"orderDate\":1,\n    \"batchStock\":{\n         \"currentTemperature\":1,\n         \"minimumTemperature\":1,\n         \"initialQuantity\":100,\n         \"currentQuantity\":25,\n         \"salesad\":{\n            \"volume\":35,\n            \"minimumTemperature\":0,\n            \"maximumTemperature\":10,\n            \"price\":100,\n            \"seller\":{\n               \"name\":\"Dona\",\n               \"lastname\":\"Florinda\"\n            },\n            \"product\":{\n               \"name\":\"Abacate Breda\",\n               \"description\":\"Abacate com casca verde vibrante e sabor ligeiramente adocicado\"\n            }\n         }\n},\n\"section\":{\n    \"capacity\":20,\n    \"wareHouse\":{\n    \"ware_house_name\":\"WhareHouse 1\"\n}\n}\n}"
+			"name": "WareHouse",
+			"item": [
+				{
+					"name": "saveWareHouse",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wareHouseName\":\"WareHouse 5\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"warehouse",
+								"save"
+							]
+						}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/veterinario/cadastra",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"veterinario",
-						"cadastra"
-					]
+				{
+					"name": "listWareHouse",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Katharina\",\n    \"lastname\": \"Romanov\",\n    \"section_code\": 1\n}\n\n// {\n//     \"name\": \"Katharina\",\n//     \"lastname\": \"Romanov\",\n//     \"section_code\": 1\n// }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"warehouse",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateWareHouse",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wareHouseName\": \"WareHouse 5\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"warehouse",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Section",
+			"item": [
+				{
+					"name": "saveSection",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"capacity\": 20000,\n    \"category\": \"QUENTE\",\n    \"idWareHouse\": 5\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"section",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listSection",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"section",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listSectionCategory - requisito 2.2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/listCategory/QUENTES",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"section",
+								"listCategory",
+								"QUENTES"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listProductForCategory",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY0NjQyMDAsImV4cCI6MTYzNjU1MDYwMH0.phCAMeeH-u6t6ZAkrO36qaujJ2zRMOthGGU-rpEmsXc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/listProductsForCategory/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"section",
+								"listProductsForCategory",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listProduct - requisito 4.1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/listProduct/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"section",
+								"listProduct",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSection",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"capacity\": 4000,\n    \"category\": \"TEST\",\n    \"idWareHouse\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/update/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"section",
+								"update",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSection",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/section/delete/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"section",
+								"delete",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delegate",
+			"item": [
+				{
+					"name": "saveDelegate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n    \"name\": \"Karollina\",\n    \"lastname\": \"Bekenbouer\",\n    \"idSection\": 20\n}\n\n// {\n//     \"name\": \"Katharina\",\n//     \"lastname\": \"Romanov\",\n//     \"idSection\": 1\n// }\n\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/delegate/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"delegate",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listDelegate",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/delegate/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"delegate",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDelegate",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzUzNjI2NzEsImV4cCI6MTYzNTQ0OTA3MX0.cALY0uKdXri93apkEq3OWvHhJ-Lbmd-cHNmiVO6DPno",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Katharina\",\n    \"lastname\": \"Romanov\",\n    \"sectionCode\": 1\n}\n\n// {\n//     \"name\": \"Roberta\",\n//     \"lastname\": \"Motta\",\n//     \"sectionCode\": 1\n// }"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/delegate/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"delegate",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDelegate",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzUzNjI2NzEsImV4cCI6MTYzNTQ0OTA3MX0.cALY0uKdXri93apkEq3OWvHhJ-Lbmd-cHNmiVO6DPno",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "InboundOrder",
+			"item": [
+				{
+					"name": "saveInboundOrder - requisito 1.1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idBatchStock\": 10,\n    \"idSection\": 19\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listInboundOrder",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateInboundOrder - requisito 1.2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idBatchStock\": 1,\n    \"idSection\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteInboundOrder",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY1Njc5MzQsImV4cCI6MTYzNjY1NDMzNH0.LXwMEldtlQR2FyealRRS7jgypE9UJ_W8PnUx-pkKz38",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idproduct",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/product/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"product",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PurchaseOrder",
+			"item": [
+				{
+					"name": "addItemPurchaseOrder - requisito 2.3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY3NTA1NTcsImV4cCI6MTYzNjgzNjk1N30.6p4vypHgzIC8jopDdTlrj1U_yRW4qOZVGlmVGLMpat8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idBuyer\": 6,\n  \"itemOfProduct\": [\n    {\n      \"idSalesAd\": 9,\n      \"quantity\": 60\n    },\n    {\n      \"idSalesAd\": 10,\n      \"quantity\": 100\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/purchaseorder/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"purchaseorder",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listOfItemPurchaseOrder",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/purchaseorder/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"purchaseorder",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "savePurchaseOrder Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzU5NDUyNzQsImV4cCI6MTYzNjAzMTY3NH0.qdeF8zaKvgfWLl1qgNTEARiNLqjxnVtMtrgk7BqgF9s",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"buyer\": 1,\n    \"itemOfProduct\": [\n      { \n        \"salesAd\": 1,\n        \"quantity\": 1\n      },\n      {\n        \"salesAd\": 1,\n        \"quantity\": 1\n      }\n    ]\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/purchaseorder/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"purchaseorder",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ItemOfProduct",
+			"item": [
+				{
+					"name": "listProductForCar - requisito 2.4",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/lisProductForCar/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"itemOfProduct",
+								"lisProductForCar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listProductOfBatchStock - requisito 3.1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/listProductOfBatchStock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"itemOfProduct",
+								"listProductOfBatchStock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listProductOfBatchStock - requisito 3.2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/listOrderProduct/F",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"itemOfProduct",
+								"listOrderProduct",
+								"F"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "zerarCarrinho - requisito 2.5",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJOb3NzYSBBUFAiLCJzdWIiOiJmaWxpcGUiLCJpYXQiOjE2MzY2NjI0NDEsImV4cCI6MTYzNjc0ODg0MX0.HooZfk3XQdWAwpoSsODlZlkD5giftW15M8QN-hke_xc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/itemOfProduct/delete/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"itemOfProduct",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\":\"filipe\",\n    \"senha\":\"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
