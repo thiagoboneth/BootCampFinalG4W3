@@ -1,6 +1,5 @@
 package com.mercadolibre.demo.controller;
 
-import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
@@ -53,7 +52,7 @@ public class SectionController {
 	@ResponseBody
 	public ResponseEntity<WareHouseProductItensDTO> listProduct(@PathVariable Long id) {
 		WareHouseProductItensDTO wareHouseList = sectionService.listProduct(id);
-		return new ResponseEntity<>(wareHouseList, HttpStatus.CREATED);
+		return new ResponseEntity<>(wareHouseList, HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/update/{id}")
