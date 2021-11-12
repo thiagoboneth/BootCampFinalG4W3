@@ -79,24 +79,26 @@ public class SectionService {
 		WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
 		List<WareHouseProductListDTO> wareHouseProductListDTO = new ArrayList<>();
 		requisiteFour.setIdProduct(idProduct);
-		for (WareHouse itemWareHOuse : idWarehouse) {
+		for (WareHouse itemWareHouse : idWarehouse) {
 			WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
-			List<InboundOrder> inboundOrderList = inboundOrderRepository.buscarSessaoInboundOrder(idProduct, itemWareHOuse.getIdWareHouse());
+			List<InboundOrder> inboundOrderList = inboundOrderRepository.buscarSessaoInboundOrder(idProduct, itemWareHouse.getIdWareHouse());
 			wareHouseProductDTO.setQuantity(0L);
-				for (InboundOrder item : inboundOrderList) {
-					if(itemWareHOuse.getIdWareHouse()!=item.getSection().getWareHouse().getIdWareHouse()){
-						break;
-					}
-					wareHouseProductDTO.setWareHouseName(item.getSection().getWareHouse().getWareHouseName());
-					wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getBatchStock().getCurrentQuantity());
+
+			for (InboundOrder item : inboundOrderList) {
+				if(itemWareHouse.getIdWareHouse()!=item.getSection().getWareHouse().getIdWareHouse()){
+					break;
 				}
+				wareHouseProductDTO.setWareHouseName(item.getSection().getWareHouse().getWareHouseName());
+				wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getBatchStock().getCurrentQuantity());
+			}
+			if(wareHouseProductDTO.getQuantity() != 0L) {
 				wareHouseProductListDTO.add(wareHouseProductDTO);
+			}
 		}
 		requisiteFour.setList(wareHouseProductListDTO);
 		return requisiteFour;
 
-	}
-	public Optional<WareHouse> getWareHouse(SectionDTO dto){
+	}	public Optional<WareHouse> getWareHouse(SectionDTO dto){
 		Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
 		return wareHouse;
 	}
