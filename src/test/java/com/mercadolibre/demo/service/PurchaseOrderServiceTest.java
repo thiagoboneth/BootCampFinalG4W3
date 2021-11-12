@@ -35,7 +35,7 @@ public class PurchaseOrderServiceTest {
 
         PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
         purchaseOrderDTO.setIdBuyer(1L);
-        purchaseOrderDTO.setItemOfProduct(itemProductList);
+        //purchaseOrderDTO.setItemOfProduct(itemProductList);
 
         Mockito.when(mockBuyerRepository.findById(1L)).thenReturn(Optional.of(buyer));
         Mockito.when(mockPurchaseOrderRepository.save(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
