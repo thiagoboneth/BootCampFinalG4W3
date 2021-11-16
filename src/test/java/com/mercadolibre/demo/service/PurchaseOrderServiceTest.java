@@ -1,97 +1,118 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.ItemOfProduct2DTO;
+import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
-import com.mercadolibre.demo.model.BatchStock;
-import com.mercadolibre.demo.model.Buyer;
-import com.mercadolibre.demo.model.OrderStatus;
-import com.mercadolibre.demo.model.Product;
-import com.mercadolibre.demo.model.PurchaseOrder;
-import com.mercadolibre.demo.model.SalesAd;
+import com.mercadolibre.demo.dto.response.PriceDTO;
+import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.BatchStockRepository;
 import com.mercadolibre.demo.repository.BuyerRepository;
 import com.mercadolibre.demo.repository.PurchaseOrderRepository;
 import com.mercadolibre.demo.repository.SalesAdRepository;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class PurchaseOrderServiceTest {
+@Service
+public class PurchaseOrderService {
 
-	PurchaseOrderRepository mockPurchaseOrderRepository = Mockito.mock(PurchaseOrderRepository.class);
-	BuyerRepository mockBuyerRepository = Mockito.mock(BuyerRepository.class);
-	SalesAdRepository mockSalesAdRepository= Mockito.mock(SalesAdRepository.class);
-	BatchStockRepository mockBatchStockRepository = Mockito.mock(BatchStockRepository.class);
+    private PurchaseOrderRepository purchaseOrderRepository;
+    private BuyerRepository buyerRepository;
+    private SalesAdRepository salesAdRepository;
+    private BatchStockRepository batchStockRepository;
 
-	PurchaseOrderService purchaseOrderService = new PurchaseOrderService(
-			mockPurchaseOrderRepository, mockBuyerRepository, mockSalesAdRepository, mockBatchStockRepository);
 
-	@Test
-	void testSavePurchaseOrderWithSuccess() throws Exception {
+    @Autowired
+    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, BuyerRepository buyerRepository,
+                                SalesAdRepository salesAdRepository, BatchStockRepository batchStockRepository) {
+        this.purchaseOrderRepository = purchaseOrderRepository;
+        this.buyerRepository = buyerRepository;
+        this.salesAdRepository = salesAdRepository;
+        this.batchStockRepository = batchStockRepository;
+    }
 
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Abacaxi Havaino");
-		product.setDescription("Abacaxi improtado do Hawai, ótimo para sucos e doces");
+    public PurchaseOrder save(PurchaseOrderDTO dto) throws Exception {
+        PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
+        return purchaseOrderRepository.save(purchaseOrder);
+    }
 
-		Buyer buyer = new Buyer();
-		buyer.setIdBuyer(1L);
-		buyer.setName("Dona");
-		buyer.setLastName("Florinda");
 
-		SalesAd salesAd = new SalesAd();
-		salesAd.setId(1L);
-		salesAd.setMaximumTemperature(20F);
-		salesAd.setMinimumTemperature(0F);
-		salesAd.setPrice(45D);
-		salesAd.setProduct(product);
+    public List<PurchaseOrder> list() {
+        return purchaseOrderRepository.findAll();
+    }
 
-		BatchStock batchStock = new BatchStock();
-		batchStock.setIdBatchNumber(1L);
-		batchStock.setCurrentQuantity(1000L);
-		batchStock.setCurrentTemperature(5F);
-		batchStock.setDueDate(LocalDate.now());
-		batchStock.setInitialQuantity(1000L);
-		batchStock.setManufacturingDate(LocalDate.now());
-		batchStock.setManufacturingTime(LocalDateTime.now());
-		batchStock.setIdSalesAd(salesAd);
+    public Optional<PurchaseOrder> findById(Long id) {
+        return purchaseOrderRepository.findById(id);
+    }
 
-		List<ItemOfProduct2DTO> itemProductList = new ArrayList<>();
+    public PurchaseOrder update(PurchaseOrderDTO dto, Long id) throws Exception {
+        Optional<PurchaseOrder> existPurchaseOrder = findById(id);
+        if (existPurchaseOrder.isPresent()) {
+            PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
+            purchaseOrder.setId(id);
+            return purchaseOrderRepository.saveAndFlush(purchaseOrder);
+        } else {
+            throw new Exception("Id nao casdastrado");
+        }
+    }
 
-		PurchaseOrderDTO dto = new PurchaseOrderDTO();
-		dto.setIdBuyer(buyer.getIdBuyer());
-		dto.setItemOfProduct(itemProductList);
+    public List<ItemOfProduct> convertItemOfProduct(List<ItemOfProduct2DTO> dto, PurchaseOrder purchOrder) throws Exception {
 
-		PurchaseOrder purchaseOrder = new PurchaseOrder();
+        List<ItemOfProduct> listOfProducts = new ArrayList<>();
+        for (ItemOfProduct2DTO item : dto) {
+            try {
+                Optional<SalesAd> salesAd = salesAdRepository.findById(item.getIdSalesAd());
+                if (salesAd.isPresent()) {
+                    ItemOfProduct product = new ItemOfProduct(item.getQuantity(), salesAd.get(), purchOrder);
+                    listOfProducts.add(product);
+                }
 
-		Mockito.when(mockBuyerRepository.findById(1L)).thenReturn(Optional.of(buyer));
-		Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
-		Mockito.when(mockBatchStockRepository.findById(1L)).thenReturn(Optional.of(batchStock));
-		Mockito.when(mockPurchaseOrderRepository.save(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
+            } catch (Exception e) {
+                throw new Exception("Existe valores nulos ou vázios em itemOfProduct");
+            }
+        }
+        return listOfProducts;
+    }
+    
 
-		purchaseOrder = purchaseOrderService.convertPurchaseToDTO(dto);
-		purchaseOrder.setId(1L);
-		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
-		purchaseOrderService.save(dto);
+    public PriceDTO PriceLista(List<ItemOfProduct> lista) throws Exception {
+        Long product = 0L;
+        double valor = 0.0;
+        for (ItemOfProduct item: lista){
+            List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
+            valor += item.getSalesAd().getPrice() * item.getQuantity();
+            if(batchStockList != null){
+                DecrementQuantity(item,batchStockList);
+            }
+        }
+        PriceDTO priceDTO = new PriceDTO();
+        priceDTO.setTotalPrice(valor);
+        return priceDTO;
+    }
 
-		assertNotNull(purchaseOrder.getId());
-		assertNotNull(purchaseOrder.getIdBuyer().getIdBuyer());
-		assertNotNull(purchaseOrder.getOrderStatus());
-		assertNotNull(purchaseOrder.getItemOfProduct());
-		
-		assertEquals(1L, purchaseOrder.getId());
-		assertEquals(1L, purchaseOrder.getIdBuyer().getIdBuyer());
-		assertEquals(OrderStatus.CARRINHO, purchaseOrder.getOrderStatus());
-		assertEquals(OrderStatus.CARRINHO, purchaseOrder.getOrderStatus());
-		assertEquals(OrderStatus.CARRINHO, purchaseOrder.getOrderStatus());
-		assertEquals(itemProductList, purchaseOrder.getItemOfProduct());
-	}
+    public void DecrementQuantity(ItemOfProduct item, List<BatchStock> batchStockList) throws Exception {
+        for (BatchStock batchStock : batchStockList) {
+            if (item.getQuantity() <= batchStock.getCurrentQuantity()) {
+                batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() - item.getQuantity());
+                batchStockRepository.saveAndFlush(batchStock);
+                return;
+            }
+        }
+    }
+    
+    public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        Optional<Buyer> buyer = buyerRepository.findById(dto.getIdBuyer());
+        purchaseOrder.setIdBuyer(buyer.get());
+        if (buyer.isPresent()) {
+            List<ItemOfProduct> itemOfProducts = convertItemOfProduct(dto.getItemOfProduct(), purchaseOrder);
+            purchaseOrder.setItemOfProduct(itemOfProducts);
+            return purchaseOrder;
+        }
+        throw new Exception("Erro no carrinho");
+    }
 }

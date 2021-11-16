@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Modifying
 	@Query(value = "ALTER TABLE products AUTO_INCREMENT = 1", nativeQuery = true)
 	void resetAutoIncrement();
+
+
 }
