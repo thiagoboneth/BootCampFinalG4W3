@@ -40,14 +40,6 @@ public class SectionController {
 		return new ResponseEntity<>(sections, HttpStatus.OK);
 	}
 
-/*	@GetMapping(value = "/listProductsForCategory/{idProduct}")
-	@ResponseBody
-	public ResponseEntity<List<SectionCategoryDTO>> listProductForCategory(@Valid @PathVariable String idProduct){
-		List<SectionCategoryDTO> sectionCategoryDTO = sectionService.ListProductForCategory(idProduct);
-		return new ResponseEntity<>(sectionCategoryDTO, HttpStatus.OK);
-	}*/
-
-
 	@GetMapping(value = "/listProduct/{id}")
 	@ResponseBody
 	public ResponseEntity<WareHouseProductItensDTO> listProduct(@PathVariable Long id) {

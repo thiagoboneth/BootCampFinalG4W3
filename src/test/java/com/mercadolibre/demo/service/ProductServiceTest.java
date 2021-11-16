@@ -3,6 +3,7 @@ package com.mercadolibre.demo.service;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 import com.mercadolibre.demo.repository.InboundOrderRepository;
 import org.mockito.Mockito;
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.repository.ProductRepository;
 
 
-class ProductServiceTest {
-
-	ProductRepository mockProduct = Mockito.mock(ProductRepository.class);
-	InboundOrderRepository mockInboundOrderRepository = Mockito.mock(InboundOrderRepository.class);
-	ProductService productService = new ProductService(mockProduct, mockInboundOrderRepository);
+  class ProductServiceTest {
+  
+  ProductRepository mock = Mockito.mock(ProductRepository.class);
+	InboundOrderRepository mockInboundOrder = Mockito.mock(InboundOrderRepository.class);
+	ProductService productService = new ProductService(mock, mockInboundOrder);
 
 	@Test
 	void testSaveProductWithSuccess() {

@@ -17,4 +17,6 @@ public interface SectionRepository extends JpaRepository<Section,Long> {
     @Query(nativeQuery = true, value = "SELECT s.* from  section s where upper(trim(s.category)) like %?1%")
     List<Section> buscarPorSessao(String name);
 
+    List<Section> findByCategoryContaining(String param);
+
 }

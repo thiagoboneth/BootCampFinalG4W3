@@ -1,8 +1,6 @@
 package com.mercadolibre.demo.service;
 
-import com.mercadolibre.demo.dto.SectionCategoryDTO;
-import com.mercadolibre.demo.dto.SectionDTO;
-import com.mercadolibre.demo.dto.SectionTypeDTO;
+import com.mercadolibre.demo.dto.*;
 import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductListDTO;
 import com.mercadolibre.demo.model.*;
@@ -41,64 +39,44 @@ public class SectionService {
 	public List<Section> list() {
 		return sectionRepository.findAll();
 	}
-	
-/*	public List<SectionCategoryDTO> ListProductForCategory(String category) {
-		return sectionRepository.listProductForCategory(category);
-	}*/
-	
+
 	public List<Section> buscarPorSessao(String name){
 		return sectionRepository.buscarPorSessao(name);
 	}
 
+	/*
+	*
+	* Verificar posibilidade de refatoração do FOR*/
 	public List<SectionTypeDTO>findSectionCategories(String category){
-		List<Section>sections = buscarPorSessao(category);
+		List<Section>sections = this.sectionRepository.findByCategoryContaining(category);
 		List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();
-		Optional<InboundOrder> inboundOrder;
-		Optional<BatchStock> batchStock;
-		Optional<SalesAd> salesAd;
-		SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
-		for (Section section: sections
-				) {
-			inboundOrder = inboundOrderRepository.findById(section.getIdSection());
-			batchStock = batchStockRepository.findById(inboundOrder.get().getBatchStock().getIdBatchNumber());
-			salesAd = salesAdRepository.findById(batchStock.get().getIdSalesAd().getId());
-			sectionTypeDTO.setName(category);
-			sectionTypeDTO.setQuantity(batchStock.get().getCurrentQuantity());
-			sectionTypeDTO.setPrice(salesAd.get().getPrice());
-			sectionTypeDTO.setWareHouse(section.getWareHouse().getWareHouseName());
-			sectionTypeDTO.setNameProduct(salesAd.get().getProduct().getName());
-
-			sectionTypeDTOS.add(sectionTypeDTO);
+		for (Section section: sections) {
+			SectionTypeDTO dto = SectionTypeDTO.builder().name(section.getCategory()).wareHouse(section.getWareHouse().getWareHouseName()).build();
+			sectionTypeDTOS.add(dto);
 		}
 		return sectionTypeDTOS;
 	}
 
 	public WareHouseProductItensDTO listProduct(Long idProduct) {
-		List<WareHouse> idWarehouse = wareHouseRepository.findAll();
 
 		WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
 		List<WareHouseProductListDTO> wareHouseProductListDTO = new ArrayList<>();
 		requisiteFour.setIdProduct(idProduct);
-		for (WareHouse itemWareHouse : idWarehouse) {
 			WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
-			List<InboundOrder> inboundOrderList = inboundOrderRepository.buscarSessaoInboundOrder(idProduct, itemWareHouse.getIdWareHouse());
+			List<InboundOrderRepository.StockByWareHouse> stockByWareHouses = inboundOrderRepository.buscaCanseira(idProduct);
 			wareHouseProductDTO.setQuantity(0L);
 
-			for (InboundOrder item : inboundOrderList) {
-				if(itemWareHouse.getIdWareHouse()!=item.getSection().getWareHouse().getIdWareHouse()){
-					break;
-				}
-				wareHouseProductDTO.setWareHouseName(item.getSection().getWareHouse().getWareHouseName());
-				wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getBatchStock().getCurrentQuantity());
-			}
-			if(wareHouseProductDTO.getQuantity() != 0L) {
+			for (InboundOrderRepository.StockByWareHouse item : stockByWareHouses) {
+				wareHouseProductDTO.setWareHouseName(item.getWare_house_name());
+				wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getCurrent_quantity());
 				wareHouseProductListDTO.add(wareHouseProductDTO);
 			}
-		}
 		requisiteFour.setList(wareHouseProductListDTO);
 		return requisiteFour;
 
-	}	public Optional<WareHouse> getWareHouse(SectionDTO dto){
+	}
+
+	public Optional<WareHouse> getWareHouse(SectionDTO dto){
 		Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
 		return wareHouse;
 	}
@@ -127,7 +105,33 @@ public class SectionService {
 		if (getWareHouse(dto).isPresent()) {
 			return new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
 		} else {
-			throw new Exception("Id nao cadastrado");
+			throw new Exception("Id não cadastrado");
 		}
+	}
+
+	public Optional<Section> getSectionId (Long id) {
+		Optional<Section> section = sectionRepository.findById(id);
+		return section;
+	}
+
+	public Optional<BatchStock> getBatchStockId (Long id) {
+		Optional<BatchStock> batchStock = batchStockRepository.findById(id);
+		return batchStock;
+	}
+
+	public Optional<SalesAd> getSalesAdId (Long id) {
+		Optional<SalesAd> salesAd = salesAdRepository.findById(id);
+		return salesAd;
+	}
+
+	public SectionTypeDTO setSectionTypeDTO(String category,Long quantity, Double price, String wareHouseName, String productName){
+		SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
+		sectionTypeDTO.setName(category);
+		sectionTypeDTO.setQuantity(quantity);
+		sectionTypeDTO.setPrice(price);
+		sectionTypeDTO.setWareHouse(wareHouseName);
+		sectionTypeDTO.setNameProduct(productName);
+
+		return sectionTypeDTO;
 	}
 }
