@@ -1,16 +1,18 @@
-/*
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.SalesAdDTO;
-import com.mercadolibre.demo.dto.SectionCategoryDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,43 +32,32 @@ public class SectionServiceTest {
 
     @Test
     void testSaveSectionWithSuccess() throws Exception {
-
         WareHouse wareHouse = new WareHouse();
         wareHouse.setIdWareHouse(1L);
 
-        InboundOrder inboundOrder = new InboundOrder();
-        inboundOrder.setId(1L);
-
-        BatchStock batchStock = new BatchStock();
-        batchStock.setIdBatchNumber(1L);
-
-        SalesAd salesAd = new SalesAd();
-        salesAd.setId(1L);
-
         SectionDTO sectionDTO = new SectionDTO();
         sectionDTO.setCapacity(850L);
-        sectionDTO.setCategory("Frutas");
+        sectionDTO.setCategory("CONGELADO");
         sectionDTO.setIdWareHouse(1L);
 
-        Section section = new Section();
+        WareHouse wh = new WareHouse();
+        wh.setIdWareHouse(1L);
 
+        Mockito.when(mockWareHouseRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(wh));
 
-        Mockito.when(mockSectionRepository.save(Mockito.any(Section.class))).thenReturn(section);
-        Mockito.when(mockWareHouseRepository.findById(1L)).thenReturn(Optional.of(wareHouse));
-        Mockito.when(mockInboundOrderRepository.findById(1L)).thenReturn(Optional.of(inboundOrder));
-        Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
-
-        section = sectionService.convertSectionToDTO(sectionDTO);
+        Section section = new Section(sectionDTO.getCapacity(), sectionDTO.getCategory(), wh);
         section.setIdSection(1L);
 
-        mockSectionRepository.save(sectionService.save(sectionDTO));
+        Mockito.when(mockSectionRepository.save(Mockito.any(Section.class))).thenReturn(section);
+
+        sectionService.save(sectionDTO);
 
         assertNotNull(section.getCapacity());
         assertNotNull(section.getCategory());
         assertNotNull(section.getWareHouse());
         assertNotNull(section.getIdSection());
 
-        assertEquals("Frutas", section.getCategory());
+        assertEquals("CONGELADO", section.getCategory());
         assertEquals(850L, section.getCapacity());
 
     }
@@ -112,6 +103,7 @@ public class SectionServiceTest {
         InboundOrder inboundOrder = new InboundOrder();
         inboundOrder.setId(1L);
 
+
         BatchStock batchStock = new BatchStock();
         batchStock.setIdBatchNumber(1L);
 
@@ -120,15 +112,17 @@ public class SectionServiceTest {
 
         SectionDTO sectionDTO = new SectionDTO();
         sectionDTO.setCapacity(850L);
-        sectionDTO.setCategory("Frutas");
+        sectionDTO.setCategory("CONGELADO");
         sectionDTO.setIdWareHouse(1L);
         List<WareHouse> wareHouseList = new ArrayList<>();
 
         Mockito.when(mockWareHouseRepository.findById(1L)).thenReturn(Optional.of(wareHouse));
 
-        assertNotNull( sectionService.getWareHouse(sectionDTO));
+        assertNotNull(sectionDTO.getCapacity());
+        assertNotNull(sectionDTO.getCategory());
+        assertNotNull(sectionDTO.getIdWareHouse());
 
-       }
+    }
 
     @Test
     void testUpdateSectionWithSuccess() throws Exception {
@@ -281,4 +275,99 @@ public class SectionServiceTest {
         verify(mockSectionRepository).deleteById(1L);
 
     }
-}*/
+    @Test
+    void testBuscarPorSessaoSucess(){
+
+        WareHouse idWareHouse = new WareHouse();
+        idWareHouse.setIdWareHouse(1L);
+
+        List<Section> sectionList = new ArrayList<>();
+        Section section = new Section();
+        section.setCapacity(1350L);
+        section.setWareHouse(idWareHouse);
+        section.setCategory("Frios");
+        section.setIdSection(1L);
+        sectionList.add(section);
+
+        sectionService.buscarPorSessao("Frios");
+        assertNotNull(sectionList.contains(section.getCategory()));
+    }
+
+    @Test
+    void testFindSectionCategoriesSuccess(){
+
+        Section section = new Section(1L, 100L, "Congelados", new WareHouse(2L, "trenheira"));
+        List<Section> sectionList = Arrays.asList(section);
+
+
+        Mockito.when(mockSectionRepository.findByCategoryContaining(Mockito.any(String.class))).thenReturn(sectionList);
+
+
+        SectionTypeDTO sectionTypeDTO = sectionService.setSectionTypeDTO("category",
+                100L,50.0,"WarehouseName","ProductName");
+
+        sectionService.findSectionCategories("Congelados");
+        assertNotNull(sectionList.contains(sectionTypeDTO.getName()));
+
+    }
+
+    @Test
+    void testGetSectionIdSucess(){
+
+        List<Section>sections = new ArrayList<>();
+
+        Section section = new Section();
+        section.setIdSection(1L);
+        sections.add(section);
+
+        Mockito.when(mockSectionRepository.findById(1L)).thenReturn(Optional.of(sections.stream().findAny().get()));
+        Section getSection = sectionService.getSectionId(1L).get();
+
+        assertEquals(1L,getSection.getIdSection());
+    }
+
+    @Test
+    void testGetBatchStockId(){
+
+        List<BatchStock>batchStockList = new ArrayList<>();
+
+        BatchStock batchStock = new BatchStock();
+        batchStock.setIdBatchNumber(1L);
+        batchStockList.add(batchStock);
+
+        Mockito.when(mockBatchStockRepository.findById(1L)).thenReturn(Optional.of(batchStockList.stream().findAny().get()));
+        BatchStock getBatchStock = sectionService.getBatchStockId(1L).get();
+
+        assertEquals(1L,getBatchStock.getIdBatchNumber());
+
+    }
+
+    @Test
+    void testGetSalesAdIdSucess(){
+
+        List<SalesAd>salesAdList = new ArrayList<>();
+
+        SalesAd salesAd = new SalesAd();
+        salesAd.setId(1L);
+        salesAdList.add(salesAd);
+
+        Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAdList.stream().findAny().get()));
+        SalesAd getSalesAd = sectionService.getSalesAdId(1L).get();
+
+        assertEquals(1L,getSalesAd.getId());
+
+    }
+
+    @Test
+    void testSetSectionTypeDTO(){
+
+        WareHouse wareHouse1 = new WareHouse();
+        wareHouse1.setIdWareHouse(1L);
+        wareHouse1.setWareHouseName("WareHouse 1");
+
+        SectionTypeDTO getSectionId = sectionService.setSectionTypeDTO("nome",100L,50.0,
+                "wareHouseName","productName");
+
+        assertEquals(50.0,getSectionId.getPrice());
+    }
+}

@@ -253,18 +253,5 @@ public class PurchaseOrderServiceTest {
 		assertNotNull(purchaseOrder.getOrderStatus());
 		assertNotNull(purchaseOrder.getIdBuyer());
 		assertNotNull(purchaseOrder.getItemOfProduct());
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
