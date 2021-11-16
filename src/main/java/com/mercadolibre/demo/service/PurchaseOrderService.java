@@ -74,7 +74,7 @@ public class PurchaseOrderService {
 		for (ItemOfProduct2DTO item : dto) {
 			try {
 				if (getSalesAd(item).isPresent()) {
-					ItemOfProduct product = new ItemOfProduct(item.getQuantity(), getSalesAd(item), purchOrder);
+					ItemOfProduct product = new ItemOfProduct(item.getQuantity(), getSalesAd(item).get(), purchOrder);
 					listOfProducts.add(product);
 				}
 			} catch (Exception e) {
