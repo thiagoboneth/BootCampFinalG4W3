@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.service;
 
+import com.mercadolibre.demo.dto.ItemOfProduct2DTO;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
 import com.mercadolibre.demo.model.Buyer;
@@ -28,7 +29,7 @@ public class PurchaseOrderServiceTest {
     void testSavePurchaseOrderWithSuccess() throws Exception {
 
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-        List<ItemOfProductDTO> itemProductList = new ArrayList<>();
+        List<ItemOfProduct2DTO> itemProductList = new ArrayList<>();
 
         Buyer buyer = new Buyer();
         buyer.setIdBuyer(1L);
