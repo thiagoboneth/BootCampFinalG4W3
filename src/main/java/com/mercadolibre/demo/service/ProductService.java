@@ -105,14 +105,12 @@ public class ProductService {
 			dueDateDTOList.add(requisiteFive);
 		}
 
-		List<DueDateDTO> filter = dueDateDTOList.stream().filter(f->f.getProductTypeID().equals(CategoryName)).collect(Collectors.toList());
+		List<DueDateDTO> filter = dueDateDTOList.stream().filter(d -> d.getDueDate().isAfter(daysExpire)).collect(Collectors.toList());
 
 		if (typeOfList.equals("asc")){
-			Collections.sort(dueDateDTOList, Comparator.comparing(DueDateDTO::getDueDate));
-
+			Collections.sort(filter, Comparator.comparing(DueDateDTO::getDueDate));
 		}else if (typeOfList.equals("desc")){
-			Collections.sort(dueDateDTOList, Comparator.comparing(DueDateDTO::getDueDate));
-
+			Collections.sort(filter, (o1, o2) -> o2.getDueDate().compareTo(o1.getDueDate()));
 		}
 		else {
 			throw new Exception("Escreva asc para ascendente ou desc para descendente");
