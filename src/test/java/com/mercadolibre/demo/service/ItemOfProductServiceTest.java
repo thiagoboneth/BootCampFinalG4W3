@@ -142,5 +142,22 @@ public class ItemOfProductServiceTest {
         assertEquals(3L, itemOfProductDTOList.get(2).getIdSalesAd());
 
     }
+    @Test
+    void testIncrementQuantity() throws Exception {
+        ItemOfProduct item = new ItemOfProduct();
+        item.setQuantity(200L);
+
+        BatchStock batchStock = new BatchStock();
+        batchStock.setCurrentQuantity(5000L);
+
+        List<BatchStock> batchStockList = new ArrayList<>();
+
+        batchStockList.add(batchStock);
+
+        itemOfProductService.incrementQuantity(item,batchStockList);
+
+        assertEquals(5200L,batchStockList.get(0).getCurrentQuantity());
+
+    }
 
 }
