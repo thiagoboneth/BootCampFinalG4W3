@@ -29,8 +29,8 @@ public class PurchaseOrderServiceTest {
     void testSavePurchaseOrderWithSuccess() throws Exception {
 
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-        List<ItemOfProduct2DTO> itemProductList = new ArrayList<>();
 
+        List<ItemOfProduct2DTO> itemProductList = new ArrayList<>();
         Buyer buyer = new Buyer();
         buyer.setIdBuyer(1L);
 
