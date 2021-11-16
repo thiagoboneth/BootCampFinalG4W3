@@ -6,149 +6,151 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.mercadolibre.demo.repository.InboundOrderRepository;
 import org.mockito.Mockito;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import com.mercadolibre.demo.dto.ProductDTO;
 import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.repository.ProductRepository;
 
 
-  class ProductServiceTest {
-  
-  ProductRepository mock = Mockito.mock(ProductRepository.class);
-	InboundOrderRepository mockInboundOrder = Mockito.mock(InboundOrderRepository.class);
-	ProductService productService = new ProductService(mock, mockInboundOrder);
+class ProductServiceTest {
 
-	@Test
-	void testSaveProductWithSuccess() {
+    ProductRepository mockProduct = Mockito.mock(ProductRepository.class);
+    InboundOrderRepository mockInboundOrder = Mockito.mock(InboundOrderRepository.class);
+    ProductService productService = new ProductService(mockProduct, mockInboundOrder);
 
-		ProductDTO dto = new ProductDTO();
-		dto.setName("Abacate Breda");
-		dto.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
+    @Test
+    void testSaveProductWithSuccess() {
 
-		Product product = productService.convertProductToDTO(dto);
-		Mockito.when(mockProduct.save(Mockito.any(Product.class))).thenReturn(productService.convertProductToDTO(dto));
-		mockProduct.save(productService.save(dto));
+        ProductDTO dto = new ProductDTO();
+        dto.setName("Abacate Breda");
+        dto.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
 
-		assertEquals("Abacate Breda", product.getName());
-		assertEquals("Abacate com casca verde vibrante e  sabor adocicado", product.getDescription());
+        Product product = productService.convertProductToDTO(dto);
+        Mockito.when(mockProduct.save(Mockito.any(Product.class))).thenReturn(productService.convertProductToDTO(dto));
+        mockProduct.save(productService.save(dto));
 
-		assertNotNull(product.getName());
-		assertNotNull(product.getDescription());
-	}
+        assertEquals("Abacate Breda", product.getName());
+        assertEquals("Abacate com casca verde vibrante e  sabor adocicado", product.getDescription());
 
-	@Test
-	void testListProductWithSuccess() {
+        assertNotNull(product.getName());
+        assertNotNull(product.getDescription());
+    }
 
-		List<Product> list = new ArrayList<>();
-		Product product1 = new Product();
-		product1.setId(1L);
-		product1.setName("Laranja Lima");
-		product1.setDescription("Laranja azedinha rica em vitamina c");
-		list.add(product1);
+    @Test
+    void testListProductWithSuccess() {
 
-		Product product2 = new Product();
-		product2.setId(2L);
-		product2.setName("Abacate Breda");
-		product2.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
-		list.add(product2);
+        List<Product> list = new ArrayList<>();
+        Product product1 = new Product();
+        product1.setId(1L);
+        product1.setName("Laranja Lima");
+        product1.setDescription("Laranja azedinha rica em vitamina c");
+        list.add(product1);
 
-		Mockito.when(mockProduct.findAll()).thenReturn(list);
-		List <Product> listAll = mockProduct.findAll();
-		productService.list();
+        Product product2 = new Product();
+        product2.setId(2L);
+        product2.setName("Abacate Breda");
+        product2.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
+        list.add(product2);
 
-		assertNotNull(list);
+        Mockito.when(mockProduct.findAll()).thenReturn(list);
+        List<Product> listAll = mockProduct.findAll();
+        productService.list();
 
-		assertTrue(listAll.contains(product1));
-		assertTrue(listAll.contains(product2));
-	}
-	
-	@Test
-	void testFindById() {
-		List<Product> list = new ArrayList<>();
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Laranja Lima");
-		product.setDescription("Laranja azedinha rica em vitamina c");
+        assertNotNull(list);
 
-		list.add(product);
-		mockProduct.findAll();
-		Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
-		mockProduct.findById(1L);
+        assertTrue(listAll.contains(product1));
+        assertTrue(listAll.contains(product2));
+    }
 
-		assertEquals("Laranja Lima", product.getName());
-		assertEquals("Laranja azedinha rica em vitamina c", product.getDescription());
+    @Test
+    void testFindById() {
+        List<Product> list = new ArrayList<>();
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("Laranja Lima");
+        product.setDescription("Laranja azedinha rica em vitamina c");
 
-		assertNotNull(product.getName());
-		assertNotNull(product.getDescription());
-	}
+        list.add(product);
+        mockProduct.findAll();
+        Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
+        mockProduct.findById(1L);
 
-	@Test
-	void testUpdateProductWithSuccess() throws Exception {
-		List<Product> list = new ArrayList<>();
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Laranja Lima");
-		product.setDescription("Laranja azedinha rica em vitamina c");
-		list.add(product);
+        assertEquals("Laranja Lima", product.getName());
+        assertEquals("Laranja azedinha rica em vitamina c", product.getDescription());
 
-		ProductDTO dto = new ProductDTO();
-		dto.setName("Manga Tommy");
-		dto.setDescription("Manga resistente e com maior durabilidade");
+        assertNotNull(product.getName());
+        assertNotNull(product.getDescription());
+    }
 
-		Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
-		Mockito.when(mockProduct.saveAndFlush(product)).thenReturn(product);
+    @Test
+    void testUpdateProductWithSuccess() throws Exception {
+        List<Product> list = new ArrayList<>();
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("Laranja Lima");
+        product.setDescription("Laranja azedinha rica em vitamina c");
+        list.add(product);
 
-		product = productService.convertProductToDTO(dto);
-		product.setId(1L);
-		productService.update(dto,mockProduct.findById(1L).get().getId());
+        ProductDTO dto = new ProductDTO();
+        dto.setName("Manga Tommy");
+        dto.setDescription("Manga resistente e com maior durabilidade");
 
-		assertEquals("Manga Tommy", product.getName());
-		assertEquals("Manga resistente e com maior durabilidade", product.getDescription());
+        Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
+        Mockito.when(mockProduct.saveAndFlush(product)).thenReturn(product);
 
-		assertNotNull(product.getName());
-		assertNotNull(product.getDescription());
-	}
+        product = productService.convertProductToDTO(dto);
+        product.setId(1L);
+        productService.update(dto, mockProduct.findById(1L).get().getId());
 
-	@Test
-	void testUpdateProductNoSuccess() {
-		List<Product> list = new ArrayList<>();
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Laranja Lima");
-		product.setDescription("Laranja azedinha rica em vitamina c");
-		list.add(product);
+        assertEquals("Manga Tommy", product.getName());
+        assertEquals("Manga resistente e com maior durabilidade", product.getDescription());
 
-		ProductDTO dto = new ProductDTO();
-		dto.setName("Manga Tommy");
-		dto.setDescription("Manga resistente e com maior durabilidade");
+        assertNotNull(product.getName());
+        assertNotNull(product.getDescription());
+    }
 
-		Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
-		Mockito.when(mockProduct.saveAndFlush(product)).thenReturn(product);
+    @Test
+    void testUpdateProductNoSuccess() {
+        List<Product> list = new ArrayList<>();
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("Laranja Lima");
+        product.setDescription("Laranja azedinha rica em vitamina c");
+        list.add(product);
 
-		product = productService.convertProductToDTO(dto);
-		product.setId(1L);
+        ProductDTO dto = new ProductDTO();
+        dto.setName("Manga Tommy");
+        dto.setDescription("Manga resistente e com maior durabilidade");
 
-		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
-			productService.update(dto, 2L);
-		});
+        Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
+        Mockito.when(mockProduct.saveAndFlush(product)).thenReturn(product);
 
-		assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
-	}
+        product = productService.convertProductToDTO(dto);
+        product.setId(1L);
 
-	@Test
-	void deleteProductWithSuccess() throws Exception {
-		List<Product> list = new ArrayList<>();
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            productService.update(dto, 2L);
+        });
 
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Laranja Lima");
-		product.setDescription("Laranja azedinha rica em vitamina c");
-		list.add(product);
-		productService.delete(1L);
+        assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
+    }
 
-		Mockito.verify(mockProduct).deleteById(1L);
-	}
+    @Test
+    void deleteProductWithSuccess() throws Exception {
+        List<Product> list = new ArrayList<>();
+
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("Laranja Lima");
+        product.setDescription("Laranja azedinha rica em vitamina c");
+        list.add(product);
+        productService.delete(1L);
+
+        Mockito.verify(mockProduct).deleteById(1L);
+    }
 }
