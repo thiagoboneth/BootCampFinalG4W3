@@ -1,13 +1,11 @@
 package com.mercadolibre.demo.model;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
-import java.util.Optional;
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -20,7 +18,6 @@ import javax.persistence.*;
 public class ItemOfProduct implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera autoincrimento no banco de dados

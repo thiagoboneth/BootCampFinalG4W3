@@ -4,7 +4,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.mercadolibre.demo.repository.BatchStockRepository;
 import com.mercadolibre.demo.repository.InboundOrderRepository;
 import org.mockito.Mockito;
 import java.util.ArrayList;
@@ -16,9 +15,9 @@ import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.repository.ProductRepository;
 
 
-class ProductServiceTest {
-
-	ProductRepository mock = Mockito.mock(ProductRepository.class);
+  class ProductServiceTest {
+  
+  ProductRepository mock = Mockito.mock(ProductRepository.class);
 	InboundOrderRepository mockInboundOrder = Mockito.mock(InboundOrderRepository.class);
 	ProductService productService = new ProductService(mock, mockInboundOrder);
 
@@ -30,8 +29,8 @@ class ProductServiceTest {
 		dto.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
 
 		Product product = productService.convertProductToDTO(dto);
-		Mockito.when(mock.save(Mockito.any(Product.class))).thenReturn(productService.convertProductToDTO(dto));
-		mock.save(productService.save(dto));
+		Mockito.when(mockProduct.save(Mockito.any(Product.class))).thenReturn(productService.convertProductToDTO(dto));
+		mockProduct.save(productService.save(dto));
 
 		assertEquals("Abacate Breda", product.getName());
 		assertEquals("Abacate com casca verde vibrante e  sabor adocicado", product.getDescription());
@@ -56,8 +55,8 @@ class ProductServiceTest {
 		product2.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
 		list.add(product2);
 
-		Mockito.when(mock.findAll()).thenReturn(list);
-		List <Product> listAll = mock.findAll();
+		Mockito.when(mockProduct.findAll()).thenReturn(list);
+		List <Product> listAll = mockProduct.findAll();
 		productService.list();
 
 		assertNotNull(list);
@@ -75,9 +74,9 @@ class ProductServiceTest {
 		product.setDescription("Laranja azedinha rica em vitamina c");
 
 		list.add(product);
-		mock.findAll();
-		Mockito.when(mock.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
-		mock.findById(1L);
+		mockProduct.findAll();
+		Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
+		mockProduct.findById(1L);
 
 		assertEquals("Laranja Lima", product.getName());
 		assertEquals("Laranja azedinha rica em vitamina c", product.getDescription());
@@ -99,12 +98,12 @@ class ProductServiceTest {
 		dto.setName("Manga Tommy");
 		dto.setDescription("Manga resistente e com maior durabilidade");
 
-		Mockito.when(mock.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
-		Mockito.when(mock.saveAndFlush(product)).thenReturn(product);
+		Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
+		Mockito.when(mockProduct.saveAndFlush(product)).thenReturn(product);
 
 		product = productService.convertProductToDTO(dto);
 		product.setId(1L);
-		productService.update(dto,mock.findById(1L).get().getId());
+		productService.update(dto,mockProduct.findById(1L).get().getId());
 
 		assertEquals("Manga Tommy", product.getName());
 		assertEquals("Manga resistente e com maior durabilidade", product.getDescription());
@@ -126,8 +125,8 @@ class ProductServiceTest {
 		dto.setName("Manga Tommy");
 		dto.setDescription("Manga resistente e com maior durabilidade");
 
-		Mockito.when(mock.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
-		Mockito.when(mock.saveAndFlush(product)).thenReturn(product);
+		Mockito.when(mockProduct.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
+		Mockito.when(mockProduct.saveAndFlush(product)).thenReturn(product);
 
 		product = productService.convertProductToDTO(dto);
 		product.setId(1L);
@@ -150,6 +149,6 @@ class ProductServiceTest {
 		list.add(product);
 		productService.delete(1L);
 
-		Mockito.verify(mock).deleteById(1L);
+		Mockito.verify(mockProduct).deleteById(1L);
 	}
 }

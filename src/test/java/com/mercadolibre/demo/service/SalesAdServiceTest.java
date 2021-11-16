@@ -72,7 +72,7 @@ public class SalesAdServiceTest {
     }
 
     @Test
-    void testGetPSellerSuccessful() throws Exception {
+    void testGetSellerSuccessful() throws Exception {
 
         SalesAdDTO salesAdDTO = new SalesAdDTO();
         salesAdDTO.setVolume(30.0F);
