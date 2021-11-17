@@ -25,7 +25,7 @@ public class PurchaseOrderService {
     private SalesAdRepository salesAdRepository;
     private BatchStockRepository batchStockRepository;
 
-
+    
     @Autowired
     public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, BuyerRepository buyerRepository,
                                 SalesAdRepository salesAdRepository, BatchStockRepository batchStockRepository) {
@@ -35,6 +35,7 @@ public class PurchaseOrderService {
         this.batchStockRepository = batchStockRepository;
     }
 
+    
     public PurchaseOrder save(PurchaseOrderDTO dto) throws Exception {
         PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
         return purchaseOrderRepository.save(purchaseOrder);
