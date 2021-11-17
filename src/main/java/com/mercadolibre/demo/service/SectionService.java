@@ -40,15 +40,7 @@ public class SectionService {
 		List<SectionRepository.SectionByProducts>  sectionByProducts = sectionRepository.CategoryContaining(category);
 		List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();
 		for (SectionRepository.SectionByProducts section: sectionByProducts) {
-			SectionTypeDTO dto = SectionTypeDTO.builder()
-					.name(section.getCategory())
-					.quantity(section.getCurrent_quantity())
-					.price(section.getPrice())
-					.wareHouse(section.getWare_house_name())
-					.nameProduct(section.getName())
-					.build();
-			sectionTypeDTOS.add(dto);
-		}
+			this.setSectionTypeDTO(section.getCategory(),section.getCurrent_quantity(),section.getPrice(),section.getWare_house_name(),section.getName());}
 		return sectionTypeDTOS;
 	}
 
@@ -108,13 +100,7 @@ public class SectionService {
 	}
 
 
-/*	public List<SectionRepository.SectionByProducts> sectionByProducts (String name) {
-		List<SectionRepository.SectionByProducts>  sectionByProducts = sectionRepository.CategoryContaining(name);
-		return sectionByProducts;
-	}*/
-
-
-/*	public SectionTypeDTO setSectionTypeDTO(String category,Long quantity, Double price, String wareHouseName, String productName){
+	public SectionTypeDTO setSectionTypeDTO(String category,Long quantity, Double price, String wareHouseName, String productName){
 		SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
 		sectionTypeDTO.setName(category);
 		sectionTypeDTO.setQuantity(quantity);
@@ -123,5 +109,5 @@ public class SectionService {
 		sectionTypeDTO.setNameProduct(productName);
 
 		return sectionTypeDTO;
-	}*/
+	}
 }

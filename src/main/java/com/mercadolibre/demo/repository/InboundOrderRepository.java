@@ -21,6 +21,7 @@ public interface InboundOrderRepository extends JpaRepository<InboundOrder, Long
             " and p.idproduct = ?1 and w.id_ware_house = ?2")
     List<StockByWareHouse> buscaCanseira(Long id, Long idWhareHouse); //id = produto
 
+
     public interface StockByWareHouse{
         String getName();
         Long getCurrent_quantity();

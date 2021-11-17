@@ -17,13 +17,9 @@ public interface SectionRepository extends JpaRepository<Section,Long> {
 
 	public interface SectionByProducts {
 		String getCategory();
-
 		Long getCurrent_quantity();
-
 		Double getPrice();
-
 		String getWare_house_name();
-
 		String getName();
 	}
 }
