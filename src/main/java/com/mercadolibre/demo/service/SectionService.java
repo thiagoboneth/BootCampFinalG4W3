@@ -1,6 +1,8 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.*;
+import com.mercadolibre.demo.dto.response.SectionNativeDTO;
+import com.mercadolibre.demo.dto.response.StockByWareHouseDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductListDTO;
 import com.mercadolibre.demo.model.*;
@@ -17,8 +19,6 @@ public class SectionService {
 	private SectionRepository sectionRepository;
 	private WareHouseRepository wareHouseRepository;
 	private InboundOrderRepository inboundOrderRepository;
-	private BatchStockRepository batchStockRepository;
-	private SalesAdRepository salesAdRepository;
 
 	@Autowired
 	public SectionService(SectionRepository sectionRepository, WareHouseRepository wareHouseRepository,
@@ -27,8 +27,6 @@ public class SectionService {
 		this.sectionRepository = sectionRepository;
 		this.wareHouseRepository = wareHouseRepository;
 		this.inboundOrderRepository = inboundOrderRepository;
-		this.batchStockRepository = batchStockRepository;
-		this.salesAdRepository = salesAdRepository;
 	}
 
 	public Section save(SectionDTO dto) throws Exception {
@@ -40,37 +38,35 @@ public class SectionService {
 		return sectionRepository.findAll();
 	}
 
-	public List<Section> buscarPorSessao(String name){
-		return sectionRepository.buscarPorSessao(name);
-	}
-
-	/*
-	*
-	* Verificar posibilidade de refatoração do FOR*/
 	public List<SectionTypeDTO>findSectionCategories(String category){
-		List<Section>sections = this.sectionRepository.findByCategoryContaining(category);
+		List<StockByWareHouseDTO>  sectionByProducts = sectionRepository.categoryContaining(category);
 		List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();
-		for (Section section: sections) {
-			SectionTypeDTO dto = SectionTypeDTO.builder().name(section.getCategory()).wareHouse(section.getWareHouse().getWareHouseName()).build();
+		for (StockByWareHouseDTO section: sectionByProducts) {
+			SectionTypeDTO dto = this.setSectionTypeDTO(section.getCategoria(),section.getCurrentQuantity(),section.getPrice(),section.getWarehouseName(),section.getName());
 			sectionTypeDTOS.add(dto);
 		}
 		return sectionTypeDTOS;
 	}
 
 	public WareHouseProductItensDTO listProduct(Long idProduct) {
+		List<WareHouse> idWarehouse = wareHouseRepository.findAll();
 
 		WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
 		List<WareHouseProductListDTO> wareHouseProductListDTO = new ArrayList<>();
 		requisiteFour.setIdProduct(idProduct);
-			WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
-			List<InboundOrderRepository.StockByWareHouse> stockByWareHouses = inboundOrderRepository.buscaCanseira(idProduct);
-			wareHouseProductDTO.setQuantity(0L);
 
-			for (InboundOrderRepository.StockByWareHouse item : stockByWareHouses) {
-				wareHouseProductDTO.setWareHouseName(item.getWare_house_name());
+		for (WareHouse itemWareHOuse : idWarehouse) {
+			WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
+			List<SectionNativeDTO> stockByWareHouses = inboundOrderRepository.buscaCanseira(idProduct,itemWareHOuse.getIdWareHouse());
+			wareHouseProductDTO.setQuantity(0L);
+			for (SectionNativeDTO item : stockByWareHouses) {
+				wareHouseProductDTO.setWareHouseName(item.getNome());
 				wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getCurrent_quantity());
+			}
+			if(stockByWareHouses.size()>0) {
 				wareHouseProductListDTO.add(wareHouseProductDTO);
 			}
+		}
 		requisiteFour.setList(wareHouseProductListDTO);
 		return requisiteFour;
 
@@ -107,20 +103,6 @@ public class SectionService {
 		}
 	}
 
-	public Optional<Section> getSectionId (Long id) {
-		Optional<Section> section = sectionRepository.findById(id);
-		return section;
-	}
-
-	public Optional<BatchStock> getBatchStockId (Long id) {
-		Optional<BatchStock> batchStock = batchStockRepository.findById(id);
-		return batchStock;
-	}
-
-	public Optional<SalesAd> getSalesAdId (Long id) {
-		Optional<SalesAd> salesAd = salesAdRepository.findById(id);
-		return salesAd;
-	}
 
 	public SectionTypeDTO setSectionTypeDTO(String category,Long quantity, Double price, String wareHouseName, String productName){
 		SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
@@ -129,7 +111,6 @@ public class SectionService {
 		sectionTypeDTO.setPrice(price);
 		sectionTypeDTO.setWareHouse(wareHouseName);
 		sectionTypeDTO.setNameProduct(productName);
-
 		return sectionTypeDTO;
 	}
 }
