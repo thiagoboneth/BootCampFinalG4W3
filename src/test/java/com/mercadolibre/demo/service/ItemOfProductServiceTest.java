@@ -2,12 +2,14 @@ package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
+import com.mercadolibre.demo.dto.response.ProductInBathDTO;
 import com.mercadolibre.demo.dto.response.ProductItenForCarsDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,7 +45,7 @@ public class ItemOfProductServiceTest {
         SalesAd salesAd = new SalesAd();
         salesAd.setId(1L);
 
-        Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
+        Mockito.when(mockSalesAdRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(salesAd));
         Mockito.when(mockItemOfProductRepository.save(Mockito.any(ItemOfProduct.class))).thenReturn(itemOfProduct);
 
         itemOfProduct = itemOfProductService.convertItemOfProduct(itemOfProductDTO);
@@ -238,6 +240,63 @@ public class ItemOfProductServiceTest {
 
         assertEquals("Laranja Lima",productInBatchStockDTOList.get(0).getNameProduct());
     }
+    @Test
+    void testListOrderProduct(){
+
+        List<InboundOrder> inboundOrderList = new ArrayList<>();
+
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("Laranja Lima");
+
+        Seller seller = new Seller();
+        seller.setIdseller(1l);
+
+        SalesAd salesAd = new SalesAd();
+        salesAd.setVolume(500.0F);
+        salesAd.setProduct(product);
+        salesAd.setSeller(seller);
+
+        WareHouse wareHouse = new WareHouse();
+        wareHouse.setIdWareHouse(1L);
+        wareHouse.setWareHouseName("Whare1");
+
+        Section section = new Section();
+        section.setWareHouse(wareHouse);
+
+        BatchStock batchStock = new BatchStock();
+        batchStock.setIdBatchNumber(1L);
+        batchStock.setCurrentQuantity(500L);
+        batchStock.setIdSalesAd(salesAd);
+        batchStock.setDueDate(LocalDate.now());
+
+        InboundOrder inboundOrder = new InboundOrder();
+        inboundOrder.setId(1L);
+        inboundOrder.setBatchStock(batchStock);
+        inboundOrder.setSection(section);
+        inboundOrder.setOrderDate(LocalDate.now());
+        inboundOrderList.add(inboundOrder);
+
+        InboundOrder inboundOrder2 = new InboundOrder();
+        inboundOrder2.setId(1L);
+        inboundOrder2.setBatchStock(batchStock);
+        inboundOrder2.setSection(section);
+        inboundOrder2.setOrderDate(LocalDate.now());
+        inboundOrderList.add(inboundOrder2);
+
+        Mockito.when(mockInboundOrderRepository.findAll()).thenReturn(inboundOrderList);
+
+        itemOfProductService.listOrderProduct("C");
+        itemOfProductService.listOrderProduct("F");
+
+        List<ProductInBathDTO> listaObtida = itemOfProductService.listOrderProduct("L");
+
+
+        assertNotNull(listaObtida);
+        assertEquals("Whare1", listaObtida.get(0).getWare_house_name());
+
+        }
+
     @Test
     void testCarItems(){
 
