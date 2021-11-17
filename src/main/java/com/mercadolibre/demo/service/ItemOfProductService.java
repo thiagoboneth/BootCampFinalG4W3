@@ -79,7 +79,7 @@ public class ItemOfProductService {
         }
     }
 
-    public List<ItemOfProduct> delete(Long id) throws Exception {
+    public List<ItemOfProduct> resetCart (Long id) throws Exception {
 
         List<ItemOfProduct> lista = itemOfProductRepository.orderOfItem(id);
 
@@ -140,10 +140,11 @@ public class ItemOfProductService {
         return lista1;
     }
 
-    public ProductItenForCarsDTO intensDoCarrinho(Long idCar) {
+    public ProductItenForCarsDTO cartItems(Long idCar) {
         ProductItenForCarsDTO Requisito2e4 = new ProductItenForCarsDTO();
         List<ItemOfProduct> ItemOfProduct = itemOfProductRepository.findAll();
-        List<ItemOfProduct> ItemOfProduct2 = ItemOfProduct.stream().filter(p -> p.getPurchaseOrder().getId().equals(idCar)).collect(Collectors.toList());
+        List<ItemOfProduct> ItemOfProduct2 = ItemOfProduct.stream().filter(p ->
+                p.getPurchaseOrder().getId().equals(idCar)).collect(Collectors.toList());
         Requisito2e4.setId_purchase_order(idCar);
         List<ProductItenDTO> lista = new ArrayList<>();
         for (ItemOfProduct item : ItemOfProduct2) {
