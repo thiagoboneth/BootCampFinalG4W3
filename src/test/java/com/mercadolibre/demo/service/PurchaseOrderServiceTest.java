@@ -1,6 +1,23 @@
 package com.mercadolibre.demo.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.mercadolibre.demo.dto.ItemOfProduct2DTO;
+import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
 import com.mercadolibre.demo.model.BatchStock;
 import com.mercadolibre.demo.model.Buyer;
@@ -13,17 +30,6 @@ import com.mercadolibre.demo.repository.BatchStockRepository;
 import com.mercadolibre.demo.repository.BuyerRepository;
 import com.mercadolibre.demo.repository.PurchaseOrderRepository;
 import com.mercadolibre.demo.repository.SalesAdRepository;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class PurchaseOrderServiceTest {
 
@@ -73,14 +79,16 @@ public class PurchaseOrderServiceTest {
 
 		PurchaseOrder purchaseOrder = new PurchaseOrder();
 
-		Mockito.when(mockBuyerRepository.findById(1L)).thenReturn(Optional.of(buyer));
-		Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
-		Mockito.when(mockBatchStockRepository.findById(1L)).thenReturn(Optional.of(batchStock));
+		Mockito.when(mockBuyerRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(buyer));
+		Mockito.when(mockSalesAdRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(salesAd));
+		Mockito.when(mockBatchStockRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(batchStock));
 		Mockito.when(mockPurchaseOrderRepository.save(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
 
 		purchaseOrder = purchaseOrderService.convertPurchaseToDTO(dto);
 		purchaseOrder.setId(1L);
 		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
+		purchaseOrderService.convertItemOfProduct(itemProductList, purchaseOrder);
+
 		purchaseOrderService.save(dto);
 
 		assertNotNull(purchaseOrder.getId());
@@ -96,11 +104,11 @@ public class PurchaseOrderServiceTest {
 
 	@Test
 	void testGetSalesAdWithSuccess() {
-		
+
 		ItemOfProduct2DTO itemOfProduct2DTO = new ItemOfProduct2DTO();
 		itemOfProduct2DTO.setIdSalesAd(1L);
 		itemOfProduct2DTO.setQuantity(1000L);
-						
+
 		Product product = new Product();
 		product.setId(1L);
 		product.setName("Sorvete de Cocô");
@@ -112,7 +120,7 @@ public class PurchaseOrderServiceTest {
 		buyer.setName("Dona");
 		buyer.setLastName("Florinda");
 		buyerList.add(buyer);
-		
+
 		List<SalesAd> salesAdList = new ArrayList<>();
 		SalesAd salesAd = new SalesAd();
 		salesAd.setId(1L);
@@ -121,34 +129,34 @@ public class PurchaseOrderServiceTest {
 		salesAd.setPrice(45D);
 		salesAd.setProduct(product);
 		salesAdList.add(salesAd);
-		
+
 		PurchaseOrder purchaseOrder = new PurchaseOrder();
 		purchaseOrder.setId(1L);
 		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
 		purchaseOrder.setDate(LocalDate.now());;
 		purchaseOrder.setIdBuyer(buyer);
-		
-		Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAdList.stream().findAny().get()));
+
+		Mockito.when(mockSalesAdRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(salesAdList.stream().findAny().get()));
 		SalesAd getSalesAd = purchaseOrderService.getSalesAd(itemOfProduct2DTO).get();
-		
+
 		assertEquals(1L, getSalesAd.getId());
 		assertEquals(20F, getSalesAd.getMaximumTemperature());
 		assertEquals(0F, getSalesAd.getMinimumTemperature());
 		assertEquals(45D, getSalesAd.getPrice());
 		assertEquals(product, getSalesAd.getProduct());
-		
+
 		assertNotNull(getSalesAd.getId());
 		assertNotNull(getSalesAd.getMaximumTemperature());
 		assertNotNull(getSalesAd.getMinimumTemperature());
 		assertNotNull(getSalesAd.getPrice());
 		assertNotNull(getSalesAd.getProduct());
 	}
-	
+
 	@Test
 	void testGetBuyerWithSuccess() {
-		
+
 		List<ItemOfProduct2DTO> itemProductList = new ArrayList<>();
-		
+
 		PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
 		purchaseOrderDTO.setIdBuyer(1L);
 		purchaseOrderDTO.setItemOfProduct(itemProductList);
@@ -159,37 +167,160 @@ public class PurchaseOrderServiceTest {
 		buyer.setName("Ayrton");
 		buyer.setLastName("Senna");
 		buyerList.add(buyer);
-		
+
 		PurchaseOrder purchaseOrder = new PurchaseOrder();
 		purchaseOrder.setId(1L);
 		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
 		purchaseOrder.setDate(LocalDate.now());;
 		purchaseOrder.setIdBuyer(buyer);
-		
+
 		Mockito.when(mockBuyerRepository.findById(1L)).thenReturn(Optional.of(buyerList.stream().findAny().get()));
 		Buyer getBuyer = purchaseOrderService.getBuyer(purchaseOrderDTO).get();
-		
+
 		assertEquals(1L, getBuyer.getIdBuyer());
 		assertEquals("Ayrton", getBuyer.getName());
 		assertEquals("Senna", getBuyer.getLastName());
-		
+
 		assertNotNull(getBuyer.getIdBuyer());
 		assertNotNull(getBuyer.getName());
 		assertNotNull(getBuyer.getLastName());
 	}
+
+	@Test
+	void testConvertItemOfProductNoSuccess() {
+
+		Buyer buyer = new Buyer();
+		buyer.setIdBuyer(1L);
+		buyer.setName("Ayrton");
+		buyer.setLastName("Senna");
+
+		PurchaseOrder purchaseOrder = new PurchaseOrder();
+		purchaseOrder.setId(1L);
+		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
+		purchaseOrder.setDate(LocalDate.now());;
+		purchaseOrder.setIdBuyer(buyer);
+
+
+		List<ItemOfProduct2DTO> list = new ArrayList<>();
+		ItemOfProduct2DTO itemOfProduct2DTO = new ItemOfProduct2DTO();
+		itemOfProduct2DTO.setIdSalesAd(null);
+		itemOfProduct2DTO.setQuantity(null);
+		list.add(itemOfProduct2DTO);
+
+		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+			purchaseOrderService.convertItemOfProduct(list, purchaseOrder);
+
+		});
+
+		assertThat(exceptionThatWasThrown.getMessage(), startsWith("Existe"));
+
+		assertTrue(exceptionThatWasThrown.getMessage(), true);
+	}
+
+	@Test
+	void testConvertPurchaseToDTONoSuccess() {
+
+		Product product = new Product();
+		product.setId(1L);
+		product.setName("Melancia Híbrida Combat");
+		product.setDescription("Melancia redonda, de boa textura, muito firme e ótima para producao de sucos");
+
+		Buyer buyer = new Buyer();
+		buyer.setIdBuyer(1L);
+		buyer.setName("Ayrton");
+		buyer.setLastName("Senna");
+
+		SalesAd salesAd = new SalesAd();
+		salesAd.setId(1L);
+		salesAd.setMaximumTemperature(20F);
+		salesAd.setMinimumTemperature(0F);
+		salesAd.setPrice(45D);
+		salesAd.setProduct(product);
+
+		ItemOfProduct2DTO itemOfProduct2DTO = new ItemOfProduct2DTO();
+		itemOfProduct2DTO.setIdSalesAd(salesAd.getId());
+		itemOfProduct2DTO.setQuantity(1000L);
+
+		PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
+		purchaseOrderDTO.setIdBuyer(buyer.getIdBuyer());
+		purchaseOrderDTO.setItemOfProduct(null);
+
+
+		ItemOfProductDTO itemOfProductDTO = new ItemOfProductDTO();
+		itemOfProductDTO.setIdSalesAd(salesAd.getId());
+		itemOfProductDTO.setQuantity(1000L);
+
+		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+			purchaseOrderService.convertPurchaseToDTO(purchaseOrderDTO);
+
+		});
+		
+		assertTrue(exceptionThatWasThrown.getMessage(), true);
+	}
 	
 	@Test
+	void testConvertItemOfProductWithSuccess() throws Exception {
+
+		Buyer buyer = new Buyer();
+		buyer.setIdBuyer(1L);
+		buyer.setName("Ayrton");
+		buyer.setLastName("Senna");
+
+		Product product = new Product();
+		product.setId(1L);
+		product.setName("Contra filé");
+		product.setDescription("Carne mácia");
+
+		List<SalesAd> salesAdList = new ArrayList<>();
+		SalesAd salesAd = new SalesAd();
+		salesAd.setId(1L);
+		salesAd.setMaximumTemperature(20F);
+		salesAd.setMinimumTemperature(0F);
+		salesAd.setPrice(45D);
+		salesAd.setProduct(product);
+		salesAdList.add(salesAd);
+
+		List<ItemOfProduct> itemProductList = new ArrayList<>();
+
+		PurchaseOrder purchaseOrder = new PurchaseOrder();
+		purchaseOrder.setId(1L);
+		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
+		purchaseOrder.setDate(LocalDate.now());;
+		purchaseOrder.setIdBuyer(buyer);
+		purchaseOrder.setItemOfProduct(itemProductList);
+
+		ItemOfProduct itemOfProduct = new ItemOfProduct();
+		itemOfProduct.setId(1L);
+		itemOfProduct.setQuantity(3000L);
+		itemOfProduct.setPurchaseOrder(purchaseOrder);
+		itemOfProduct.setSalesAd(salesAd);
+		itemProductList.add(itemOfProduct);
+
+		List<ItemOfProduct2DTO> listDto = new ArrayList<>();
+		ItemOfProduct2DTO itemOfProduct2DTO = new ItemOfProduct2DTO();
+		itemOfProduct2DTO.setIdSalesAd(salesAd.getId());
+		itemOfProduct2DTO.setQuantity(3000L);
+		listDto.add(itemOfProduct2DTO);
+
+		Mockito.when(mockSalesAdRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(salesAd));
+		Mockito.when(mockPurchaseOrderRepository.save(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
+		purchaseOrderService.convertItemOfProduct(listDto, purchaseOrder);
+
+		assertNotNull(itemOfProduct2DTO);
+	}
+
+	@Test
 	void testListPurchaseOrder() {
-		
+
 		List<Buyer> buyerList = new ArrayList<>();
 		Buyer buyer = new Buyer();
 		buyer.setIdBuyer(1L);
 		buyer.setName("Rubens");
 		buyer.setLastName("Barichello");
 		buyerList.add(buyer);
-		
+
 		List<ItemOfProduct> itemProductList = new ArrayList<>();
-		
+
 		List<PurchaseOrder> purchaseList = new ArrayList<>();
 		PurchaseOrder purchaseOrder = new PurchaseOrder();
 		purchaseOrder.setId(1L);
@@ -198,60 +329,219 @@ public class PurchaseOrderServiceTest {
 		purchaseOrder.setIdBuyer(buyer);
 		purchaseOrder.setItemOfProduct(itemProductList);
 		purchaseList.add(purchaseOrder);
-		
+
 		Mockito.when(mockPurchaseOrderRepository.findAll()).thenReturn(purchaseList);
 		purchaseOrderService.list();
-		
+
 		assertEquals(1L, purchaseOrder.getId());
 		assertEquals(OrderStatus.CARRINHO, purchaseOrder.getOrderStatus());
 		assertEquals(itemProductList, purchaseOrder.getItemOfProduct());
-		
+
 		assertNotNull(purchaseOrder.getId());
 		assertNotNull(purchaseOrder.getDate());
 		assertNotNull(purchaseOrder.getOrderStatus());
 		assertNotNull(purchaseOrder.getIdBuyer());
 		assertNotNull(purchaseOrder.getItemOfProduct());
 	}
-	
+
 	@Test
 	void testUpdatePurchaseOrderWithSuccess() throws Exception {
-		
+
 		List<Buyer> buyerList = new ArrayList<>();
 		Buyer buyer = new Buyer();
 		buyer.setIdBuyer(1L);
 		buyer.setName("Fernanda");
-		buyer.setLastName("Pereira");
+		buyer.setLastName("Ferreira");
 		buyerList.add(buyer);
-		
+
 		List<ItemOfProduct> itemProductList = new ArrayList<>();
 		List<ItemOfProduct2DTO> itemProductListDTO = new ArrayList<>();
-		
+
 		PurchaseOrder purchaseOrder = new PurchaseOrder();
 		purchaseOrder.setId(1L);
 		purchaseOrder.setDate(LocalDate.now());
 		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
 		purchaseOrder.setIdBuyer(buyer);
 		purchaseOrder.setItemOfProduct(itemProductList);
-		
+
 		PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
 		purchaseOrderDTO.setIdBuyer(buyer.getIdBuyer());
-		purchaseOrderDTO.setItemOfProduct(itemProductListDTO);
-		
-		Mockito.when(mockBuyerRepository.findById(1L)).thenReturn(Optional.of(buyer));
-		Mockito.when(mockPurchaseOrderRepository.findById(1L)).thenReturn(Optional.of(purchaseOrder));
+		purchaseOrderDTO.setItemOfProduct(itemProductListDTO); 
+
+		Mockito.when(mockBuyerRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(buyer));
+		Mockito.when(mockPurchaseOrderRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(purchaseOrder));
 		Mockito.when(mockPurchaseOrderRepository.saveAndFlush(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
-		
+
 		purchaseOrderService.update(purchaseOrderDTO, purchaseOrder.getId());
 		purchaseOrder.setId(1L);
-		
+
 		assertEquals(1L, purchaseOrder.getId());
 		assertEquals(OrderStatus.CARRINHO, purchaseOrder.getOrderStatus());
 		assertEquals(itemProductList, purchaseOrder.getItemOfProduct());
-		
+
 		assertNotNull(purchaseOrder.getId());
 		assertNotNull(purchaseOrder.getDate());
 		assertNotNull(purchaseOrder.getOrderStatus());
 		assertNotNull(purchaseOrder.getIdBuyer());
 		assertNotNull(purchaseOrder.getItemOfProduct());
-	}	
+	}
+
+	@Test
+	void testUpdatePurchaseOrderNoSuccess() throws Exception {
+
+		List<Buyer> buyerList = new ArrayList<>();
+		Buyer buyer = new Buyer();
+		buyer.setIdBuyer(1L);
+		buyer.setName("Fernanda");
+		buyer.setLastName("Ferreira");
+		buyerList.add(buyer);
+
+		List<ItemOfProduct> itemProductList = new ArrayList<>();
+		List<ItemOfProduct2DTO> itemProductListDTO = new ArrayList<>();
+
+		PurchaseOrder purchaseOrder = new PurchaseOrder();
+		purchaseOrder.setId(1L);
+		purchaseOrder.setDate(LocalDate.now());
+		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
+		purchaseOrder.setIdBuyer(buyer);
+		purchaseOrder.setItemOfProduct(itemProductList);
+
+		PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
+		purchaseOrderDTO.setIdBuyer(buyer.getIdBuyer());
+		purchaseOrderDTO.setItemOfProduct(itemProductListDTO);
+
+		Mockito.when(mockBuyerRepository.findById(1L)).thenReturn(Optional.of(buyer));
+		Mockito.when(mockPurchaseOrderRepository.findById(1L)).thenReturn(Optional.of(purchaseOrder));
+		Mockito.when(mockPurchaseOrderRepository.saveAndFlush(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
+
+		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+			purchaseOrderService.update(purchaseOrderDTO, 2L);
+
+		});
+
+		assertThat(exceptionThatWasThrown.getMessage(), startsWith("Id"));
+
+		assertTrue(exceptionThatWasThrown.getMessage(), true);
+
+		assertEquals("Id não cadastrado",exceptionThatWasThrown.getMessage());	
+	}
+
+	@Test
+	void testPriceList() throws Exception {
+
+		List<Product> productList = new ArrayList<>();
+		Product product = new Product();
+		product.setId(1L);
+		product.setName("Sorvete de Cocô");
+		product.setDescription("Sorvete produzido com Cocô do interior");
+		productList.add(product);
+
+		List<Buyer> buyerList = new ArrayList<>();
+		Buyer buyer = new Buyer();
+		buyer.setIdBuyer(1L);
+		buyer.setName("Dona");
+		buyer.setLastName("Florinda");
+		buyerList.add(buyer);
+
+		List<SalesAd> salesAdList = new ArrayList<>();
+		SalesAd salesAd = new SalesAd();
+		salesAd.setId(1L);
+		salesAd.setMaximumTemperature(20F);
+		salesAd.setMinimumTemperature(0F);
+		salesAd.setPrice(45D);
+		salesAd.setProduct(product);
+		salesAdList.add(salesAd);
+
+		List<ItemOfProduct> itemProductList = new ArrayList<>();
+
+		PurchaseOrder purchaseOrder = new PurchaseOrder();
+		purchaseOrder.setId(1L);
+		purchaseOrder.setDate(LocalDate.now());
+		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
+		purchaseOrder.setIdBuyer(buyer);
+		purchaseOrder.setItemOfProduct(itemProductList);
+
+		ItemOfProduct itemOfProduct = new ItemOfProduct();
+		itemOfProduct.setId(1L);
+		itemOfProduct.setQuantity(100L);
+		itemOfProduct.setSalesAd(salesAd);
+		itemOfProduct.setPurchaseOrder(purchaseOrder);
+		itemProductList.add(itemOfProduct);
+
+		List<BatchStock> batchStockList = new ArrayList<>();
+		BatchStock batchStock = new BatchStock();
+		batchStock.setIdBatchNumber(1L);
+		batchStock.setCurrentQuantity(1000L);
+		batchStock.setCurrentTemperature(5F);
+		batchStock.setDueDate(LocalDate.now());
+		batchStock.setInitialQuantity(1000L);
+		batchStock.setManufacturingDate(LocalDate.now());
+		batchStock.setManufacturingTime(LocalDateTime.now());
+		batchStock.setIdSalesAd(salesAd);
+		batchStockList.add(batchStock);
+
+		Mockito.when(mockBatchStockRepository.batchStockList(salesAd.getId())).thenReturn(batchStockList);
+		purchaseOrderService.priceList(itemProductList);
+
+	}
+
+	@Test
+	void testDecrementQuantity() throws Exception {
+
+		List<Product> productList = new ArrayList<>();
+		Product product = new Product();
+		product.setId(1L);
+		product.setName("Sorvete de Cocô");
+		product.setDescription("Sorvete produzido com Cocô do interior");
+		productList.add(product);
+
+		List<Buyer> buyerList = new ArrayList<>();
+		Buyer buyer = new Buyer();
+		buyer.setIdBuyer(1L);
+		buyer.setName("Dona");
+		buyer.setLastName("Florinda");
+		buyerList.add(buyer);
+
+		List<SalesAd> salesAdList = new ArrayList<>();
+		SalesAd salesAd = new SalesAd();
+		salesAd.setId(1L);
+		salesAd.setMaximumTemperature(20F);
+		salesAd.setMinimumTemperature(0F);
+		salesAd.setPrice(45D);
+		salesAd.setProduct(product);
+		salesAdList.add(salesAd);
+
+		List<ItemOfProduct> itemProductList = new ArrayList<>();
+
+		PurchaseOrder purchaseOrder = new PurchaseOrder();
+		purchaseOrder.setId(1L);
+		purchaseOrder.setDate(LocalDate.now());
+		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
+		purchaseOrder.setIdBuyer(buyer);
+		purchaseOrder.setItemOfProduct(itemProductList);
+
+		ItemOfProduct itemOfProduct = new ItemOfProduct();
+		itemOfProduct.setId(1L);
+		itemOfProduct.setQuantity(100L);
+		itemOfProduct.setSalesAd(salesAd);
+		itemOfProduct.setPurchaseOrder(purchaseOrder);
+		itemProductList.add(itemOfProduct);
+
+		List<BatchStock> batchStockList = new ArrayList<>();
+		BatchStock batchStock = new BatchStock();
+		batchStock.setIdBatchNumber(1L);
+		batchStock.setCurrentQuantity(1000L);
+		batchStock.setCurrentTemperature(5F);
+		batchStock.setDueDate(LocalDate.now());
+		batchStock.setInitialQuantity(1000L);
+		batchStock.setManufacturingDate(LocalDate.now());
+		batchStock.setManufacturingTime(LocalDateTime.now());
+		batchStock.setIdSalesAd(salesAd);
+		batchStockList.add(batchStock);
+
+		Mockito.when(mockBatchStockRepository.saveAndFlush(Mockito.any(BatchStock.class))).thenReturn(batchStock);
+		purchaseOrderService.DecrementQuantity(itemOfProduct, batchStockList);
+
+		assertEquals(900, batchStock.getCurrentQuantity());
+	}
 }

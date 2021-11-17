@@ -67,23 +67,6 @@ public class PurchaseOrderService {
 		return buyer;
 	}
 
-
-	public List<ItemOfProduct> convertItemOfProduct(List<ItemOfProduct2DTO> dto, PurchaseOrder purchOrder) throws Exception {
-
-		List<ItemOfProduct> listOfProducts = new ArrayList<>();
-		for (ItemOfProduct2DTO item : dto) {
-			try {
-				if (getSalesAd(item).isPresent()) {
-					ItemOfProduct product = new ItemOfProduct(item.getQuantity(), getSalesAd(item).get(), purchOrder);
-					listOfProducts.add(product);
-				}
-			} catch (Exception e) {
-				throw new Exception("Existe valores nulos ou vázios em itemOfProduct");
-			}
-		}
-		return listOfProducts;
-	}
-
 	public PriceDTO priceList(List<ItemOfProduct> list) throws Exception {
 		Long product = 0L;
 		double value = 0.0;
@@ -109,15 +92,30 @@ public class PurchaseOrderService {
 		}
 	}
 
+	public List<ItemOfProduct> convertItemOfProduct(List<ItemOfProduct2DTO> dto, PurchaseOrder purchOrder) throws Exception {
+
+		List<ItemOfProduct> listOfProducts = new ArrayList<>();
+		for (ItemOfProduct2DTO item : dto) {
+			if (getSalesAd(item).isPresent()) {
+				ItemOfProduct product = new ItemOfProduct(item.getQuantity(), getSalesAd(item).get(), purchOrder);
+				listOfProducts.add(product);
+			} else{
+				throw new Exception("Existe valores nulos ou vázios em itemOfProduct");
+			}
+		}
+		return listOfProducts;
+	}
+
 	public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
 		PurchaseOrder purchaseOrder = new PurchaseOrder();
-		Optional<Buyer> buyer = buyerRepository.findById(dto.getIdBuyer());
-		purchaseOrder.setIdBuyer(buyer.get());
+//		Optional<Buyer> buyer = buyerRepository.findById(dto.getIdBuyer());
+//		purchaseOrder.setIdBuyer(buyer.get());
 		if (getBuyer(dto).isPresent()) {
 			List<ItemOfProduct> itemOfProducts = convertItemOfProduct(dto.getItemOfProduct(), purchaseOrder);
 			purchaseOrder.setItemOfProduct(itemOfProducts);
 			return purchaseOrder;
+		} else {
+			throw new Exception("Erro no carrinho");
 		}
-		throw new Exception("Erro no carrinho");
 	}
 }
