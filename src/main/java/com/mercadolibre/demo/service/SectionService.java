@@ -1,6 +1,8 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.*;
+import com.mercadolibre.demo.dto.response.SectionNativeDTO;
+import com.mercadolibre.demo.dto.response.StockByWareHouseDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductListDTO;
 import com.mercadolibre.demo.model.*;
@@ -37,10 +39,12 @@ public class SectionService {
 	}
 
 	public List<SectionTypeDTO>findSectionCategories(String category){
-		List<SectionRepository.SectionByProducts>  sectionByProducts = sectionRepository.CategoryContaining(category);
+		List<StockByWareHouseDTO>  sectionByProducts = sectionRepository.categoryContaining(category);
 		List<SectionTypeDTO> sectionTypeDTOS = new ArrayList<>();
-		for (SectionRepository.SectionByProducts section: sectionByProducts) {
-			this.setSectionTypeDTO(section.getCategory(),section.getCurrent_quantity(),section.getPrice(),section.getWare_house_name(),section.getName());}
+		for (StockByWareHouseDTO section: sectionByProducts) {
+			SectionTypeDTO dto = this.setSectionTypeDTO(section.getCategoria(),section.getCurrentQuantity(),section.getPrice(),section.getWarehouseName(),section.getName());
+			sectionTypeDTOS.add(dto);
+		}
 		return sectionTypeDTOS;
 	}
 
@@ -53,10 +57,10 @@ public class SectionService {
 
 		for (WareHouse itemWareHOuse : idWarehouse) {
 			WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
-			List<InboundOrderRepository.StockByWareHouse> stockByWareHouses = inboundOrderRepository.buscaCanseira(idProduct,itemWareHOuse.getIdWareHouse());
+			List<SectionNativeDTO> stockByWareHouses = inboundOrderRepository.buscaCanseira(idProduct,itemWareHOuse.getIdWareHouse());
 			wareHouseProductDTO.setQuantity(0L);
-			for (InboundOrderRepository.StockByWareHouse item : stockByWareHouses) {
-				wareHouseProductDTO.setWareHouseName(item.getWare_house_name());
+			for (SectionNativeDTO item : stockByWareHouses) {
+				wareHouseProductDTO.setWareHouseName(item.getNome());
 				wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getCurrent_quantity());
 			}
 			if(stockByWareHouses.size()>0) {
@@ -107,7 +111,6 @@ public class SectionService {
 		sectionTypeDTO.setPrice(price);
 		sectionTypeDTO.setWareHouse(wareHouseName);
 		sectionTypeDTO.setNameProduct(productName);
-
 		return sectionTypeDTO;
 	}
 }
