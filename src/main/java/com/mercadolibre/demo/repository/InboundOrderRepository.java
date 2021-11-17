@@ -1,11 +1,9 @@
 package com.mercadolibre.demo.repository;
 
-import com.mercadolibre.demo.model.Product;
+import com.mercadolibre.demo.model.InboundOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import com.mercadolibre.demo.model.InboundOrder;
 
 import java.util.List;
 
@@ -17,10 +15,7 @@ public interface InboundOrderRepository extends JpaRepository<InboundOrder, Long
             " ware_house wh where sa.idsales_ad = bs.idsales_ad AND" +
             " bs.idbatch_number = io.idbatch_number AND io.section_code = s.section_code AND" +
             " p.idproduct = sa.idproduct AND s.id_ware_house = wh.id_ware_house AND p.idproduct= ?1 AND  wh.id_ware_house = ?2")
-    List<InboundOrder> buscarSessaoInboundOrder(Long id, Long idWarehouse); //id = produto
-
-
-    //List<Product> findByBatchStock_SalesAd_ProductById(Long idProduct);
+    List<InboundOrder> buscarSessaoInboundOrder(Long id, Long idWarehouse);
 
     @Query(nativeQuery = true, value = "select p.name, bs.current_quantity, w.ware_house_name " +
             " from ware_house w, section sec, inbound_order i, batch_stock bs, sales_ad s,  products p " +
@@ -30,7 +25,7 @@ public interface InboundOrderRepository extends JpaRepository<InboundOrder, Long
             " and i.section_code = sec.section_code " +
             " and sec.id_ware_house = w.id_ware_house " +
             " and p.idproduct = ?1")
-    List<StockByWareHouse> buscaCanseira(Long id); //id = produto
+    List<StockByWareHouse> buscaCanseira(Long id);
 
     public interface StockByWareHouse{
         String getName();
