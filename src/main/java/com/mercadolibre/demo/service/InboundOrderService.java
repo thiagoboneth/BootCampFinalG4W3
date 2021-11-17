@@ -53,10 +53,6 @@ public class InboundOrderService {
 		}
 	}
 
-	public void delete(Long id) {
-		inboundOrderRepository.deleteById(id);
-	}
-
 	public Optional<BatchStock> obtemBatchStock(InboundOrderDTO dto) throws Exception {
 		Optional<BatchStock> batchStock = batchStockRepository.findById(dto.getIdBatchStock());
 		if(batchStock.isPresent()) {

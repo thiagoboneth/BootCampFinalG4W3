@@ -59,6 +59,7 @@ public class SectionServiceTest {
         assertEquals(850L, section.getCapacity());
 
     }
+
     @Test
     void testGetListSection() {
         List<Section> sectionList = new ArrayList<>();
