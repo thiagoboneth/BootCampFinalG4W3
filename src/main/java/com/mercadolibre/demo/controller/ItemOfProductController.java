@@ -56,7 +56,7 @@ public class ItemOfProductController {
     @GetMapping(value = "/lisProductForCar/{idCar}")
     @ResponseBody
     public ResponseEntity<ProductItenForCarsDTO> lisProductForCar(@PathVariable Long idCar) {
-        ProductItenForCarsDTO itemOfProducts = itemOfProductService.intensDoCarrinho(idCar);
+        ProductItenForCarsDTO itemOfProducts = itemOfProductService.cartItems(idCar);
         return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
     }
 
@@ -64,8 +64,8 @@ public class ItemOfProductController {
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) throws Exception {
         try {
-            itemOfProductService.delete(id);
-            return new ResponseEntity<>("Carrinho deletados com sucesso", HttpStatus.OK);
+            itemOfProductService.resetCart(id);
+            return new ResponseEntity<>("Produtos removidos do carrinho com sucesso", HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
