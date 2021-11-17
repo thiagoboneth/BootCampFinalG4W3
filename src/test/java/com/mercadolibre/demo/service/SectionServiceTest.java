@@ -1,17 +1,13 @@
 /*
 package com.mercadolibre.demo.service;
 
-import com.mercadolibre.demo.dto.SalesAdDTO;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -32,13 +32,14 @@ public class ItemOfProductService {
     private InboundOrderService inboundOrderService;
 
     @Autowired
-    public ItemOfProductService(ItemOfProductRepository itemOfProductRepository, SalesAdRepository salesAdRepository, PurchaseOrderRepository purchaseOrderRepository, BatchStockRepository batchStockRepository, InboundOrderRepository inboundOrderRepository, InboundOrderService inboundOrderService) {
+    public ItemOfProductService(ItemOfProductRepository itemOfProductRepository, SalesAdRepository salesAdRepository,
+                                PurchaseOrderRepository purchaseOrderRepository, BatchStockRepository batchStockRepository,
+                                InboundOrderRepository inboundOrderRepository) {
         this.itemOfProductRepository = itemOfProductRepository;
         this.salesAdRepository = salesAdRepository;
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.batchStockRepository = batchStockRepository;
         this.inboundOrderRepository = inboundOrderRepository;
-        this.inboundOrderService = inboundOrderService;
     }
 
     public ItemOfProduct save(ItemOfProductDTO dto) throws Exception {
@@ -51,7 +52,7 @@ public class ItemOfProductService {
         if (salesAd.isPresent()) {
             return new ItemOfProduct(dto.getQuantity(), salesAd.get());
         }
-        throw new Exception("Erro no carrinho");
+        throw new Exception("Erro ao Converter ItemOfProductDTO");
     }
 
     public List<ItemOfProductDTO> list(Long name) {
@@ -78,7 +79,7 @@ public class ItemOfProductService {
         }
     }
 
-    public List<ItemOfProduct> delete(Long id) throws Exception {
+    public List<ItemOfProduct> resetCart (Long id) throws Exception {
 
         List<ItemOfProduct> lista = itemOfProductRepository.orderOfItem(id);
 
@@ -139,11 +140,12 @@ public class ItemOfProductService {
         return lista1;
     }
 
-    public ProductItenForCarsDTO intensDoCarrinho(Long idCar) {
+    public ProductItenForCarsDTO cartItems(Long idCar) {
         ProductItenForCarsDTO Requisito2e4 = new ProductItenForCarsDTO();
         List<ItemOfProduct> ItemOfProduct = itemOfProductRepository.findAll();
-        List<ItemOfProduct> ItemOfProduct2  = ItemOfProduct.stream().filter(p -> p.getPurchaseOrder().getId().equals(idCar)).collect(Collectors.toList());
-         Requisito2e4.setId_purchase_order(idCar);
+        List<ItemOfProduct> ItemOfProduct2 = ItemOfProduct.stream().filter(p ->
+                p.getPurchaseOrder().getId().equals(idCar)).collect(Collectors.toList());
+        Requisito2e4.setId_purchase_order(idCar);
         List<ProductItenDTO> lista = new ArrayList<>();
         for (ItemOfProduct item : ItemOfProduct2) {
             ProductItenDTO productItenDTO = new ProductItenDTO();

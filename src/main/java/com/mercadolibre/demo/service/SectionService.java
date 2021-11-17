@@ -86,7 +86,6 @@ public class SectionService {
 	}
 
 	public Section update(SectionDTO dto, Long id) throws Exception {
-
 		Optional<Section> existSection = findById(id);
 		if (existSection.isPresent()) {
 			Section section = convertSectionToDTO(dto);
@@ -100,7 +99,6 @@ public class SectionService {
 	public void delete(Long id) {
 		sectionRepository.deleteById(id);
 	}
-
 	public Section convertSectionToDTO(SectionDTO dto) throws Exception {
 		if (getWareHouse(dto).isPresent()) {
 			return new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
