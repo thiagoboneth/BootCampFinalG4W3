@@ -1,7 +1,6 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.ItemOfProduct2DTO;
-import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
 import com.mercadolibre.demo.dto.response.PriceDTO;
 import com.mercadolibre.demo.model.*;
@@ -18,7 +17,7 @@ import java.util.Optional;
 
 
 @Service
-public class PurchaseOrderService {
+public class PurchaseOrderServiceTest {
 
     private PurchaseOrderRepository purchaseOrderRepository;
     private BuyerRepository buyerRepository;
@@ -27,7 +26,7 @@ public class PurchaseOrderService {
 
 
     @Autowired
-    public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, BuyerRepository buyerRepository,
+    public PurchaseOrderServiceTest(PurchaseOrderRepository purchaseOrderRepository, BuyerRepository buyerRepository,
                                 SalesAdRepository salesAdRepository, BatchStockRepository batchStockRepository) {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.buyerRepository = buyerRepository;
