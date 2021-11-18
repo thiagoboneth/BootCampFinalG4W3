@@ -29,13 +29,12 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        //obtem token do cabecalho da requisicao
         String token = extraiToken(request);
-        //validar token
+
         boolean tokenValido = tokenService.tokenValido(token);
 
         if(tokenValido) {
-            //autenticar o token
+
             realizaAutenticacaoDoTokenNoSpring(token);
         }
         filterChain.doFilter(request, response);
