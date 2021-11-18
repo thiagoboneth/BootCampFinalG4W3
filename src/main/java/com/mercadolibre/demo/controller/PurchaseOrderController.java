@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/purchaseorder")
@@ -24,18 +22,5 @@ public class PurchaseOrderController {
     private ResponseEntity<PriceDTO> addItem(@Valid @RequestBody PurchaseOrderDTO dto) throws Exception {
            PurchaseOrder purchaseOrder = purchaseOrderService.save(dto);
             return new ResponseEntity<>(purchaseOrderService.priceList(purchaseOrder.getItemOfProduct()), HttpStatus.CREATED);
-    }
-
-    @GetMapping(value = "/list")
-    @ResponseBody
-    public ResponseEntity<List<PurchaseOrder>> listOfItem(){
-        List<PurchaseOrder> purchaseOrders = purchaseOrderService.list();
-        return new ResponseEntity<>(purchaseOrders, HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/update/{id}")
-    public ResponseEntity<PurchaseOrder> updateItem(@Valid @RequestBody PurchaseOrderDTO dto, @PathVariable Long id) throws Exception{
-            PurchaseOrder purchaseOrder = purchaseOrderService.update(dto, id);
-            return new ResponseEntity<>(purchaseOrder, HttpStatus.CREATED);
     }
 }
