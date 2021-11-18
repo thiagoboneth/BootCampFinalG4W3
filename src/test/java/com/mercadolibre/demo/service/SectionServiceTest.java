@@ -406,6 +406,7 @@ public class SectionServiceTest {
         List<WareHouseProductListDTO> wareHouseProductListDTO = baseWareHouseProductListDTO();
 
         wareHouseProductDTO.setQuantity(0L);
+        wareHouseProductDTO.setWareHouseName("null");
         requisiteFour.setIdProduct(1L);
 
         List<SectionNativeDTO> stockByWareHouses = baseTesteSectionNativeListDTO();
@@ -419,6 +420,7 @@ public class SectionServiceTest {
         WareHouseProductItensDTO wareHouseProductItensDTO = sectionService.listProduct(1L);
 
         assertEquals(1,wareHouseProductItensDTO.getIdProduct());
+        assertEquals(wareHouseProductListDTO,requisiteFour.getList());
 
     }
 
@@ -429,6 +431,7 @@ public class SectionServiceTest {
 
         assertNotNull(wareHouseProductListDTO);
         assertEquals(120,wareHouseProductListDTO.getQuantity());
+        assertEquals("CACAU3",wareHouseProductListDTO.getWareHouseName());
 
     }
 
