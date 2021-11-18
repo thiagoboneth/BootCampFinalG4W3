@@ -20,6 +20,30 @@ class WareHouseServiceTest {
 	WareHouseRepository mock = Mockito.mock(WareHouseRepository.class);
 	WareHouseService wareHouseService = new WareHouseService(mock);
 
+
+	List<WareHouse> baseTesteWhareHouseList(){
+		List<WareHouse> wareHouseList = new ArrayList<>();
+
+		WareHouse wareHouse = new WareHouse();
+		wareHouse.setIdWareHouse(1L);
+		wareHouse.setWareHouseName("WhareHouse 1");
+		wareHouseList.add(wareHouse);
+
+		WareHouse wareHouse2 = new WareHouse();
+		wareHouse.setIdWareHouse(2L);
+		wareHouse.setWareHouseName("WhareHouse 2");
+		wareHouseList.add(wareHouse2);
+
+		WareHouse wareHouse3 = new WareHouse();
+		wareHouse.setIdWareHouse(3L);
+		wareHouse.setWareHouseName("WhareHouse 3");
+		wareHouseList.add(wareHouse3);
+
+		return wareHouseList;
+	}
+
+
+
 	@Test
 	void testSaveWareHouseWithSuccess() {
 
@@ -38,45 +62,31 @@ class WareHouseServiceTest {
 	@Test
 	void testListWareHouseWithSuccess() {
 
-		List<WareHouse> list = new ArrayList<>();
-		WareHouse wareHouse1 = new WareHouse();
-		wareHouse1.setIdWareHouse(1L);
-		wareHouse1.setWareHouseName("WareHouse 1");
-		list.add(wareHouse1);
-
-		WareHouse wareHouse2 = new WareHouse();
-		wareHouse2.setIdWareHouse(2L);
-		wareHouse2.setWareHouseName("WareHouse 2");
-		list.add(wareHouse2);
+		List<WareHouse> list = baseTesteWhareHouseList();
 
 		Mockito.when(mock.findAll()).thenReturn(list);
 		List<WareHouse> listAll = mock.findAll();
 		wareHouseService.list();
 
 		assertNotNull(list);
+		assertEquals(3, listAll.size());
 
-		assertTrue(listAll.contains(wareHouse1));
-		assertTrue(listAll.contains(wareHouse2));
 	}
 
 	@Test
 	void testFindById() {
 
-		List<WareHouse> list = new ArrayList<>();
-		WareHouse wareHouse = new WareHouse();
-		wareHouse.setIdWareHouse(1L);
-		wareHouse.setWareHouseName("WareHouse 1");
-		list.add(wareHouse);
+		List<WareHouse> list = baseTesteWhareHouseList();
 
 		mock.findAll();
 		Mockito.when(mock.findById(1L)).thenReturn(Optional.of(list.stream().findAny().get()));
-		mock.findById(1L);
+		Optional<WareHouse> byId = mock.findById(1L);
 
-		assertEquals(1L, wareHouse.getIdWareHouse());
-		assertEquals("WareHouse 1", wareHouse.getWareHouseName());
+		assertEquals(3L, byId.get().getIdWareHouse());
+		assertEquals("WhareHouse 3", byId.get().getWareHouseName());
 
-		assertNotNull(wareHouse.getIdWareHouse());
-		assertNotNull(wareHouse.getWareHouseName());
+		assertNotNull(byId.get().getIdWareHouse());
+		assertNotNull(byId.get().getWareHouseName());
 	}
 
 	@Test

@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class WareHouseDTO {
 
-	//	@NotBlank(message = "{name.not.blank}")
+		@NotBlank(message = "{name.not.blank}")
         private String wareHouseName;
 }
