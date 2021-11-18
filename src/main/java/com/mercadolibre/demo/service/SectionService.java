@@ -56,12 +56,10 @@ public class SectionService {
 			List<SectionNativeDTO> stockByWareHouses = inboundOrderRepository.findNativeSection(idProduct,itemWareHOuse.getIdWareHouse());
 			WareHouseProductListDTO wareHouseProductListDTOS = forlistProduct(stockByWareHouses);
 			if(stockByWareHouses.size()>0) {
-				wareHouseProductListDTO.add(wareHouseProductListDTOS);
-			}
+				wareHouseProductListDTO.add(wareHouseProductListDTOS);}
 		}
 		requisiteFour.setList(wareHouseProductListDTO);
-		return requisiteFour;
-	}
+		return requisiteFour;}
 
 	public WareHouseProductListDTO forlistProduct(List<SectionNativeDTO> SectioNativeLis){
 		WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
@@ -75,8 +73,7 @@ public class SectionService {
 
 	public Optional<WareHouse> getWareHouse(SectionDTO dto){
 		Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
-		return wareHouse;
-	}
+		return wareHouse;}
 	
 	public Optional<Section> findById(Long id) {return sectionRepository.findById(id);}
 
@@ -86,18 +83,13 @@ public class SectionService {
 			Section section = convertSectionToDTO(dto);
 			section.setIdSection(id);
 			return sectionRepository.saveAndFlush(section);
-		} else {
-			throw new Exception("Id não cadastrado");
-		}
+		} else {throw new Exception("Id não cadastrado");}
 	}
 
 	public Section convertSectionToDTO(SectionDTO dto) throws Exception {
 		if (getWareHouse(dto).isPresent()) {
 			return new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
-		} else {
-			throw new Exception("Id não cadastrado");
-		}
-	}
+		} else {throw new Exception("Id não cadastrado");}}
 
 	public SectionTypeDTO setSectionTypeDTO(String category,Long quantity, Double price, String wareHouseName, String productName){
 		SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
