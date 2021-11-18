@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.mercadolibre.demo.repository.SalesAdRepository;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import com.mercadolibre.demo.dto.SellerDTO;
@@ -21,6 +23,7 @@ import com.mercadolibre.demo.repository.SellerRepository;
 public class SellerServiceTest {
 
     SellerRepository mock = Mockito.mock(SellerRepository.class);
+    private SellerRepository mockSellerRepository = Mockito.mock(SellerRepository.class);
     SellerService sellerService = new SellerService(mock);
 
     @Test
@@ -140,9 +143,27 @@ public class SellerServiceTest {
         seller.setIdseller(1L);
         seller.setName("Orochimaru");
         seller.setLastname("Sannin");
+
+        Mockito.when(mock.findById(Mockito.any(Long.class)))
+                .thenReturn(Optional.of(seller));
+
         sellerService.delete(1L);
 
-        verify(mock).deleteById(1L);
+        Mockito.verify(mock).deleteById(1L);
+    }
 
+    @Test
+    void deleteProductWithFail() throws Exception {
+
+        Seller seller = new Seller();
+        seller.setIdseller(1L);
+        seller.setName("Orochimaru");
+        seller.setLastname("Sannin");
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            sellerService.delete( 1L);
+        });
+
+        assertEquals("Id não cadastrado",exceptionThatWasThrown.getMessage());
     }
 }
