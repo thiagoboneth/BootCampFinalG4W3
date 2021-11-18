@@ -32,29 +32,13 @@ public class PurchaseOrderService {
 		this.batchStockRepository = batchStockRepository;
 	}
 
-
 	public PurchaseOrder save(PurchaseOrderDTO dto) throws Exception {
 		PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
 		return purchaseOrderRepository.save(purchaseOrder);
 	}
 
-	public List<PurchaseOrder> list() {
-		return purchaseOrderRepository.findAll();
-	}
-
 	public Optional<PurchaseOrder> findById(Long id) {
 		return purchaseOrderRepository.findById(id);
-	}
-
-	public PurchaseOrder update(PurchaseOrderDTO dto, Long id) throws Exception {
-		Optional<PurchaseOrder> existPurchaseOrder = findById(id);
-		if (existPurchaseOrder.isPresent()) {
-			PurchaseOrder purchaseOrder = convertPurchaseToDTO(dto);
-			purchaseOrder.setId(id);
-			return purchaseOrderRepository.saveAndFlush(purchaseOrder);
-		} else {
-			throw new Exception("Id não cadastrado");
-		}
 	}
 
 	public Optional<SalesAd> getSalesAd(ItemOfProduct2DTO dto) {
@@ -68,14 +52,11 @@ public class PurchaseOrderService {
 	}
 
 	public PriceDTO priceList(List<ItemOfProduct> list) throws Exception {
-		Long product = 0L;
 		double value = 0.0;
 		for (ItemOfProduct item: list) {
 			List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
 			value += item.getSalesAd().getPrice() * item.getQuantity();
-			if(batchStockList != null) {
-				DecrementQuantity(item,batchStockList);
-			}
+			DecrementQuantity(item,batchStockList);
 		}
 		PriceDTO priceDTO = new PriceDTO();
 		priceDTO.setTotalPrice(value);
@@ -87,7 +68,6 @@ public class PurchaseOrderService {
 			if (item.getQuantity() <= batchStock.getCurrentQuantity()) {
 				batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() - item.getQuantity());
 				batchStockRepository.saveAndFlush(batchStock);
-				return;
 			}
 		}
 	}
@@ -107,10 +87,9 @@ public class PurchaseOrderService {
 	}
 
 	public PurchaseOrder convertPurchaseToDTO(PurchaseOrderDTO dto) throws Exception {
-		PurchaseOrder purchaseOrder = new PurchaseOrder();
-//		Optional<Buyer> buyer = buyerRepository.findById(dto.getIdBuyer());
-//		purchaseOrder.setIdBuyer(buyer.get());
 		if (getBuyer(dto).isPresent()) {
+			PurchaseOrder purchaseOrder = new PurchaseOrder();
+			purchaseOrder.setIdBuyer(getBuyer(dto).get());
 			List<ItemOfProduct> itemOfProducts = convertItemOfProduct(dto.getItemOfProduct(), purchaseOrder);
 			purchaseOrder.setItemOfProduct(itemOfProducts);
 			return purchaseOrder;
