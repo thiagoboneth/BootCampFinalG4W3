@@ -133,7 +133,7 @@ public class SellerServiceTest {
             sellerService.update(dto, 2L);
         });
 
-        assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
+        assertEquals(exceptionThatWasThrown.getMessage(), "Id não cadastrado");
 
     }
     @Test
