@@ -3,7 +3,6 @@ package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
-import com.mercadolibre.demo.dto.response.SectionNativeDTO;
 import com.mercadolibre.demo.dto.response.StockByWareHouseDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
@@ -17,7 +16,6 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
 public class SectionServiceTest {
     private SectionRepository mockSectionRepository = Mockito.mock(SectionRepository.class);
@@ -198,7 +196,6 @@ public class SectionServiceTest {
         WareHouse wareHouse = new WareHouse();
 
         List<Section> sectionList = new ArrayList<>();
-    //    SectionRepository.SectionByProducts sectionByProducts = null;
         
         Section section = new Section();
         section.setCapacity(750L);
@@ -241,11 +238,6 @@ public class SectionServiceTest {
 
         sectionService.findSectionCategories("Frios");
 
-
-
-      //  assertEquals("Frios", listGet.get(0).getCategory());
-      //  assertEquals("Frios", listGet.get(1).getCategory());
-
         assertNotNull(sectionList);
     }
 
@@ -277,24 +269,7 @@ public class SectionServiceTest {
 
         assertNotNull(sectionList);
     }
-    @Test
-    void deleteSectionWithSuccess() {
 
-        WareHouse idWareHouse = new WareHouse();
-        idWareHouse.setIdWareHouse(1L);
-
-        List<Section> sectionList = new ArrayList<>();
-        Section section = new Section();
-        section.setCapacity(1350L);
-        section.setWareHouse(idWareHouse);
-        section.setCategory("Frios");
-        section.setIdSection(1L);
-        sectionList.add(section);
-
-        sectionService.delete(1L);
-        verify(mockSectionRepository).deleteById(1L);
-
-    }
     @Test
     void testBuscarPorSessaoSucess(){
 

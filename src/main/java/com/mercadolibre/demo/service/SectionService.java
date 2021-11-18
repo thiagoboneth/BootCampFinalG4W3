@@ -92,9 +92,6 @@ public class SectionService {
 		}
 	}
 
-	public void delete(Long id) {
-		sectionRepository.deleteById(id);
-	}
 	public Section convertSectionToDTO(SectionDTO dto) throws Exception {
 		if (getWareHouse(dto).isPresent()) {
 			return new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
