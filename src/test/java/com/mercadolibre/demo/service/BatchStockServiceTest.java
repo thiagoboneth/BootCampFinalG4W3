@@ -1,7 +1,5 @@
 package com.mercadolibre.demo.service;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -44,20 +42,50 @@ public class BatchStockServiceTest {
 		batchStockDTO.setDueDate(LocalDate.now());
 		batchStockDTO.setIdSalesAd(1L);
 
-		List<Product> productList = new ArrayList<>();
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Abacate Breda");
-		product.setDescription("Abacate com casca verde vibrante e  sabor adocicado");
-		productList.add(product);
+		List<SalesAd> salesAdList = new ArrayList<>();
+		SalesAd salesAd = new SalesAd();
+		salesAd.setVolume(500.0F);
+		salesAd.setMinimumTemperature(8F);
+		salesAd.setMaximumTemperature(45.0F);
+		salesAd.setPrice(1200.0D);
+		salesAd.setId(1L);
+		salesAdList.add(salesAd);
 
+		BatchStock batchStock = new BatchStock();
 
-		List<Seller> sellerList = new ArrayList<Seller>();
-		Seller seller = new Seller();
-		seller.setIdseller(1L);
-		seller.setName("Monkey");
-		seller.setLastname("D. Luffy");
-		sellerList.add(seller);
+		Mockito.when(mockBatchStockRepository.save(Mockito.any(BatchStock.class))).thenReturn(batchStock);
+		Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
+		Mockito.when(mockBatchStockRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(batchStock));
+
+		batchStock = batchStockService.convertBatchStockToObject(batchStockDTO);
+		batchStock.setIdBatchNumber(1L);
+
+		batchStockService.save(batchStockDTO);
+
+		assertEquals(-5F, batchStock.getMinimumTemperature());
+		assertEquals(1000L, batchStock.getInitialQuantity());
+		assertEquals(800L, batchStock.getCurrentQuantity());
+		assertEquals(salesAd, batchStock.getIdSalesAd());
+
+		assertNotNull(batchStock.getManufacturingDate());
+		assertNotNull(batchStock.getManufacturingTime());
+		assertNotNull(batchStock.getDueDate());
+		assertNotNull(batchStock.getIdSalesAd());
+	}
+
+	@Test
+	void testSaveBatchStockNoSuccess() throws Exception {
+
+		BatchStockDTO batchStockDTO = new BatchStockDTO();
+		batchStockDTO.setCurrentTemperature(0F);
+		batchStockDTO.setMinimumTemperature(-5F);
+		batchStockDTO.setInitialQuantity(1000L);
+		batchStockDTO.setCurrentQuantity(800L);
+		batchStockDTO.setManufacturingDate(LocalDate.now());
+		batchStockDTO.setManufacturingTime(LocalDateTime.now());
+		batchStockDTO.setDueDate(LocalDate.now());
+		batchStockDTO.setIdSalesAd(5L);
+
 
 		List<SalesAd> salesAdList = new ArrayList<>();
 		SalesAd salesAd = new SalesAd();
@@ -66,40 +94,23 @@ public class BatchStockServiceTest {
 		salesAd.setMaximumTemperature(45.0F);
 		salesAd.setPrice(1200.0D);
 		salesAd.setId(1L);
-		salesAd.setProduct(product);
-		salesAd.setSeller(seller);
 		salesAdList.add(salesAd);
 
 		BatchStock batchStock = new BatchStock();
 
 		Mockito.when(mockBatchStockRepository.save(Mockito.any(BatchStock.class))).thenReturn(batchStock);
 		Mockito.when(mockSalesAdRepository.findById(1L)).thenReturn(Optional.of(salesAd));
-		Mockito.when(mockBatchStockRepository.findById(1L)).thenReturn(Optional.of(batchStock));
+		Mockito.when(mockBatchStockRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(batchStock));
 
-		batchStock = batchStockService.convertBatchStockToObject(batchStockDTO);
+		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+			batchStockService.save(batchStockDTO);
+		});
 
-		mockBatchStockRepository.save(batchStockService.save(batchStockDTO));
-		batchStock.setIdBatchNumber(1L);
+		assertEquals(exceptionThatWasThrown.getMessage(),"Nao há um SalesAd cadastrado com o Id informado");
 
-		assertEquals(1L, batchStock.getIdBatchNumber());
-		assertEquals(0F, batchStock.getCurrentTemperature());
-		assertEquals(-5F, batchStock.getMinimumTemperature());
-		assertEquals(1000L, batchStock.getInitialQuantity());
-		assertEquals(800L, batchStock.getCurrentQuantity());
-		assertEquals(salesAd, batchStock.getIdSalesAd());
-
-		assertNotNull(batchStock.getIdBatchNumber());
-		assertNotNull(batchStock.getCurrentTemperature());
-		assertNotNull(batchStock.getMinimumTemperature());
-		assertNotNull(batchStock.getInitialQuantity());
-		assertNotNull(batchStock.getCurrentQuantity());
-		assertNotNull(batchStock.getManufacturingDate());
-		assertNotNull(batchStock.getManufacturingTime());
-		assertNotNull(batchStock.getDueDate());
-		assertNotNull(batchStock.getIdSalesAd());
 	}
 
-	@Test
+		@Test
 	void testGetSalesAdWithSuccessful() {
 
 		BatchStockDTO batchStockDTO = new BatchStockDTO();
@@ -356,6 +367,7 @@ public class BatchStockServiceTest {
         	batchStockService.update(batchStockDTO, 2L);
         });
 
-        assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
+        assertEquals(exceptionThatWasThrown.getMessage(),"Id não cadastrado");
 	}
+
 }
