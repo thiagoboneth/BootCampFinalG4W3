@@ -1,6 +1,7 @@
 package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.SellerDTO;
+import com.mercadolibre.demo.model.Product;
 import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class SellerService {
 			throw new Exception("Id não cadastrado");
 		}
 	}
+
 
 	public Seller convertSellerDTO(SellerDTO dto) {
 		return new Seller(dto.getName(), dto.getLastname());
