@@ -60,12 +60,14 @@ public class SalesAdService {
             throw new Exception("Id não cadastrado");
         }
     }
-    public SalesAd convertSalesAdDTO(SalesAdDTO dto) {
+
+    public SalesAd convertSalesAdDTO(SalesAdDTO dto) throws Exception {
         if (getProduct(dto).isPresent() && getSeller(dto).isPresent()) {
             SalesAd  salesAd = new SalesAd(dto.getVolume(), dto.getMinimumTemperature(),
                     dto.getMaximumTemperature(), dto.getPrice(), getSeller(dto), getProduct(dto));
             return salesAd;
+        } else {
+        	throw new Exception("Id do produto não cadastrado");
         }
-        return null;
     }
 }
