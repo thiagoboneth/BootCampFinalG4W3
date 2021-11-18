@@ -1,8 +1,5 @@
 package com.mercadolibre.demo.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
@@ -102,6 +99,46 @@ public class PurchaseOrderServiceTest {
 		assertEquals(itemProductList, purchaseOrder.getItemOfProduct());
 	}
 
+	
+	@Test
+	void testFindByIdWithSuccess() {
+		
+		Product product = new Product();
+		product.setId(1L);
+		product.setName("Fíle de Merluza");
+		product.setDescription("Excelente peixe para obter uma alimentacao saudável");
+		
+		List<SalesAd> salesAdList = new ArrayList<>();
+		SalesAd salesAd = new SalesAd();
+		salesAd.setId(1L);
+		salesAd.setMaximumTemperature(-5F);
+		salesAd.setMinimumTemperature(0F);
+		salesAd.setPrice(28D);
+		salesAd.setProduct(product);
+		salesAdList.add(salesAd);
+		
+		List<ItemOfProduct> itemProductList = new ArrayList<>();
+		
+		PurchaseOrder purchaseOrder = new PurchaseOrder();
+		purchaseOrder.setId(1L);
+		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
+		purchaseOrder.setDate(LocalDate.now());;
+		purchaseOrder.setIdBuyer(null);
+		purchaseOrder.setItemOfProduct(itemProductList);
+		
+		ItemOfProduct itemOfProduct = new ItemOfProduct();
+		itemOfProduct.setId(1L);
+		itemOfProduct.setQuantity(1000L);
+		itemOfProduct.setPurchaseOrder(purchaseOrder);
+		itemOfProduct.setSalesAd(salesAd);
+		itemProductList.add(itemOfProduct);
+		
+		Mockito.when(mockPurchaseOrderRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(purchaseOrder));
+		purchaseOrderService.findById(purchaseOrder.getId());
+		
+		assertNotNull(purchaseOrder.getId());
+	}
+	
 	@Test
 	void testGetSalesAdWithSuccess() {
 
@@ -212,49 +249,6 @@ public class PurchaseOrderServiceTest {
 
 		});
 
-		assertThat(exceptionThatWasThrown.getMessage(), startsWith("Existe"));
-
-		assertTrue(exceptionThatWasThrown.getMessage(), true);
-	}
-
-	@Test
-	void testConvertPurchaseToDTONoSuccess() {
-
-		Product product = new Product();
-		product.setId(1L);
-		product.setName("Melancia Híbrida Combat");
-		product.setDescription("Melancia redonda, de boa textura, muito firme e ótima para producao de sucos");
-
-		Buyer buyer = new Buyer();
-		buyer.setIdBuyer(1L);
-		buyer.setName("Ayrton");
-		buyer.setLastName("Senna");
-
-		SalesAd salesAd = new SalesAd();
-		salesAd.setId(1L);
-		salesAd.setMaximumTemperature(20F);
-		salesAd.setMinimumTemperature(0F);
-		salesAd.setPrice(45D);
-		salesAd.setProduct(product);
-
-		ItemOfProduct2DTO itemOfProduct2DTO = new ItemOfProduct2DTO();
-		itemOfProduct2DTO.setIdSalesAd(salesAd.getId());
-		itemOfProduct2DTO.setQuantity(1000L);
-
-		PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
-		purchaseOrderDTO.setIdBuyer(buyer.getIdBuyer());
-		purchaseOrderDTO.setItemOfProduct(null);
-
-
-		ItemOfProductDTO itemOfProductDTO = new ItemOfProductDTO();
-		itemOfProductDTO.setIdSalesAd(salesAd.getId());
-		itemOfProductDTO.setQuantity(1000L);
-
-		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
-			purchaseOrderService.convertPurchaseToDTO(purchaseOrderDTO);
-
-		});
-		
 		assertTrue(exceptionThatWasThrown.getMessage(), true);
 	}
 	
@@ -310,122 +304,67 @@ public class PurchaseOrderServiceTest {
 	}
 
 	@Test
-	void testListPurchaseOrder() {
+	void testConvertPurchaseToDTONoSuccess() {
 
-		List<Buyer> buyerList = new ArrayList<>();
+		Product product = new Product();
+		product.setId(1L);
+		product.setName("Melancia Híbrida Combat");
+		product.setDescription("Melancia redonda, de boa textura, muito firme e ótima para producao de sucos");
+
 		Buyer buyer = new Buyer();
 		buyer.setIdBuyer(1L);
-		buyer.setName("Rubens");
-		buyer.setLastName("Barichello");
-		buyerList.add(buyer);
+		buyer.setName("Ayrton");
+		buyer.setLastName("Senna");
+
+		SalesAd salesAd = new SalesAd();
+		salesAd.setId(1L);
+		salesAd.setMaximumTemperature(20F);
+		salesAd.setMinimumTemperature(0F);
+		salesAd.setPrice(45D);
+		salesAd.setProduct(product);
 
 		List<ItemOfProduct> itemProductList = new ArrayList<>();
 
-		List<PurchaseOrder> purchaseList = new ArrayList<>();
 		PurchaseOrder purchaseOrder = new PurchaseOrder();
 		purchaseOrder.setId(1L);
-		purchaseOrder.setDate(LocalDate.now());
 		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
-		purchaseOrder.setIdBuyer(buyer);
+		purchaseOrder.setDate(LocalDate.now());;
+		purchaseOrder.setIdBuyer(null);
 		purchaseOrder.setItemOfProduct(itemProductList);
-		purchaseList.add(purchaseOrder);
 
-		Mockito.when(mockPurchaseOrderRepository.findAll()).thenReturn(purchaseList);
-		purchaseOrderService.list();
+		ItemOfProduct itemOfProduct = new ItemOfProduct();
+		itemOfProduct.setId(1L);
+		itemOfProduct.setQuantity(1000L);
+		itemOfProduct.setPurchaseOrder(purchaseOrder);
+		itemOfProduct.setSalesAd(salesAd);
+		itemProductList.add(itemOfProduct);
 
-		assertEquals(1L, purchaseOrder.getId());
-		assertEquals(OrderStatus.CARRINHO, purchaseOrder.getOrderStatus());
-		assertEquals(itemProductList, purchaseOrder.getItemOfProduct());
-
-		assertNotNull(purchaseOrder.getId());
-		assertNotNull(purchaseOrder.getDate());
-		assertNotNull(purchaseOrder.getOrderStatus());
-		assertNotNull(purchaseOrder.getIdBuyer());
-		assertNotNull(purchaseOrder.getItemOfProduct());
-	}
-
-	@Test
-	void testUpdatePurchaseOrderWithSuccess() throws Exception {
-
-		List<Buyer> buyerList = new ArrayList<>();
-		Buyer buyer = new Buyer();
-		buyer.setIdBuyer(1L);
-		buyer.setName("Fernanda");
-		buyer.setLastName("Ferreira");
-		buyerList.add(buyer);
-
-		List<ItemOfProduct> itemProductList = new ArrayList<>();
-		List<ItemOfProduct2DTO> itemProductListDTO = new ArrayList<>();
-
-		PurchaseOrder purchaseOrder = new PurchaseOrder();
-		purchaseOrder.setId(1L);
-		purchaseOrder.setDate(LocalDate.now());
-		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
-		purchaseOrder.setIdBuyer(buyer);
-		purchaseOrder.setItemOfProduct(itemProductList);
+		List<ItemOfProduct2DTO> itemOfProductDTOList = new ArrayList<>();
+		ItemOfProduct2DTO itemOfProduct2DTO = new ItemOfProduct2DTO();
+		itemOfProduct2DTO.setIdSalesAd(salesAd.getId());
+		itemOfProduct2DTO.setQuantity(1000L);
+		itemOfProductDTOList.add(itemOfProduct2DTO);
 
 		PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
-		purchaseOrderDTO.setIdBuyer(buyer.getIdBuyer());
-		purchaseOrderDTO.setItemOfProduct(itemProductListDTO); 
+		purchaseOrderDTO.setIdBuyer(null);
+		purchaseOrderDTO.setItemOfProduct(itemOfProductDTOList);
+
+
+		ItemOfProductDTO itemOfProductDTO = new ItemOfProductDTO();
+		itemOfProductDTO.setIdSalesAd(salesAd.getId());
+		itemOfProductDTO.setQuantity(1000L);
 
 		Mockito.when(mockBuyerRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(buyer));
-		Mockito.when(mockPurchaseOrderRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(purchaseOrder));
-		Mockito.when(mockPurchaseOrderRepository.saveAndFlush(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
-
-		purchaseOrderService.update(purchaseOrderDTO, purchaseOrder.getId());
-		purchaseOrder.setId(1L);
-
-		assertEquals(1L, purchaseOrder.getId());
-		assertEquals(OrderStatus.CARRINHO, purchaseOrder.getOrderStatus());
-		assertEquals(itemProductList, purchaseOrder.getItemOfProduct());
-
-		assertNotNull(purchaseOrder.getId());
-		assertNotNull(purchaseOrder.getDate());
-		assertNotNull(purchaseOrder.getOrderStatus());
-		assertNotNull(purchaseOrder.getIdBuyer());
-		assertNotNull(purchaseOrder.getItemOfProduct());
-	}
-
-	@Test
-	void testUpdatePurchaseOrderNoSuccess() throws Exception {
-
-		List<Buyer> buyerList = new ArrayList<>();
-		Buyer buyer = new Buyer();
-		buyer.setIdBuyer(1L);
-		buyer.setName("Fernanda");
-		buyer.setLastName("Ferreira");
-		buyerList.add(buyer);
-
-		List<ItemOfProduct> itemProductList = new ArrayList<>();
-		List<ItemOfProduct2DTO> itemProductListDTO = new ArrayList<>();
-
-		PurchaseOrder purchaseOrder = new PurchaseOrder();
-		purchaseOrder.setId(1L);
-		purchaseOrder.setDate(LocalDate.now());
-		purchaseOrder.setOrderStatus(OrderStatus.CARRINHO);
-		purchaseOrder.setIdBuyer(buyer);
-		purchaseOrder.setItemOfProduct(itemProductList);
-
-		PurchaseOrderDTO purchaseOrderDTO = new PurchaseOrderDTO();
-		purchaseOrderDTO.setIdBuyer(buyer.getIdBuyer());
-		purchaseOrderDTO.setItemOfProduct(itemProductListDTO);
-
-		Mockito.when(mockBuyerRepository.findById(1L)).thenReturn(Optional.of(buyer));
-		Mockito.when(mockPurchaseOrderRepository.findById(1L)).thenReturn(Optional.of(purchaseOrder));
-		Mockito.when(mockPurchaseOrderRepository.saveAndFlush(Mockito.any(PurchaseOrder.class))).thenReturn(purchaseOrder);
+		
 
 		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
-			purchaseOrderService.update(purchaseOrderDTO, 2L);
-
+			purchaseOrderService.convertPurchaseToDTO(purchaseOrderDTO);
 		});
-
-		assertThat(exceptionThatWasThrown.getMessage(), startsWith("Id"));
-
+		
+		assertEquals("Erro no carrinho", exceptionThatWasThrown.getMessage());
 		assertTrue(exceptionThatWasThrown.getMessage(), true);
-
-		assertEquals("Id não cadastrado",exceptionThatWasThrown.getMessage());	
 	}
-
+	
 	@Test
 	void testPriceList() throws Exception {
 
@@ -526,6 +465,13 @@ public class PurchaseOrderServiceTest {
 		itemOfProduct.setSalesAd(salesAd);
 		itemOfProduct.setPurchaseOrder(purchaseOrder);
 		itemProductList.add(itemOfProduct);
+		
+		ItemOfProduct itemOfProduct2 = new ItemOfProduct();
+		itemOfProduct2.setId(1L);
+		itemOfProduct2.setQuantity(100L);
+		itemOfProduct2.setSalesAd(salesAd);
+		itemOfProduct2.setPurchaseOrder(purchaseOrder);
+		itemProductList.add(itemOfProduct2);
 
 		List<BatchStock> batchStockList = new ArrayList<>();
 		BatchStock batchStock = new BatchStock();
