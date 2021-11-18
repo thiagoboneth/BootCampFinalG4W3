@@ -1,6 +1,5 @@
 package com.mercadolibre.demo.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import java.io.Serializable;
 import java.util.Optional;
 import javax.persistence.*;
-
 
 @Getter
 @Setter
@@ -52,6 +50,5 @@ public class SalesAd implements Serializable {
         this.price = price;
         this.seller = obtemSeller.get();
         this.product = obtemProduct.get();
-
     }
 }

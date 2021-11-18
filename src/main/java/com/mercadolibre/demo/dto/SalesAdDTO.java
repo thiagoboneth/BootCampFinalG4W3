@@ -1,4 +1,6 @@
 package com.mercadolibre.demo.dto;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -6,18 +8,21 @@ import lombok.Setter;
 @Setter
 public class SalesAdDTO {
 
-	//@NotBlank(message = "{volume.not.blank}")
+	@NotNull(message = "{volume.not.blank}")
     private Float volume;
 	
-//	@NotBlank(message = "{minimumTemperature.not.blank}")
+	@NotNull(message = "{minimumTemperature.not.null}")
     private Float minimumTemperature;
     
-//	@NotBlank(message = "{maximumTemperature.not.blank}")
+	@NotNull(message = "{maximumTemperature.not.null}")
     private Float maximumTemperature;
 	
-	//@NotBlank(message = "{price.not.blank}")
+	@NotNull(message = "{price.not.null}")
     private Double price;
 	
+    @NotNull(message = "{id.not.null}")
     private Long idSeller;
+    
+    @NotNull(message = "{id.not.null}")
     private Long idProduct;
 }
