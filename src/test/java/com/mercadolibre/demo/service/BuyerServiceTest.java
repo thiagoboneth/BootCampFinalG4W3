@@ -2,6 +2,7 @@ package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.BuyerDTO;
 import com.mercadolibre.demo.model.Buyer;
+import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.repository.BuyerRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -139,15 +140,17 @@ public class BuyerServiceTest {
     
     @Test
     void deleteProductWithSuccess() throws Exception {
-        List<Buyer> list = new ArrayList<Buyer>();
 
         Buyer buyer = new Buyer();
         buyer.setIdBuyer(1L);
-        buyer.setName("Zabuza");
-        buyer.setLastName("Momochi");
-        list.add(buyer);
+        buyer.setName("Orochimaru");
+        buyer.setLastName("Sannin");
+
+        Mockito.when(mock.findById(Mockito.any(Long.class)))
+                .thenReturn(Optional.of(buyer));
+
         buyerService.delete(1L);
 
-        verify(mock).deleteById(1L);
+        Mockito.verify(mock).deleteById(1L);
     }
 }
