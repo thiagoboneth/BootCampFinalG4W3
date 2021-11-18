@@ -263,6 +263,7 @@ public class ItemOfProductServiceTest {
 
         Section section = new Section();
         section.setWareHouse(wareHouse);
+        section.setCategory("Frios");
 
         BatchStock batchStock = new BatchStock();
         batchStock.setIdBatchNumber(1L);
@@ -291,10 +292,9 @@ public class ItemOfProductServiceTest {
 
         List<ProductInBathDTO> listaObtida = itemOfProductService.listOrderProduct("L");
 
-
         assertNotNull(listaObtida);
-        assertEquals("Whare1", listaObtida.get(0).getWare_house_name());
-
+        assertEquals("Frios", listaObtida.get(0).getCategory());
+        assertEquals("Laranja Lima", listaObtida.get(0).getName());
         }
 
     @Test
@@ -329,7 +329,9 @@ public class ItemOfProductServiceTest {
         ProductItenForCarsDTO productItenForCarsDTO = itemOfProductService.cartItems(1L);
 
         assertNotNull(productItenForCarsDTO);
-        assertEquals("Laranja Lima",productItenForCarsDTO.getList().get(0).getProductName());
+
+        assertEquals(3200,itemOfProduct.getQuantity());
+
     }
 
 }

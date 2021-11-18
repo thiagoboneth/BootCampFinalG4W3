@@ -332,9 +332,10 @@ public class SectionServiceTest {
         mockSectionRepository.categoryContaining("Frios");
         List<StockByWareHouseDTO> listGet = mockSectionRepository.categoryContaining("Frios");
 
-        sectionService.findSectionCategories("Frios");
+        List<SectionTypeDTO> frios = sectionService.findSectionCategories("Frios");
 
         assertNotNull(sectionList);
+        assertEquals(1,frios);
     }
 
     @Test
@@ -396,6 +397,10 @@ public class SectionServiceTest {
                 "wareHouseName","productName");
 
         assertEquals(50.0,getSectionId.getPrice());
+        assertEquals(100,getSectionId.getQuantity());
+        assertEquals("productName",getSectionId.getNameProduct());
+        assertEquals("wareHouseName",getSectionId.getWareHouse());
+        assertEquals("nome",getSectionId.getName());
     }
 
     @Test
@@ -421,6 +426,7 @@ public class SectionServiceTest {
 
         assertEquals(1,wareHouseProductItensDTO.getIdProduct());
         assertEquals(wareHouseProductListDTO,requisiteFour.getList());
+        assertEquals("WhareHouse 2",stockByWareHouses.get(1).getWare_house_name());
 
     }
 
@@ -432,7 +438,6 @@ public class SectionServiceTest {
         assertNotNull(wareHouseProductListDTO);
         assertEquals(120,wareHouseProductListDTO.getQuantity());
         assertEquals("CACAU3",wareHouseProductListDTO.getWareHouseName());
-
     }
 
 }

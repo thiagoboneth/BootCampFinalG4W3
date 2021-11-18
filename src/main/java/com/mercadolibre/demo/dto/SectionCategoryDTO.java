@@ -1,4 +1,4 @@
-package com.mercadolibre.demo.dto;
+/*package com.mercadolibre.demo.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,4 +13,4 @@ public class SectionCategoryDTO {
     private String category;
     private String ware_house_name;
 
-}
+}*/
