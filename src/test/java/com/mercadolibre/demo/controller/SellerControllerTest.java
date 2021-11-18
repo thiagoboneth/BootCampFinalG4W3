@@ -108,7 +108,7 @@ public class SellerControllerTest {
 	}
 
 	@Test
-	public void testUpdateBuyerWithSuccess() throws Exception {
+	public void testDeleteSellerWithSuccess() throws Exception {
 
 
 		uri = new URI("/api/v1/fresh-products/seller/delete/1");
