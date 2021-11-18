@@ -44,17 +44,6 @@ public class ProductController {
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/update/{id}")
-	public ResponseEntity<Product> updateProduct(@Valid @RequestBody ProductDTO dto, @PathVariable Long id) throws Exception {
-		Product product = productService.update(dto, id);
-		return new ResponseEntity<>(product, HttpStatus.CREATED);
-	}
-
-	@DeleteMapping(value = "/delete/{id}")
-	public ResponseEntity<String> deleteProduct(@PathVariable Long id) throws Exception {
-		productService.delete(id);
-		return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.OK);
-	}
 
 	@GetMapping(value = "/duedatelist/{numberOfDay}/{idSection}")
 	@ResponseBody
@@ -68,5 +57,16 @@ public class ProductController {
 	public ResponseEntity<List<DueDateDTO>> dueDateCustom(@PathVariable Long numberOfDay, @PathVariable String CategoryName, @PathVariable String typeOfList) throws Exception {
 		List<DueDateDTO> dueDateCustom = productService.dueDateCustom(numberOfDay,CategoryName, typeOfList);
 		return new ResponseEntity<>(dueDateCustom, HttpStatus.OK);
+	}
+	@PutMapping(value = "/update/{id}")
+	public ResponseEntity<Product> updateProduct(@Valid @RequestBody ProductDTO dto, @PathVariable Long id) throws Exception {
+		Product product = productService.update(dto, id);
+		return new ResponseEntity<>(product, HttpStatus.CREATED);
+	}
+
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<String> deleteProduct(@PathVariable Long id) throws Exception {
+		productService.delete(id);
+		return new ResponseEntity<>("Produto deletado com sucesso", HttpStatus.OK);
 	}
 }
