@@ -37,7 +37,7 @@ public class ProductControllerTest {
 
 	@BeforeEach
 	public void testandoAutenticacao() throws Exception {
-		String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
+		String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
 		uri = new URI("/auth");
 
 		MvcResult resultContendoToken = mockMvc
@@ -63,7 +63,8 @@ public class ProductControllerTest {
 
 	}
 
-	  @Test public void testSaveProductWithSuccess() throws Exception {
+	  @Test
+	  public void testSaveProductWithSuccess() throws Exception {
 	  
 	  uri = new URI("/api/v1/fresh-products/product/save");
 	  
@@ -86,7 +87,8 @@ public class ProductControllerTest {
 	  }
 	  
 	
-	  @Test public void testUpdateProductWithSuccess() throws Exception {
+	  @Test
+	  public void testUpdateProductWithSuccess() throws Exception {
 		  
 	  uri = new URI("/api/v1/fresh-products/product/update/1");
 	  
@@ -108,7 +110,8 @@ public class ProductControllerTest {
 	  
 	  }
 	  
-	  @Test public void testSaveProductNoSuccesss() throws Exception {
+	  @Test
+	  public void testSaveProductNoSuccesss() throws Exception {
 		  
 		  uri = new URI("/api/v1/fresh-products/product/save");
 		  
@@ -128,13 +131,13 @@ public class ProductControllerTest {
 			assertNotNull(responseJson);
 	  }
 	  
-	  @Test public void testDeleteProduct() throws Exception {
+	  @Test
+	  public void testDeleteProduct() throws Exception {
 	  
 		  uri = new URI("/api/v1/fresh-products/product/delete/1");
 		  
 		  assertNotNull(uri);
-		  
-		  
+
 		  MvcResult result = mockMvc.perform(
 					MockMvcRequestBuilders.delete(uri)
 					.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
@@ -143,6 +146,39 @@ public class ProductControllerTest {
 			String responseJson = result.getResponse().getContentAsString();
 
 			assertNotNull(responseJson);
-	  } 
+	  }
 
+	@Test
+	public void testdueDate() throws Exception {
+
+		uri = new URI("/api/v1/fresh-products/product/duedatelist/100/1");
+
+		assertNotNull(uri);
+
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.get(uri)
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isOk()).andReturn();
+
+		String responseJson = result.getResponse().getContentAsString();
+
+		assertNotNull(responseJson);
+	}
+
+	@Test
+	public void testdueDateCustom() throws Exception {
+
+		uri = new URI("/api/v1/fresh-products/product/duedatelist/list/100/Refrigerado/asc");
+
+		assertNotNull(uri);
+
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.get(uri)
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isOk()).andReturn();
+
+		String responseJson = result.getResponse().getContentAsString();
+
+		assertNotNull(responseJson);
+	}
 }
