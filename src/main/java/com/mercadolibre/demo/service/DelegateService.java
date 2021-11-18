@@ -52,11 +52,13 @@ public class DelegateService {
 		return section;
 	}
 	
-    public Delegate convertDelegateToDTO(DelegateDTO dto){
+    public Delegate convertDelegateToDTO(DelegateDTO dto) throws Exception {
         if (getSection(dto).isPresent()) {
             Delegate delegate = new Delegate(dto.getName(), dto.getLastname(), getSection(dto));
             return delegate;
         }
-        return null;
+        else {
+            throw new Exception("Erro ao Converter DelegateDTO");
+        }
     }
 }
