@@ -153,7 +153,7 @@ public class SellerServiceTest {
     }
 
     @Test
-    void deleteProductWithFail() throws Exception {
+    void deleteProductWithFail() {
 
         Seller seller = new Seller();
         seller.setIdseller(1L);
