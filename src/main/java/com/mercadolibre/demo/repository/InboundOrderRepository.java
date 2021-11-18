@@ -21,6 +21,6 @@ public interface InboundOrderRepository extends JpaRepository<InboundOrder, Long
             " and i.section.idSection = sec.idSection " +
             " and sec.WareHouse.idWareHouse = w.idWareHouse " +
             " and p.id = ?1 and w.idWareHouse = ?2")
-    List<SectionNativeDTO> buscaCanseira(Long id, Long idWhareHouse); //id = produto
+    List<SectionNativeDTO> findNativeSection(Long id, Long idWhareHouse); //id = produto
 
 }

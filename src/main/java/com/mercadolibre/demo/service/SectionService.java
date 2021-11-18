@@ -56,30 +56,35 @@ public class SectionService {
 		requisiteFour.setIdProduct(idProduct);
 
 		for (WareHouse itemWareHOuse : idWarehouse) {
-			WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
-			List<SectionNativeDTO> stockByWareHouses = inboundOrderRepository.buscaCanseira(idProduct,itemWareHOuse.getIdWareHouse());
-			wareHouseProductDTO.setQuantity(0L);
-			for (SectionNativeDTO item : stockByWareHouses) {
-				wareHouseProductDTO.setWareHouseName(item.getNome());
-				wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getCurrent_quantity());
-			}
+			List<SectionNativeDTO> stockByWareHouses = inboundOrderRepository.findNativeSection(idProduct,itemWareHOuse.getIdWareHouse());
+
+			WareHouseProductListDTO wareHouseProductListDTOS = forlistProduct(stockByWareHouses);
+
 			if(stockByWareHouses.size()>0) {
-				wareHouseProductListDTO.add(wareHouseProductDTO);
+				wareHouseProductListDTO.add(wareHouseProductListDTOS);
 			}
 		}
 		requisiteFour.setList(wareHouseProductListDTO);
 		return requisiteFour;
-
 	}
+
+	public WareHouseProductListDTO forlistProduct(List<SectionNativeDTO> SectioNativeLis){
+		WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
+		wareHouseProductDTO.setQuantity(0L);
+		for (SectionNativeDTO item : SectioNativeLis) {
+			wareHouseProductDTO.setWareHouseName(item.getNome());
+			wareHouseProductDTO.setQuantity(wareHouseProductDTO.getQuantity() + item.getCurrent_quantity());
+		}
+		return wareHouseProductDTO;
+	}
+
 
 	public Optional<WareHouse> getWareHouse(SectionDTO dto){
 		Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
 		return wareHouse;
 	}
 	
-	public Optional<Section> findById(Long id) {
-		return sectionRepository.findById(id);
-	}
+	public Optional<Section> findById(Long id) {return sectionRepository.findById(id);}
 
 	public Section update(SectionDTO dto, Long id) throws Exception {
 		Optional<Section> existSection = findById(id);
