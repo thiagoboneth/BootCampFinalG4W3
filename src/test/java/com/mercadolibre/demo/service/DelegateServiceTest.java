@@ -69,7 +69,38 @@ public class DelegateServiceTest {
 		assertNotNull(delegate.getLastname());
 		assertNotNull(delegate.getIdDelegate());
 	}
-	
+	@Test
+	void testSaveDelegateNoSuccess() throws Exception {
+
+		DelegateDTO delegateDTO = new DelegateDTO();
+		delegateDTO.setName("Roberta");
+		delegateDTO.setLastname("Motta");
+		delegateDTO.setIdSection(3L);
+
+		WareHouse wareHouse = new WareHouse();
+		wareHouse.setIdWareHouse(1L);
+		wareHouse.setWareHouseName("WareHouse 1");
+
+		Section section = new Section();
+		section.setIdSection(1L);
+		section.setCapacity(200L);
+		section.setCategory("FRIOS");
+		section.setWareHouse(wareHouse);
+
+		Delegate delegate = new Delegate();
+
+		Mockito.when(mockDelegateRepository.save(Mockito.any(Delegate.class))).thenReturn(delegate);
+		Mockito.when(mockWareHouseRepository.findById(1L)).thenReturn(Optional.of(wareHouse));
+		Mockito.when(mockSectionRepository.findById(1L)).thenReturn(Optional.of(section));
+		Mockito.when(mockDelegateRepository.findById(1L)).thenReturn(Optional.of(delegate));
+
+		Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+			delegateService.save(delegateDTO);
+		});
+
+		assertThat(exceptionThatWasThrown.getMessage(), equalTo("Erro ao Converter DelegateDTO"));
+	}
+
 	@Test
 	void testGetSectionWithSuccessful() throws Exception {
 		
@@ -242,7 +273,6 @@ public class DelegateServiceTest {
         });
 
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
-		
 	}
 	
 }
