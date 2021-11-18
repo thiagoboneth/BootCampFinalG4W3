@@ -15,7 +15,6 @@ import java.util.*;
 @Service
 public class SectionService {
 
-
 	private SectionRepository sectionRepository;
 	private WareHouseRepository wareHouseRepository;
 	private InboundOrderRepository inboundOrderRepository;
@@ -50,16 +49,12 @@ public class SectionService {
 
 	public WareHouseProductItensDTO listProduct(Long idProduct) {
 		List<WareHouse> idWarehouse = wareHouseRepository.findAll();
-
 		WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
 		List<WareHouseProductListDTO> wareHouseProductListDTO = new ArrayList<>();
 		requisiteFour.setIdProduct(idProduct);
-
 		for (WareHouse itemWareHOuse : idWarehouse) {
 			List<SectionNativeDTO> stockByWareHouses = inboundOrderRepository.findNativeSection(idProduct,itemWareHOuse.getIdWareHouse());
-
 			WareHouseProductListDTO wareHouseProductListDTOS = forlistProduct(stockByWareHouses);
-
 			if(stockByWareHouses.size()>0) {
 				wareHouseProductListDTO.add(wareHouseProductListDTOS);
 			}
@@ -77,7 +72,6 @@ public class SectionService {
 		}
 		return wareHouseProductDTO;
 	}
-
 
 	public Optional<WareHouse> getWareHouse(SectionDTO dto){
 		Optional<WareHouse> wareHouse = wareHouseRepository.findById(dto.getIdWareHouse());
@@ -104,7 +98,6 @@ public class SectionService {
 			throw new Exception("Id não cadastrado");
 		}
 	}
-
 
 	public SectionTypeDTO setSectionTypeDTO(String category,Long quantity, Double price, String wareHouseName, String productName){
 		SectionTypeDTO sectionTypeDTO = new SectionTypeDTO();
