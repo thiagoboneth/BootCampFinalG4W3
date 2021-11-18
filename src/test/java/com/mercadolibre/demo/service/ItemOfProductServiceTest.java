@@ -73,7 +73,7 @@ public class ItemOfProductServiceTest {
             itemOfProductService.convertItemOfProduct(itemOfProductDTO);
         });
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Erro ao Converter ItemOfProductDTO"));
-
+        assertEquals("Erro ao Converter ItemOfProductDTO",exceptionThatWasThrown.getMessage());
     }
     @Test
     void testListItemOfProduct() {
