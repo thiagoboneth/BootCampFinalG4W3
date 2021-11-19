@@ -1,111 +1,110 @@
 package com.mercadolibre.demo.controller;
 
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.net.URI;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mercadolibre.demo.dto.TokenDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import javax.transaction.Transactional;
+
+@Transactional
 @AutoConfigureTestEntityManager
 @SpringBootTest
 @AutoConfigureMockMvc
 public class WareHouseControllerTest {
 
 	private URI uri;
-	private MockHttpServletRequestBuilder request;
-	private ResultMatcher expectedResult;
-
-	@Autowired
-	private TestEntityManager entityManager;
 
 	@Autowired
 	MockMvc mockMvc;
 
+	private TokenDTO tokenDTO;
+
+	@BeforeEach
+	public void testandoAutenticacao() throws Exception {
+		String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+		uri = new URI("/auth");
+
+		MvcResult resultContendoToken = mockMvc
+				.perform(MockMvcRequestBuilders.post(uri).contentType(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(status().isOk()).andReturn();
+		tokenDTO = new ObjectMapper().readValue(resultContendoToken.getResponse().getContentAsString(), TokenDTO.class);
+	}
+
 	@Test
-	public void testListBuyerGetAll() throws Exception {
+	public void testsaveWareHouse() throws Exception {
+
+		uri = new URI("/api/v1/fresh-products/warehouse/save");
+
+		assertNotNull(uri);
+
+		String requestJson =  "{\"wareHouseName\": \"wareHouseName1\"}";
+
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.post(uri)
+						.content(requestJson)
+						.header("Content-Type", "application/json")
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isCreated()).andReturn();
+
+		String responseJson = result.getResponse().getContentAsString();
+
+		assertNotNull(responseJson);
+	}
+
+	@Test
+	public void testlistWareHouse() throws Exception {
 
 		uri = new URI("/api/v1/fresh-products/warehouse/list");
 
 		assertNotNull(uri);
 
-		request = MockMvcRequestBuilders.get(uri);
-		expectedResult = MockMvcResultMatchers.status().isOk();
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.get(uri).header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isOk()).andReturn();
 
-		String response = mockMvc.perform(request).andExpect(expectedResult).andReturn().getResponse()
-				.getContentAsString();
+		String jsonRetorno = result.getResponse().getContentAsString();
 
-		assertNotNull(response);
+		assertNotNull(jsonRetorno);
+
 	}
 
 	@Test
-	public void testSaveBuyerWithSuccess() throws Exception {
-
-		uri = new URI("/api/v1/fresh-products/warehouse/save");
-
-		assertNotNull(uri);
-
-		String json = "{\"wareHouseName\": \"WareHouse Teste Save\"}";
-
-		request = MockMvcRequestBuilders.post(uri).content(json).header("Content-Type", "application/json");
-
-		expectedResult = MockMvcResultMatchers.status().isCreated();
-
-		mockMvc.perform(request).andExpect(expectedResult);
-	}
-
-	@Test
-	public void testUpdateBuyerWithSuccess() throws Exception {
+	public void testupdateWareHouse() throws Exception{
 
 		uri = new URI("/api/v1/fresh-products/warehouse/update/1");
 
 		assertNotNull(uri);
 
-		String json = "{\"wareHouseName\": \"WareHouse Teste Update\"}";
+		String requestJson =  "{\"idWareHouse\": 1,\"wareHouseName\": \"wareHouseName2\"}";
 
-		request = MockMvcRequestBuilders.put(uri).content(json).header("Content-Type", "application/json");
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.put(uri)
+						.content(requestJson)
+						.header("Content-Type", "application/json")
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isCreated()).andReturn();
 
-		expectedResult = MockMvcResultMatchers.status().isCreated();
+		String responseJson = result.getResponse().getContentAsString();
 
-		mockMvc.perform(request).andExpect(expectedResult);
-	}
+		assertNotNull(responseJson);
 
-	@Test
-	public void testSaveBuyerNoSuccesss() throws Exception {
-
-		uri = new URI("/api/v1/fresh-products/warehouse/save");
-
-		assertNotNull(uri);
-
-		String json = "{\"wareHouseName\": null\"}";
-
-		request = MockMvcRequestBuilders.post(uri).content(json).header("Content-Type", "application/json");
-
-		expectedResult = MockMvcResultMatchers.status().isBadRequest();
-
-		mockMvc.perform(request).andExpect(expectedResult);
-	}
-
-	@Test
-	public void testDeleteBuyer() throws Exception {
-
-		uri = new URI("/api/v1/fresh-products/warehouse/delete/2");
-
-		assertNotNull(uri);
-
-		request = MockMvcRequestBuilders.delete(uri).header("Content-Type", "application/json");
-
-		expectedResult = MockMvcResultMatchers.status().isOk();
-
-		mockMvc.perform(request).andExpect(expectedResult);
 	}
 }

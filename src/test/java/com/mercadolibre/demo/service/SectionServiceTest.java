@@ -355,9 +355,10 @@ public class SectionServiceTest {
         mockSectionRepository.categoryContaining("Frios");
         List<StockByWareHouseDTO> listGet = mockSectionRepository.categoryContaining("Frios");
 
-        sectionService.findSectionCategories("Frios");
+        List<SectionTypeDTO> frios = sectionService.findSectionCategories("Frios");
 
         assertNotNull(sectionList);
+        assertEquals(1,frios);
     }
 
     @Test
@@ -418,7 +419,12 @@ public class SectionServiceTest {
         SectionTypeDTO getSectionId = sectionService.setSectionTypeDTO("nome", 100L, 50.0,
                 "wareHouseName", "productName");
 
-        assertEquals(50.0, getSectionId.getPrice());
+
+        assertEquals(50.0,getSectionId.getPrice());
+        assertEquals(100,getSectionId.getQuantity());
+        assertEquals("productName",getSectionId.getNameProduct());
+        assertEquals("wareHouseName",getSectionId.getWareHouse());
+        assertEquals("nome",getSectionId.getName());
     }
 
     @Test
@@ -444,9 +450,9 @@ public class SectionServiceTest {
 
         WareHouseProductItensDTO wareHouseProductItensDTO = sectionService.listProduct(1L);
 
-        assertEquals(1, wareHouseProductItensDTO.getIdProduct());
-        assertEquals(wareHouseProductListDTO, requisiteFour.getList());
-
+        assertEquals(1,wareHouseProductItensDTO.getIdProduct());
+        assertEquals(wareHouseProductListDTO,requisiteFour.getList());
+        assertEquals("WhareHouse 2",stockByWareHouses.get(1).getWare_house_name());
     }
 
     @Test
@@ -455,9 +461,8 @@ public class SectionServiceTest {
         WareHouseProductListDTO wareHouseProductListDTO = sectionService.forlistProduct(sectionNativeDTOList);
 
         assertNotNull(wareHouseProductListDTO);
-        assertEquals(120, wareHouseProductListDTO.getQuantity());
-        assertEquals("CACAU3", wareHouseProductListDTO.getWareHouseName());
-
+        assertEquals(120,wareHouseProductListDTO.getQuantity());
+        assertEquals("CACAU3",wareHouseProductListDTO.getWareHouseName());
     }
 
 }

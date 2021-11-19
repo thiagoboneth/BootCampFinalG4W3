@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.mercadolibre.demo.dto.response.PriceDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -420,7 +421,10 @@ public class PurchaseOrderServiceTest {
 		batchStockList.add(batchStock);
 
 		Mockito.when(mockBatchStockRepository.batchStockList(salesAd.getId())).thenReturn(batchStockList);
-		purchaseOrderService.priceList(itemProductList);
+		PriceDTO priceDTO = purchaseOrderService.priceList(itemProductList);
+
+		assertEquals(4500.0,priceDTO.getTotalPrice());
+
 
 	}
 

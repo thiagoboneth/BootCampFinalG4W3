@@ -23,7 +23,7 @@ public class ItemOfProductController {
     private ItemOfProductService itemOfProductService;
 
     @PostMapping(value = "/save")
-    public ResponseEntity<ItemOfProduct> saveWareHouse(@Valid @RequestBody ItemOfProductDTO dto) throws Exception {
+    public ResponseEntity<ItemOfProduct> saveItemOfProduct(@Valid @RequestBody ItemOfProductDTO dto) throws Exception {
         try {
             ItemOfProduct itemOfProduct = itemOfProductService.save(dto);
             return new ResponseEntity<>(itemOfProduct, HttpStatus.CREATED);
