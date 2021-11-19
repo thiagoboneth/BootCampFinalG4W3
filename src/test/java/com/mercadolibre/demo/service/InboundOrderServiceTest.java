@@ -78,6 +78,56 @@ public class InboundOrderServiceTest {
     }
 
     @Test
+    void saveInboundOrderNoSuccess() throws Exception {
+
+        baseTesteBatchStock();
+        baseTesteSection();
+        InboundOrderDTO inboundOrderDTO = baseTesteInboundOrderDTO();
+        inboundOrderDTO.setIdSection(2L);
+
+        InboundOrder inboundOrder = new InboundOrder();
+
+        Mockito.when(mockSectionRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(baseTesteSection()));
+        Mockito.when(mockBatchStockRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(baseTesteBatchStock()));
+        Mockito.when(mockInboundOrderRepository.save(Mockito.any(InboundOrder.class))).thenReturn(inboundOrder);
+
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            inboundOrderService.update(inboundOrderDTO, 3L);
+        });
+
+        assertEquals(exceptionThatWasThrown.getMessage(), "InboundOrder não cadastrado");
+    }
+    @Test
+    void convertInboundOrderToDTONoSuccessBecauseBatchStock() throws Exception {
+        InboundOrderDTO inboundOrderDTO = baseTesteInboundOrderDTO();
+        inboundOrderDTO.setIdSection(3L);
+        inboundOrderDTO.setIdBatchStock(3L);
+
+        Mockito.when(mockSectionRepository.findById(1L)).thenReturn(Optional.of(baseTesteSection()));
+        Mockito.when(mockBatchStockRepository.findById(1L)).thenReturn(Optional.of(baseTesteBatchStock()));
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            inboundOrderService.convertInboundOrderToDTO(inboundOrderDTO);
+        });
+        assertEquals(exceptionThatWasThrown.getMessage(), "BatchStock não encontrado");
+    }
+    @Test
+    void convertInboundOrderToDTONoSuccessBecauseSection() throws Exception {
+        InboundOrderDTO inboundOrderDTO = baseTesteInboundOrderDTO();
+        inboundOrderDTO.setIdSection(3L);
+        inboundOrderDTO.setIdBatchStock(1L);
+
+        Mockito.when(mockSectionRepository.findById(1L)).thenReturn(Optional.of(baseTesteSection()));
+        Mockito.when(mockBatchStockRepository.findById(1L)).thenReturn(Optional.of(baseTesteBatchStock()));
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            inboundOrderService.convertInboundOrderToDTO(inboundOrderDTO);
+        });
+        assertEquals(exceptionThatWasThrown.getMessage(), "Section não encontrada");
+    }
+
+    @Test
     void listWithSuccess(){
 
         baseTesteBatchStock();

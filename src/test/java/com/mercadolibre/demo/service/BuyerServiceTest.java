@@ -56,13 +56,13 @@ public class BuyerServiceTest {
         list.add(buyer);
         list.add(product2);
         when(mock.findAll()).thenReturn(list);
-        List <Buyer> listAll = mock.findAll();
+        List<Buyer> listAll = mock.findAll();
         buyerService.list();
         assertNotNull(list);
         assertTrue(listAll.contains(buyer));
         assertTrue(listAll.contains(product2));
     }
-    
+
     @Test
     public void testFindById() {
         Long id = 1L;
@@ -103,14 +103,14 @@ public class BuyerServiceTest {
 
         buyer = buyerService.convertBuyerToDTO(dto);
         buyer.setIdBuyer(id);
-        buyerService.update(dto,mock.findById(id).get().getIdBuyer());
+        buyerService.update(dto, mock.findById(id).get().getIdBuyer());
 
         assertEquals("Sakura", buyer.getName());
         assertEquals("Uchiha", buyer.getLastName());
         assertNotNull(buyer.getName());
         assertNotNull(buyer.getLastName());
     }
-    
+
     @Test
     public void testUpdateProductNoSuccess() throws Exception {
         Long id = 1L;
@@ -137,7 +137,7 @@ public class BuyerServiceTest {
 
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
     }
-    
+
     @Test
     void deleteProductWithSuccess() throws Exception {
 
@@ -152,5 +152,22 @@ public class BuyerServiceTest {
         buyerService.delete(1L);
 
         Mockito.verify(mock).deleteById(1L);
+    }
+
+    @Test
+    void deleteProductNoSuccess() throws Exception {
+
+        Buyer buyer = new Buyer();
+        buyer.setIdBuyer(1L);
+        buyer.setName("Orochimaru");
+        buyer.setLastName("Sannin");
+
+        Mockito.when(mock.findById(1L))
+                .thenReturn(Optional.of(buyer));
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            buyerService.delete(2L);
+        });
+        assertEquals(exceptionThatWasThrown.getMessage(), "Id não cadastrado");
     }
 }

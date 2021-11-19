@@ -16,65 +16,61 @@ import com.mercadolibre.demo.repository.SectionRepository;
 @Service
 public class InboundOrderService {
 
-	private InboundOrderRepository inboundOrderRepository;
-	private BatchStockRepository batchStockRepository;
-	private SectionRepository sectionRepository;	
+    private InboundOrderRepository inboundOrderRepository;
+    private BatchStockRepository batchStockRepository;
+    private SectionRepository sectionRepository;
 
-	@Autowired
-	public InboundOrderService(InboundOrderRepository inboundOrderRepository, BatchStockRepository batchStockRepository,
-			SectionRepository sectionRepository) {
-		this.inboundOrderRepository = inboundOrderRepository;
-		this.batchStockRepository = batchStockRepository;
-		this.sectionRepository = sectionRepository;
-	}
+    @Autowired
+    public InboundOrderService(InboundOrderRepository inboundOrderRepository, BatchStockRepository batchStockRepository,
+                               SectionRepository sectionRepository) {
+        this.inboundOrderRepository = inboundOrderRepository;
+        this.batchStockRepository = batchStockRepository;
+        this.sectionRepository = sectionRepository;
+    }
 
+    public InboundOrder save(InboundOrderDTO dto) throws Exception {
+        InboundOrder inboundOrder = convertInboundOrderToDTO(dto);
+        return inboundOrderRepository.save(inboundOrder);
+    }
 
-	public InboundOrder save(InboundOrderDTO dto) throws Exception {
-		InboundOrder inboundOrder = convertInboundOrderToDTO(dto);
-		return inboundOrderRepository.save(inboundOrder);
-	}
+    public List<InboundOrder> list() {
+        return inboundOrderRepository.findAll();
+    }
 
-	public List<InboundOrder> list() {
-		return inboundOrderRepository.findAll();
-	}
+    public Optional<InboundOrder> findById(Long id) {
+        return inboundOrderRepository.findById(id);
+    }
 
-	public Optional<InboundOrder> findById(Long id) {
-		return inboundOrderRepository.findById(id);
-	}
+    public InboundOrder update(InboundOrderDTO dto, Long id) throws Exception {
+        Optional<InboundOrder> existInbounOrder = findById(id);
+        if (existInbounOrder.isPresent()) {
+            InboundOrder inboundOrder = convertInboundOrderToDTO(dto);
+            inboundOrder.setId(id);
+            return inboundOrderRepository.saveAndFlush(inboundOrder);
+        } else {
+            throw new Exception("InboundOrder não cadastrado");
+        }
+    }
 
-	public InboundOrder update(InboundOrderDTO dto, Long id) throws Exception {
-		Optional<InboundOrder> existInbounOrder = findById(id);
-		if (existInbounOrder.isPresent()) {
-			InboundOrder inboundOrder = convertInboundOrderToDTO(dto);
-			inboundOrder.setId(id);
-			return inboundOrderRepository.saveAndFlush(inboundOrder);
-		} else {
-			throw new Exception("Id nao casdastrado");
-		}
-	}
+    public Optional<BatchStock> obtemBatchStock(InboundOrderDTO dto) throws Exception {
+        Optional<BatchStock> batchStock = batchStockRepository.findById(dto.getIdBatchStock());
+        if (batchStock.isPresent()) {
+            return batchStock;
+        } else {
+            throw new Exception("BatchStock não encontrado");
+        }
+    }
 
-	public Optional<BatchStock> obtemBatchStock(InboundOrderDTO dto) throws Exception {
-		Optional<BatchStock> batchStock = batchStockRepository.findById(dto.getIdBatchStock());
-		if(batchStock.isPresent()) {
-			return batchStock;
-		} else {
-			throw new Exception("Id não cadastrado");
-		}
-	}
+    public Optional<Section> obtemSection(InboundOrderDTO dto) throws Exception {
+        Optional<Section> section = sectionRepository.findById(dto.getIdSection());
+        if (section.isPresent()) {
+            return section;
+        } else {
+            throw new Exception("Section não encontrada");
+        }
+    }
 
-	public Optional<Section> obtemSection(InboundOrderDTO dto) throws Exception {
-		Optional<Section> section = sectionRepository.findById(dto.getIdSection());
-		if(section.isPresent()) {
-			return section;
-		} else {
-			throw new Exception("Id não cadastrado");
-		}
-	}
-
-	public InboundOrder convertInboundOrderToDTO(InboundOrderDTO dto) throws Exception {
-		if (obtemBatchStock(dto).isPresent() && obtemSection(dto).isPresent() ) {
-			return new InboundOrder(dto.getOrderDate(), obtemBatchStock(dto), obtemSection(dto));
-		}
-		throw new Exception("ID não cadastrado");
-	}
+    public InboundOrder convertInboundOrderToDTO(InboundOrderDTO dto) throws Exception {
+        return new InboundOrder(dto.getOrderDate(), obtemBatchStock(dto), obtemSection(dto));
+    }
 }

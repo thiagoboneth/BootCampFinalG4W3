@@ -27,11 +27,11 @@ public class SectionServiceTest {
     private InboundOrderRepository mockInboundOrderRepository = Mockito.mock(InboundOrderRepository.class);
     private BatchStockRepository mockBatchStockRepository = Mockito.mock(BatchStockRepository.class);
     private SalesAdRepository mockSalesAdRepository = Mockito.mock(SalesAdRepository.class);
-    SectionService sectionService = new SectionService(mockSectionRepository, mockWareHouseRepository,mockInboundOrderRepository,
-            mockBatchStockRepository,mockSalesAdRepository);
+    SectionService sectionService = new SectionService(mockSectionRepository, mockWareHouseRepository, mockInboundOrderRepository,
+            mockBatchStockRepository, mockSalesAdRepository);
 
 
-    List<WareHouse> baseTesteWhareHouseList(){
+    List<WareHouse> baseTesteWhareHouseList() {
         List<WareHouse> wareHouseList = new ArrayList<>();
 
         WareHouse wareHouse = new WareHouse();
@@ -52,14 +52,14 @@ public class SectionServiceTest {
         return wareHouseList;
     }
 
-    WareHouse baseTesteWhareHouse(){
+    WareHouse baseTesteWhareHouse() {
         WareHouse wareHouse = new WareHouse();
         wareHouse.setIdWareHouse(1L);
         wareHouse.setWareHouseName("WhareHouse 1");
         return wareHouse;
     }
 
-    List<WareHouseDTO> baseTesteWhareHouseListDTO(){
+    List<WareHouseDTO> baseTesteWhareHouseListDTO() {
         List<WareHouseDTO> wareHouseListDTO = new ArrayList<>();
 
         WareHouseDTO wareHouseDTO = new WareHouseDTO();
@@ -77,7 +77,7 @@ public class SectionServiceTest {
         return wareHouseListDTO;
     }
 
-    List<SectionNativeDTO> baseTesteSectionNativeListDTO(){
+    List<SectionNativeDTO> baseTesteSectionNativeListDTO() {
         List<SectionNativeDTO> SectionNativeListDTO = new ArrayList<>();
 
         SectionNativeDTO sectionNativeDTO = new SectionNativeDTO();
@@ -102,7 +102,7 @@ public class SectionServiceTest {
     }
 
 
-    List<WareHouseProductListDTO> baseWareHouseProductListDTO(){
+    List<WareHouseProductListDTO> baseWareHouseProductListDTO() {
         List<WareHouseProductListDTO> wareHouseProductListDTOList = new ArrayList<>();
 
         WareHouseProductListDTO wareHouseProductListDTO = new WareHouseProductListDTO();
@@ -121,7 +121,6 @@ public class SectionServiceTest {
         wareHouseProductListDTOList.add(wareHouseProductListDTO3);
         return wareHouseProductListDTOList;
     }
-
 
     @Test
     void testSaveSectionWithSuccess() throws Exception {
@@ -151,6 +150,28 @@ public class SectionServiceTest {
 
         assertEquals("CONGELADO", section.getCategory());
         assertEquals(850L, section.getCapacity());
+    }
+    @Test
+    void testSaveSectionNoSuccess() throws Exception {
+
+        SectionDTO sectionDTO = new SectionDTO();
+        sectionDTO.setCapacity(850L);
+        sectionDTO.setCategory("CONGELADO");
+        sectionDTO.setIdWareHouse(8L);
+
+        WareHouse wh = new WareHouse();
+        wh.setIdWareHouse(1L);
+
+        Mockito.when(mockWareHouseRepository.findById(1L)).thenReturn(Optional.of(wh));
+
+        Section section = new Section(sectionDTO.getCapacity(), sectionDTO.getCategory(), wh);
+        section.setIdSection(1L);
+
+        Throwable exceptionThatWasThrown = assertThrows(Exception.class, () -> {
+            sectionService.save(sectionDTO);
+        });
+
+        assertEquals(exceptionThatWasThrown.getMessage(),"Id não cadastrado");
 
     }
 
@@ -178,7 +199,7 @@ public class SectionServiceTest {
 
 
         Mockito.when(mockSectionRepository.findAll()).thenReturn(sectionList);
-        List <Section> listaObtida = sectionService.list();
+        List<Section> listaObtida = sectionService.list();
 
 
         assertNotNull(listaObtida);
@@ -251,6 +272,7 @@ public class SectionServiceTest {
         assertEquals("Frutas", section.getCategory());
         assertEquals(1350L, section.getCapacity());
     }
+
     @Test
     void testUpdateSectiontNoSuccess() throws Exception {
 
@@ -285,6 +307,7 @@ public class SectionServiceTest {
 
         assertThat(exceptionThatWasThrown.getMessage(), equalTo("Id não cadastrado"));
     }
+
     @Test
     void findSectionBySessao() {
 
@@ -292,7 +315,7 @@ public class SectionServiceTest {
         WareHouse wareHouse = new WareHouse();
 
         List<Section> sectionList = new ArrayList<>();
-        
+
         Section section = new Section();
         section.setCapacity(750L);
         section.setWareHouse(wareHouse);
@@ -316,7 +339,7 @@ public class SectionServiceTest {
         sectionList.add(section3);
 
         StockByWareHouseDTO dto = new StockByWareHouseDTO();
-        List<StockByWareHouseDTO> sectionList1= new ArrayList<>();
+        List<StockByWareHouseDTO> sectionList1 = new ArrayList<>();
 
         dto.setCategoria("Frios");
         dto.setPrice(55.00);
@@ -368,7 +391,7 @@ public class SectionServiceTest {
     }
 
     @Test
-    void testBuscarPorSessaoSucess(){
+    void testBuscarPorSessaoSucess() {
 
         WareHouse idWareHouse = new WareHouse();
         idWareHouse.setIdWareHouse(1L);
@@ -387,14 +410,15 @@ public class SectionServiceTest {
     }
 
     @Test
-    void testSetSectionTypeDTO(){
+    void testSetSectionTypeDTO() {
 
         WareHouse wareHouse1 = new WareHouse();
         wareHouse1.setIdWareHouse(1L);
         wareHouse1.setWareHouseName("WareHouse 1");
 
-        SectionTypeDTO getSectionId = sectionService.setSectionTypeDTO("nome",100L,50.0,
-                "wareHouseName","productName");
+        SectionTypeDTO getSectionId = sectionService.setSectionTypeDTO("nome", 100L, 50.0,
+                "wareHouseName", "productName");
+
 
         assertEquals(50.0,getSectionId.getPrice());
         assertEquals(100,getSectionId.getQuantity());
@@ -404,7 +428,7 @@ public class SectionServiceTest {
     }
 
     @Test
-    void testListProductSuccess(){
+    void testListProductSuccess() {
         List<WareHouse> wareHouseList = baseTesteWhareHouseList();
         WareHouseProductItensDTO requisiteFour = new WareHouseProductItensDTO();
         WareHouseProductListDTO wareHouseProductDTO = new WareHouseProductListDTO();
@@ -414,24 +438,25 @@ public class SectionServiceTest {
         wareHouseProductDTO.setWareHouseName("null");
         requisiteFour.setIdProduct(1L);
 
+
         List<SectionNativeDTO> stockByWareHouses = baseTesteSectionNativeListDTO();
+
         requisiteFour.setList(wareHouseProductListDTO);
 
         wareHouseProductDTO.setWareHouseName("Nome");
 
         Mockito.when(mockWareHouseRepository.findAll()).thenReturn(wareHouseList);
-        Mockito.when(mockInboundOrderRepository.findNativeSection(1l,1l)).thenReturn(stockByWareHouses);
+        Mockito.when(mockInboundOrderRepository.findNativeSection(1l, 1l)).thenReturn(stockByWareHouses);
 
         WareHouseProductItensDTO wareHouseProductItensDTO = sectionService.listProduct(1L);
 
         assertEquals(1,wareHouseProductItensDTO.getIdProduct());
         assertEquals(wareHouseProductListDTO,requisiteFour.getList());
         assertEquals("WhareHouse 2",stockByWareHouses.get(1).getWare_house_name());
-
     }
 
     @Test
-    void testForlistProductSuccess(){
+    void testForlistProductSuccess() {
         List<SectionNativeDTO> sectionNativeDTOList = baseTesteSectionNativeListDTO();
         WareHouseProductListDTO wareHouseProductListDTO = sectionService.forlistProduct(sectionNativeDTOList);
 
