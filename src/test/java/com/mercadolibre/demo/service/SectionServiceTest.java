@@ -151,6 +151,7 @@ public class SectionServiceTest {
         assertEquals("CONGELADO", section.getCategory());
         assertEquals(850L, section.getCapacity());
     }
+
     @Test
     void testSaveSectionNoSuccess() throws Exception {
 
@@ -171,7 +172,7 @@ public class SectionServiceTest {
             sectionService.save(sectionDTO);
         });
 
-        assertEquals(exceptionThatWasThrown.getMessage(),"Id não cadastrado");
+        assertEquals(exceptionThatWasThrown.getMessage(), "Id não cadastrado");
 
     }
 
@@ -311,7 +312,6 @@ public class SectionServiceTest {
     @Test
     void findSectionBySessao() {
 
-
         WareHouse wareHouse = new WareHouse();
 
         List<Section> sectionList = new ArrayList<>();
@@ -358,7 +358,7 @@ public class SectionServiceTest {
         List<SectionTypeDTO> frios = sectionService.findSectionCategories("Frios");
 
         assertNotNull(sectionList);
-        assertEquals(1,frios);
+        assertEquals("Abacaxi", frios.get(0).getNameProduct());
     }
 
     @Test
@@ -420,11 +420,11 @@ public class SectionServiceTest {
                 "wareHouseName", "productName");
 
 
-        assertEquals(50.0,getSectionId.getPrice());
-        assertEquals(100,getSectionId.getQuantity());
-        assertEquals("productName",getSectionId.getNameProduct());
-        assertEquals("wareHouseName",getSectionId.getWareHouse());
-        assertEquals("nome",getSectionId.getName());
+        assertEquals(50.0, getSectionId.getPrice());
+        assertEquals(100, getSectionId.getQuantity());
+        assertEquals("productName", getSectionId.getNameProduct());
+        assertEquals("wareHouseName", getSectionId.getWareHouse());
+        assertEquals("nome", getSectionId.getName());
     }
 
     @Test
@@ -450,9 +450,9 @@ public class SectionServiceTest {
 
         WareHouseProductItensDTO wareHouseProductItensDTO = sectionService.listProduct(1L);
 
-        assertEquals(1,wareHouseProductItensDTO.getIdProduct());
-        assertEquals(wareHouseProductListDTO,requisiteFour.getList());
-        assertEquals("WhareHouse 2",stockByWareHouses.get(1).getWare_house_name());
+        assertEquals(1, wareHouseProductItensDTO.getIdProduct());
+        assertEquals(wareHouseProductListDTO, requisiteFour.getList());
+        assertEquals("WhareHouse 2", stockByWareHouses.get(1).getWare_house_name());
     }
 
     @Test
@@ -461,8 +461,8 @@ public class SectionServiceTest {
         WareHouseProductListDTO wareHouseProductListDTO = sectionService.forlistProduct(sectionNativeDTOList);
 
         assertNotNull(wareHouseProductListDTO);
-        assertEquals(120,wareHouseProductListDTO.getQuantity());
-        assertEquals("CACAU3",wareHouseProductListDTO.getWareHouseName());
+        assertEquals(120, wareHouseProductListDTO.getQuantity());
+        assertEquals("CACAU3", wareHouseProductListDTO.getWareHouseName());
     }
 
 }
