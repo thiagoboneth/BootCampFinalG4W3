@@ -34,7 +34,7 @@ public class ItemOfProductController {
 
     @GetMapping(value = "/list")
     @ResponseBody
-    public ResponseEntity<List<ItemOfProductDTO>> listBuyer(Long name) {
+    public ResponseEntity<List<ItemOfProductDTO>> listItemOfProduct(Long name) {
         List<ItemOfProductDTO> itemOfProducts = itemOfProductService.list(name);
         return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
     }
@@ -62,7 +62,7 @@ public class ItemOfProductController {
 
 
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<String> deleteWareHouse(@PathVariable Long id) throws Exception {
+    public ResponseEntity<String> deletePurchaseOrder(@PathVariable Long id) throws Exception {
         try {
             itemOfProductService.resetCart(id);
             return new ResponseEntity<>("Produtos removidos do carrinho com sucesso", HttpStatus.OK);
