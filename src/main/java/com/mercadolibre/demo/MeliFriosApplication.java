@@ -9,5 +9,4 @@ public class MeliFriosApplication {
     public static void main(String[] args) {
         SpringApplication.run(MeliFriosApplication.class, args);
     }
-
 }
