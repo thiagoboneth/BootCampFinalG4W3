@@ -3,6 +3,7 @@ package com.mercadolibre.demo.config;
 import com.mercadolibre.demo.repository.UserRepository;
 import com.mercadolibre.demo.service.AutenticacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -35,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
