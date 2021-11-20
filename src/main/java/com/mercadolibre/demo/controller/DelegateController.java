@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.DelegateDTO;
 import com.mercadolibre.demo.model.Delegate;
 import com.mercadolibre.demo.service.DelegateService;
@@ -14,7 +15,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/delegate")
-public class DelegateController {
+public class DelegateController implements SecurityController {
 
 	@Autowired
     private DelegateService delegateService;
