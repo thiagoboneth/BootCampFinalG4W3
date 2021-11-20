@@ -1,8 +1,12 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.BuyerDTO;
 import com.mercadolibre.demo.model.Buyer;
 import com.mercadolibre.demo.service.BuyerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +27,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/buyer")
-public class BuyerController {
+public class BuyerController implements SecurityController {
 
 	@Autowired
 	private BuyerService buyerService;

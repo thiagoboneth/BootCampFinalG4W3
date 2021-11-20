@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.SellerDTO;
 import com.mercadolibre.demo.model.Seller;
 import com.mercadolibre.demo.service.SellerService;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/seller")
-public class SellerController {
+public class SellerController implements SecurityController {
 
 	@Autowired
 	private SellerService sellerService;
