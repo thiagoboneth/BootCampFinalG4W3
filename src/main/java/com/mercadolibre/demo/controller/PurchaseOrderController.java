@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.PurchaseOrderDTO;
 import com.mercadolibre.demo.dto.response.PriceDTO;
 import com.mercadolibre.demo.model.PurchaseOrder;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/purchaseorder")
-public class PurchaseOrderController {
+public class PurchaseOrderController implements SecurityController {
 
     @Autowired
     private PurchaseOrderService purchaseOrderService;

@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.SectionDTO;
 import com.mercadolibre.demo.dto.SectionTypeDTO;
 import com.mercadolibre.demo.dto.response.WareHouseProductItensDTO;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/section")
-public class SectionController {
+public class SectionController implements SecurityController {
 
 	@Autowired
 	private SectionService sectionService;

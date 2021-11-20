@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.response.DueDateDTO;
 import com.mercadolibre.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import com.mercadolibre.demo.model.Product;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/product")
-public class ProductController {
+public class ProductController implements SecurityController {
 
 	@Autowired
 	private ProductService productService;

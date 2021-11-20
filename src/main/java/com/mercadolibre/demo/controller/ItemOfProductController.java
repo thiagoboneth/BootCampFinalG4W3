@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
 import com.mercadolibre.demo.dto.response.ProductInBathDTO;
 import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
@@ -17,7 +18,7 @@ import java.util.NoSuchElementException;
 
 @RestController
     @RequestMapping("/api/v1/fresh-products/itemOfProduct")
-public class ItemOfProductController {
+public class ItemOfProductController implements SecurityController {
 
     @Autowired
     private ItemOfProductService itemOfProductService;

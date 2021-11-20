@@ -1,5 +1,6 @@
 package com.mercadolibre.demo.controller;
 
+import com.mercadolibre.demo.config.SecurityController;
 import com.mercadolibre.demo.dto.WareHouseDTO;
 import com.mercadolibre.demo.model.WareHouse;
 import com.mercadolibre.demo.service.WareHouseService;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/warehouse")
-public class WareHouseController {
+public class WareHouseController implements SecurityController {
 
 	@Autowired
 	private WareHouseService wareHouseService;

@@ -3,6 +3,7 @@ package com.mercadolibre.demo.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.mercadolibre.demo.config.SecurityController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/salesad")
-public class SalesAdController {
+public class SalesAdController implements SecurityController {
 
     @Autowired
     private SalesAdService salesAdService;
