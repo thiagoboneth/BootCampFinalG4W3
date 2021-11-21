@@ -1,10 +1,6 @@
 package com.mercadolibre.demo.model;
-
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +17,6 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "buyer")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -41,6 +36,12 @@ public class Buyer implements Serializable {
     private String lastName;
 
     public Buyer(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
+
+    public Buyer(Long idBuyer, String name, String lastName) {
+        this.idBuyer = idBuyer;
         this.name = name;
         this.lastName = lastName;
     }
