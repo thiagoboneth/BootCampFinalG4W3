@@ -23,16 +23,6 @@ public class ItemOfProductController implements SecurityController {
     @Autowired
     private ItemOfProductService itemOfProductService;
 
-    @PostMapping(value = "/save")
-    public ResponseEntity<ItemOfProduct> saveItemOfProduct(@Valid @RequestBody ItemOfProductDTO dto) throws Exception {
-        try {
-            ItemOfProduct itemOfProduct = itemOfProductService.save(dto);
-            return new ResponseEntity<>(itemOfProduct, HttpStatus.CREATED);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @GetMapping(value = "/list")
     @ResponseBody
     public ResponseEntity<List<ItemOfProductDTO>> listItemOfProduct(Long name) {
@@ -61,14 +51,13 @@ public class ItemOfProductController implements SecurityController {
         return new ResponseEntity<>(itemOfProducts, HttpStatus.OK);
     }
 
-
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<String> deletePurchaseOrder(@PathVariable Long id) throws Exception {
         try {
             itemOfProductService.resetCart(id);
             return new ResponseEntity<>("Produtos removidos do carrinho com sucesso", HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
 }
