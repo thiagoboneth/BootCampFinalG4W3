@@ -44,29 +44,6 @@ public class ItemOfProductControllerTest {
     }
 
     @Test
-    public void testsaveItemOfProduct() throws Exception {
-
-        uri = new URI("/api/v1/fresh-products/itemOfProduct/save");
-
-        assertNotNull(uri);
-
-        String requestJson =  "{    \"quantity\":20,\n" +
-                "    \"idSalesAd\":1,\n" +
-                "    \"nameProduct\":1}";
-
-        MvcResult result = mockMvc.perform(
-                MockMvcRequestBuilders.post(uri)
-                        .content(requestJson)
-                        .header("Content-Type", "application/json")
-                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
-                .andExpect(status().isCreated()).andReturn();
-
-        String responseJson = result.getResponse().getContentAsString();
-
-        assertNotNull(responseJson);
-    }
-
-    @Test
     public void testlistItemOfProduct() throws Exception {
 
         uri = new URI("/api/v1/fresh-products/itemOfProduct/list");
