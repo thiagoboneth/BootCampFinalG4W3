@@ -227,7 +227,7 @@ public class ItemOfProductServiceTest {
 		itemOfProducts.add(itemOfProduct3);
 
 		Mockito.when(mockItemOfProductRepository.orderOfItem(Mockito.any(Long.class))).thenReturn(itemOfProducts);
-
+		Mockito.when(mockPurchaseOrderRepository.findById(Mockito.any(Long.class))).thenReturn(Optional.of(purchaseOrder));
 		itemOfProductService.resetCart(1L);
 
 		assertEquals(0L,itemOfProducts.get(0).getQuantity());
