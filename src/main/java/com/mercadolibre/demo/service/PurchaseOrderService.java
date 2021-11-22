@@ -25,7 +25,7 @@ public class PurchaseOrderService {
 
 	@Autowired
 	public PurchaseOrderService(PurchaseOrderRepository purchaseOrderRepository, BuyerRepository buyerRepository,
-			SalesAdRepository salesAdRepository, BatchStockRepository batchStockRepository) {
+								SalesAdRepository salesAdRepository, BatchStockRepository batchStockRepository) {
 		this.purchaseOrderRepository = purchaseOrderRepository;
 		this.buyerRepository = buyerRepository;
 		this.salesAdRepository = salesAdRepository;
@@ -80,7 +80,7 @@ public class PurchaseOrderService {
 				ItemOfProduct product = new ItemOfProduct(item.getQuantity(), getSalesAd(item).get(), purchOrder);
 				listOfProducts.add(product);
 			} else{
-				throw new Exception("Existe valores nulos ou vázios em itemOfProduct");
+				throw new Exception("Existe valores nulos ou vÃ¡zios em itemOfProduct");
 			}
 		}
 		return listOfProducts;
