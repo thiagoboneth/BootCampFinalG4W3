@@ -11,16 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.transaction.Transactional;
 
@@ -39,7 +35,7 @@ public class WareHouseControllerTest {
 
 	@BeforeEach
 	public void testandoAutenticacao() throws Exception {
-		String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+		String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
 		uri = new URI("/auth");
 
 		MvcResult resultContendoToken = mockMvc
@@ -49,7 +45,7 @@ public class WareHouseControllerTest {
 	}
 
 	@Test
-	public void testsaveWareHouse() throws Exception {
+	public void testSaveWareHouseWithSuccess() throws Exception {
 
 		uri = new URI("/api/v1/fresh-products/warehouse/save");
 
@@ -83,11 +79,31 @@ public class WareHouseControllerTest {
 		String jsonRetorno = result.getResponse().getContentAsString();
 
 		assertNotNull(jsonRetorno);
-
 	}
 
 	@Test
-	public void testupdateWareHouse() throws Exception{
+	public void testUpdateWareHouseNoSuccess() throws Exception{
+
+		uri = new URI("/api/v1/fresh-products/warehouse/update/1000");
+
+		assertNotNull(uri);
+
+		String requestJson =  "{\"idWareHouse\": 1,\"wareHouseName\": \"wareHouseName2\"}";
+
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.put(uri)
+						.content(requestJson)
+						.header("Content-Type", "application/json")
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isNotFound()).andReturn();
+
+		String responseJson = result.getResponse().getContentAsString();
+
+		assertNotNull(responseJson);
+	}
+	
+	@Test
+	public void testUpdateWareHouseWithSuccess() throws Exception{
 
 		uri = new URI("/api/v1/fresh-products/warehouse/update/1");
 
@@ -105,6 +121,5 @@ public class WareHouseControllerTest {
 		String responseJson = result.getResponse().getContentAsString();
 
 		assertNotNull(responseJson);
-
 	}
 }

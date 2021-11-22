@@ -121,7 +121,7 @@ public class ItemOfProductControllerTest {
         MvcResult result = mockMvc.perform(
                 MockMvcRequestBuilders.delete(uri)
                         .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         String responseJson = result.getResponse().getContentAsString();
 

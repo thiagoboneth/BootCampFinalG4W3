@@ -35,7 +35,7 @@ public class SalesAdControllerTest {
 
     @BeforeEach
     public void testandoAutenticacao() throws Exception {
-        String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+        String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
         uri = new URI("/auth");
 
         MvcResult resultContendoToken = mockMvc
@@ -45,7 +45,33 @@ public class SalesAdControllerTest {
     }
 
     @Test
-    public void testsaveSalesAd() throws Exception {
+    public void testsaveSalesAdNoSuccess() throws Exception {
+
+        uri = new URI("/api/v1/fresh-products/salesad/save");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{\"volume\": 50,\n" +
+                "    \"minimumTemperature\": 1,\n" +
+                "    \"maximumTemperature\": 10,\n" +
+                "    \"price\": 80,\n" +
+                "    \"idSeller\":1,\n" +
+                "    \"idProduct\":1000}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
+    
+    @Test
+    public void testsaveSalesAdWithSuccess() throws Exception {
 
         uri = new URI("/api/v1/fresh-products/salesad/save");
 
@@ -86,9 +112,35 @@ public class SalesAdControllerTest {
         assertNotNull(jsonRetorno);
 
     }
+    
+    @Test
+    public void testUpdateSalesAdNoSuccess() throws Exception{
+
+        uri = new URI("/api/v1/fresh-products/salesad/update/1000");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{\"volume\": 50,\n" +
+                "    \"minimumTemperature\": 1,\n" +
+                "    \"maximumTemperature\": 10,\n" +
+                "    \"price\": 80,\n" +
+                "    \"idSeller\":1,\n" +
+                "    \"idProduct\":1}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.put(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
 
     @Test
-    public void testupdateSalesAd() throws Exception{
+    public void testUpdateSalesAdWithSuccess() throws Exception{
 
         uri = new URI("/api/v1/fresh-products/salesad/update/1");
 

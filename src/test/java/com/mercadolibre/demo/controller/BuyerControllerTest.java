@@ -39,7 +39,7 @@ public class BuyerControllerTest {
 
 	@BeforeEach
 	public void testandoAutenticacao() throws Exception {
-		String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+		String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
 		uri = new URI("/auth");
 
 		MvcResult resultContendoToken = mockMvc
@@ -106,9 +106,26 @@ public class BuyerControllerTest {
 		assertNotNull(responseJson);
 
 	}
+	
+	@Test
+	public void testDeleteBuyerNoSuccess() throws Exception {
+
+		uri = new URI("/api/v1/fresh-products/buyer/delete/1000");
+
+		assertNotNull(uri);
+
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.delete(uri)
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isNotFound()).andReturn();
+
+		String responseJson = result.getResponse().getContentAsString();
+
+		assertNotNull(responseJson);
+	}
 
 	@Test
-	public void testDeleteBuyer() throws Exception {
+	public void testDeleteBuyerWithSuccess() throws Exception {
 
 		uri = new URI("/api/v1/fresh-products/buyer/delete/1");
 
