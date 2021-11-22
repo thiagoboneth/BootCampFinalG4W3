@@ -42,11 +42,6 @@ public class ItemOfProductService {
         this.inboundOrderRepository = inboundOrderRepository;
     }
 
-    public ItemOfProduct save(ItemOfProductDTO dto) throws Exception {
-        ItemOfProduct itemOfProduct = convertItemOfProduct(dto);
-        return itemOfProductRepository.save(itemOfProduct);
-    }
-
     public ItemOfProduct convertItemOfProduct(ItemOfProductDTO dto) throws Exception {
         Optional<SalesAd> salesAd = salesAdRepository.findById(dto.getIdSalesAd());
         if (salesAd.isPresent()) {
@@ -75,7 +70,6 @@ public class ItemOfProductService {
         for (BatchStock batchStock : batchStockList) {
             batchStock.setCurrentQuantity(batchStock.getCurrentQuantity() + item.getQuantity());
             batchStockRepository.saveAndFlush(batchStock);
-            return;
         }
     }
 
@@ -83,15 +77,21 @@ public class ItemOfProductService {
 
         List<ItemOfProduct> lista = itemOfProductRepository.orderOfItem(id);
 
-        for (ItemOfProduct item : lista) {
-            List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
-            if (batchStockList != null) {
-                incrementQuantity(item, batchStockList);
-                item.setQuantity(0L);
-                itemOfProductRepository.saveAndFlush(item);
-            }
+        if (purchaseOrderRepository.findById(id).isPresent()) {
+        	 for (ItemOfProduct item : lista) {
+                 List<BatchStock> batchStockList = batchStockRepository.batchStockList(item.getSalesAd().getId());
+                 if (batchStockList != null) {
+                     incrementQuantity(item, batchStockList);
+                     item.setQuantity(0L);
+                     itemOfProductRepository.saveAndFlush(item);
+                 }
+             }
+             return lista;
+        } else {
+            throw new Exception("Id do carrinho não cadastrado");
         }
-        return lista;
+        
+       
     }
 
     public List<ProductInBatchStockDTO> listProductOfBatchStock() {
