@@ -34,7 +34,7 @@ public class ItemOfProductControllerTest {
 
     @BeforeEach
     public void testandoAutenticacao() throws Exception {
-        String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
+        String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
         uri = new URI("/auth");
 
         MvcResult resultContendoToken = mockMvc
@@ -114,14 +114,14 @@ public class ItemOfProductControllerTest {
     @Test
     public void testDeletePurchaseOrderNoSuccess() throws Exception{
 
-        uri = new URI("/api/v1/fresh-products/itemOfProduct/delete/80");
+        uri = new URI("/api/v1/fresh-products/itemOfProduct/delete/1000");
 
         assertNotNull(uri);
 
         MvcResult result = mockMvc.perform(
                 MockMvcRequestBuilders.delete(uri)
                         .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
-                .andExpect(status().isBadRequest()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         String responseJson = result.getResponse().getContentAsString();
 
