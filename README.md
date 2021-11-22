@@ -4,7 +4,7 @@
 
 ### Equipe 4 W-3
 
-Requesito 5bootcampw3
+Requesito 5 bootcampw3
 
 
 
@@ -142,7 +142,7 @@ Obtenha todos os lotes armazenados em um setor e uma categoria especifica de um 
 
 * se faz necessário informar a quantidade máxima de dias que faltam para o vencimento.
 * se faz necessário informar o nome da categoria onde esta armazenado o produto.
-* se faz necessário informar o tipo de ordenação. "**asc** => para crescente e **desc** para decrescente"
+* se faz necessário informar o tipo de ordenação. "**asc** => para crescente e **desc**=> para decrescente"
 
 ***Link para uso:***
 
