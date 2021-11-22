@@ -11,16 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 
 import javax.transaction.Transactional;
 
@@ -39,7 +36,7 @@ public class SellerControllerTest {
 
 	@BeforeEach
 	public void testandoAutenticacao() throws Exception {
-		String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+		String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
 		uri = new URI("/auth");
 
 		MvcResult resultContendoToken = mockMvc
@@ -48,8 +45,9 @@ public class SellerControllerTest {
 		tokenDTO = new ObjectMapper().readValue(resultContendoToken.getResponse().getContentAsString(), TokenDTO.class);
 	}
 	
+	
 	@Test
-	public void testsaveSeller() throws Exception {
+	public void testSaveSellerWithSuccess() throws Exception {
 		
 		uri = new URI("/api/v1/fresh-products/seller/save");
 		
@@ -85,9 +83,30 @@ public class SellerControllerTest {
 		assertNotNull(jsonRetorno);
 
 	}
+	
+	@Test
+	public void testUpdateSellerNoSuccess() throws Exception{
+
+		uri = new URI("/api/v1/fresh-products/seller/update/1000");
+
+		assertNotNull(uri);
+
+		String requestJson =  "{\"name\": \"Joao\", \"lastname\": \"Roberto\"}";
+
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.put(uri)
+						.content(requestJson)
+						.header("Content-Type", "application/json")
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isNotFound()).andReturn();
+
+		String responseJson = result.getResponse().getContentAsString();
+
+		assertNotNull(responseJson);
+	}
 
 	@Test
-	public void testupdateSeller() throws Exception{
+	public void testUpdateSellerWithSuccess() throws Exception{
 
 		uri = new URI("/api/v1/fresh-products/seller/update/1");
 
@@ -108,13 +127,30 @@ public class SellerControllerTest {
 	}
 
 	@Test
+	public void testDeleteSellerNoSuccess() throws Exception {
+
+
+		uri = new URI("/api/v1/fresh-products/seller/delete/1000");
+
+		assertNotNull(uri);
+
+		MvcResult result = mockMvc.perform(
+				MockMvcRequestBuilders.delete(uri)
+						.header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+				.andExpect(status().isNotFound()).andReturn();
+
+		String responseJson = result.getResponse().getContentAsString();
+
+		assertNotNull(responseJson);
+	}
+	
+	@Test
 	public void testDeleteSellerWithSuccess() throws Exception {
 
 
 		uri = new URI("/api/v1/fresh-products/seller/delete/1");
 
 		assertNotNull(uri);
-
 
 		MvcResult result = mockMvc.perform(
 				MockMvcRequestBuilders.delete(uri)
@@ -125,5 +161,4 @@ public class SellerControllerTest {
 
 		assertNotNull(responseJson);
 	}
-
 }

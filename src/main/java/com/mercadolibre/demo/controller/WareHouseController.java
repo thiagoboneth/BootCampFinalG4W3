@@ -36,7 +36,11 @@ public class WareHouseController implements SecurityController {
 
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<WareHouse> updateWareHouse(@Valid @RequestBody WareHouseDTO dto, @PathVariable Long id) throws Exception {
-		WareHouse wareHouse = wareHouseService.update(dto, id);
-		return new ResponseEntity<>(wareHouse, HttpStatus.CREATED);
+		try {
+			WareHouse wareHouse = wareHouseService.update(dto, id);
+			return new ResponseEntity<>(wareHouse, HttpStatus.CREATED);
+		} catch(Exception e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 }

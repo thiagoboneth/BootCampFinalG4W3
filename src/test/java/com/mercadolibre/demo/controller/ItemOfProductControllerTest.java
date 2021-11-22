@@ -34,7 +34,7 @@ public class ItemOfProductControllerTest {
 
     @BeforeEach
     public void testandoAutenticacao() throws Exception {
-        String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+        String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
         uri = new URI("/auth");
 
         MvcResult resultContendoToken = mockMvc
@@ -110,11 +110,11 @@ public class ItemOfProductControllerTest {
         assertNotNull(jsonRetorno);
 
     }
-    
+
     @Test
     public void testDeletePurchaseOrderNoSuccess() throws Exception{
 
-        uri = new URI("/api/v1/fresh-products/itemOfProduct/delete/1000");
+        uri = new URI("/api/v1/fresh-products/itemOfProduct/delete/80");
 
         assertNotNull(uri);
 

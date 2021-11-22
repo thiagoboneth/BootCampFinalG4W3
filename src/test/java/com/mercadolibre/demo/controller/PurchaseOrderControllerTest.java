@@ -35,7 +35,7 @@ public class PurchaseOrderControllerTest {
 
     @BeforeEach
     public void testandoAutenticacao() throws Exception {
-        String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+        String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
         uri = new URI("/auth");
 
         MvcResult resultContendoToken = mockMvc
@@ -45,7 +45,28 @@ public class PurchaseOrderControllerTest {
     }
 
     @Test
-    public void testaddItem() throws Exception {
+    public void testAddItemNoSucess() throws Exception {
+
+        uri = new URI("/api/v1/fresh-products/purchaseorder/add");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{\"idBuyer\": 1000,\"itemOfProduct\": [{\"idSalesAd\": 2,\"quantity\": 10},{\"idSalesAd\": 1,\"quantity\": 10}]}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
+    
+    @Test
+    public void testAddItemWithSuccess() throws Exception {
 
         uri = new URI("/api/v1/fresh-products/purchaseorder/add");
 

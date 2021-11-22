@@ -1,7 +1,6 @@
 package com.mercadolibre.demo.controller;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import com.mercadolibre.demo.config.SecurityController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,12 @@ public class SalesAdController implements SecurityController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<SalesAd> saveSalesAd(@Valid @RequestBody SalesAdDTO dto) throws Exception {
+    	try {
             SalesAd salesAd = salesAdService.save(dto);
             return new ResponseEntity<>(salesAd, HttpStatus.CREATED);
+    	} catch(Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    	}
     }
 
     @GetMapping(value = "/list")
@@ -41,8 +44,8 @@ public class SalesAdController implements SecurityController {
         try {
             SalesAd salesAd = salesAdService.update(dto, id);
             return new ResponseEntity<>(salesAd, HttpStatus.CREATED);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity(e.getMessage() ,HttpStatus.NOT_FOUND);
         }
     }
 }

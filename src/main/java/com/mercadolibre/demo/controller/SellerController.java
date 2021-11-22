@@ -34,13 +34,23 @@ public class SellerController implements SecurityController {
 
 	@PutMapping(value = "/update/{id}")
 	public ResponseEntity<Seller> updateSeller(@Valid @RequestBody SellerDTO sellerDTO, @PathVariable Long id) throws Exception {
-		Seller seller = sellerService.update(sellerDTO, id);
-		return new ResponseEntity<>(seller, HttpStatus.CREATED);
+		try {
+			Seller seller = sellerService.update(sellerDTO, id);
+			return new ResponseEntity<>(seller, HttpStatus.CREATED);
+		}
+		catch(Exception e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<String> deleteSeller(@PathVariable Long id) throws Exception {
-		sellerService.delete(id);
-		return new ResponseEntity<>("Seller successfully deleted", HttpStatus.OK);
+		try {
+			sellerService.delete(id);
+			return new ResponseEntity<>("Vendedor deletado com sucesso", HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 }

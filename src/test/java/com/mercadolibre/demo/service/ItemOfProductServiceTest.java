@@ -1,38 +1,25 @@
 package com.mercadolibre.demo.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mercadolibre.demo.dto.ItemOfProductDTO;
-import com.mercadolibre.demo.dto.TokenDTO;
 import com.mercadolibre.demo.dto.response.ProductInBatchStockDTO;
 import com.mercadolibre.demo.dto.response.ProductInBathDTO;
 import com.mercadolibre.demo.dto.response.ProductItenForCarsDTO;
 import com.mercadolibre.demo.model.*;
 import com.mercadolibre.demo.repository.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import javax.transaction.Transactional;
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @Transactional
@@ -50,25 +37,6 @@ public class ItemOfProductServiceTest {
 	ItemOfProductService itemOfProductService = new ItemOfProductService(
 			mockItemOfProductRepository, mockSalesAdRepository, mockPurchaseOrderRepository,
 			mockBatchStockRepository, mockInboundOrderRepository);
-
-
-	private URI uri;
-
-	@Autowired
-	MockMvc mockMvc;
-
-	private TokenDTO tokenDTO;
-
-	@BeforeEach
-	public void testandoAutenticacao() throws Exception {
-		String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
-		uri = new URI("/auth");
-
-		MvcResult resultContendoToken = mockMvc
-				.perform(MockMvcRequestBuilders.post(uri).contentType(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(status().isOk()).andReturn();
-		tokenDTO = new ObjectMapper().readValue(resultContendoToken.getResponse().getContentAsString(), TokenDTO.class);
-	}
 
 	@Test
 	void testListItemOfProduct() {
@@ -117,7 +85,7 @@ public class ItemOfProductServiceTest {
 
 	@Test
 	void testConvertItemOfProducWithSuccess() throws Exception {
-	
+
 		Buyer buyer = new Buyer();
 		buyer.setIdBuyer(1L);
 		buyer.setName("Ayrton");
@@ -162,7 +130,7 @@ public class ItemOfProductServiceTest {
 		Mockito.when(mockItemOfProductRepository.save(Mockito.any(ItemOfProduct.class))).thenReturn(itemOfProduct);
 
 		itemOfProductService.convertItemOfProduct(itemOfProductDTO);
-		
+
 		assertNotNull(itemOfProductDTO);
 
 	}

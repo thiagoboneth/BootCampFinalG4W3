@@ -1,7 +1,5 @@
 package com.mercadolibre.demo.controller;
 
-import java.time.LocalDate;
-import java.time.temporal.Temporal;
 import java.util.List;
 
 import javax.validation.Valid;

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/delegate")
@@ -25,8 +24,8 @@ public class DelegateController implements SecurityController {
     	try{
     		Delegate delegate = delegateService.save(dto);
     		return new ResponseEntity<>(delegate, HttpStatus.CREATED);
-    	} catch (NoSuchElementException e) {
-    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	} catch (Exception e) {
+    		return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
     	}
     }
     
@@ -42,8 +41,8 @@ public class DelegateController implements SecurityController {
         try {
         	Delegate delegate = delegateService.update(dto, id);
             return new ResponseEntity<>(delegate, HttpStatus.CREATED);
-        } catch(NoSuchElementException e) {
-        	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch(Exception e) {
+        	return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
         }
     }
 }

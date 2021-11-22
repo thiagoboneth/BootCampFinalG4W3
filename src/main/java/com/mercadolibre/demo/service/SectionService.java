@@ -95,7 +95,8 @@ public class SectionService {
 
     public Section convertSectionToDTO(SectionDTO dto) throws Exception {
         if (getWareHouse(dto).isPresent()) {
-            return new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
+            Section section = new Section(dto.getCapacity(), dto.getCategory(), getWareHouse(dto).get());
+            return section;
         } else {
             throw new Exception("Id não cadastrado");
         }

@@ -36,7 +36,7 @@ public class DelegateControllerTest {
 
     @BeforeEach
     public void testandoAutenticacao() throws Exception {
-        String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+        String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
         uri = new URI("/auth");
 
         MvcResult resultContendoToken = mockMvc
@@ -44,9 +44,30 @@ public class DelegateControllerTest {
                 .andExpect(status().isOk()).andReturn();
         tokenDTO = new ObjectMapper().readValue(resultContendoToken.getResponse().getContentAsString(), TokenDTO.class);
     }
+    
+    @Test
+    public void testsaveDelegateNoSuccess() throws Exception {
+
+        uri = new URI("/api/v1/fresh-products/delegate/save");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{\"name\": \"Roberta\",\"lastname\": \"Motta\",\"idSection\": 1000}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isBadRequest()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
 
     @Test
-    public void testsaveDelegate() throws Exception {
+    public void testsaveDelegateWithSuccess() throws Exception {
 
         uri = new URI("/api/v1/fresh-products/delegate/save");
 
@@ -84,7 +105,28 @@ public class DelegateControllerTest {
     }
 
     @Test
-    public void testupdateDelegate() throws Exception{
+    public void testupdateDelegateNoSuccess() throws Exception{
+
+        uri = new URI("/api/v1/fresh-products/delegate/update/1");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{\"name\": \"Roberta\",\"lastname\": \"Motta\",\"idSection\": 1000}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.put(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
+    
+    @Test
+    public void testupdateDelegateWithSuccess() throws Exception{
 
         uri = new URI("/api/v1/fresh-products/delegate/update/1");
 
