@@ -34,7 +34,7 @@ public class BatchStockControllerTest {
 
     @BeforeEach
     public void testandoAutenticacao() throws Exception {
-        String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+        String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
         uri = new URI("/auth");
 
         MvcResult resultContendoToken = mockMvc
@@ -42,9 +42,30 @@ public class BatchStockControllerTest {
                 .andExpect(status().isOk()).andReturn();
         tokenDTO = new ObjectMapper().readValue(resultContendoToken.getResponse().getContentAsString(), TokenDTO.class);
     }
+    
+    @Test
+    public void testSaveBatchStocNoSuccess() throws Exception {
+
+        uri = new URI("/api/v1/fresh-products/batchstock/save");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{\"currentTemperature\": 38,\"minimumTemperature\": 5,\"initialQuantity\": 200,\"currentQuantity\": 25,\"dueDate\": \"2021-11-11\",\"idSalesAd\":1000}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
 
     @Test
-    public void testsaveBatchStock() throws Exception {
+    public void testSaveBatchStockWithSuccess() throws Exception {
 
         uri = new URI("/api/v1/fresh-products/batchstock/save");
 
@@ -80,9 +101,30 @@ public class BatchStockControllerTest {
         assertNotNull(jsonRetorno);
 
     }
+    
+    @Test
+    public void testUpdateSellerNoSuccess() throws Exception{
+
+        uri = new URI("/api/v1/fresh-products/batchstock/update/1000");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{\"currentTemperature\": 38,\"minimumTemperature\": 5,\"initialQuantity\": 200,\"currentQuantity\": 25,\"dueDate\": \"2021-11-11\",\"idSalesAd\":1}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.put(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
 
     @Test
-    public void testupdateSeller() throws Exception{
+    public void testUpdateSellerWithSuccess() throws Exception{
 
         uri = new URI("/api/v1/fresh-products/batchstock/update/1");
 

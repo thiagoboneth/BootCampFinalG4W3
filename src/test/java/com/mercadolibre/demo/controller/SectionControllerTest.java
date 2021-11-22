@@ -33,7 +33,7 @@ public class SectionControllerTest {
 
     @BeforeEach
     public void testandoAutenticacao() throws Exception {
-        String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
+        String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
         uri = new URI("/auth");
 
         MvcResult resultContendoToken = mockMvc
@@ -43,7 +43,30 @@ public class SectionControllerTest {
     }
 
     @Test
-    public void testsaveSection() throws Exception {
+    public void testSaveSectionNoSuccess() throws Exception {
+
+        uri = new URI("/api/v1/fresh-products/section/save");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{    \"capacity\": 400,\n" +
+                "    \"idWareHouse\": 1000,\n" +
+                "    \"category\":\"CONGELADO\"}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
+    
+    @Test
+    public void testSaveSectionWithSuccess() throws Exception {
 
         uri = new URI("/api/v1/fresh-products/section/save");
 
@@ -117,7 +140,30 @@ public class SectionControllerTest {
     }
 
     @Test
-    public void testupdateSection() throws Exception{
+    public void testUpdateSectionNoSuccess() throws Exception{
+
+        uri = new URI("/api/v1/fresh-products/section/update/1000");
+
+        assertNotNull(uri);
+
+        String requestJson =  "{    \"capacity\": 400,\n" +
+                "    \"idWareHouse\": 1,\n" +
+                "    \"category\":\"CONGELADO\"}";
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.put(uri)
+                        .content(requestJson)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isNotFound()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
+    
+    @Test
+    public void testUpdateSectionWithSuccess() throws Exception{
 
         uri = new URI("/api/v1/fresh-products/section/update/1");
 

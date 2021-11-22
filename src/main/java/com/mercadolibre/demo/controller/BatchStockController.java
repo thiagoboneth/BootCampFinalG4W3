@@ -23,9 +23,12 @@ public class BatchStockController implements SecurityController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<BatchStock> saveBatchStock(@Valid @RequestBody BatchStockDTO dto) throws Exception {
+    	try {
             BatchStock batchStock = batchStockService.save(dto);
             return new ResponseEntity<>(batchStock, HttpStatus.CREATED);
-        
+    	} catch(Exception e) {
+    		return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    	}
     }
 
     @GetMapping(value = "/list")
@@ -38,7 +41,11 @@ public class BatchStockController implements SecurityController {
     @PutMapping(value = "/update/{id}")
     @ResponseBody
     public ResponseEntity<BatchStock> updateSalesAd(@Valid @RequestBody BatchStockDTO dto, @PathVariable Long id) throws Exception {
+    	try {
             BatchStock batchStock = batchStockService.update(dto, id);
             return new ResponseEntity<>(batchStock, HttpStatus.CREATED);
+    	} catch (Exception e) {
+    		return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    	}
     }
 }

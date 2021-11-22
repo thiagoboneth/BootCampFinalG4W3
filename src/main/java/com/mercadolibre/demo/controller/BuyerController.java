@@ -53,7 +53,11 @@ public class BuyerController implements SecurityController {
 
 	@DeleteMapping(value = "/delete/{id}")
 	public ResponseEntity<String> deleteBuyer(@PathVariable Long id) throws Exception {
-		buyerService.delete(id);
-		return new ResponseEntity<>("Comprador com Id " + id + " deletado com sucesso", HttpStatus.OK);
+		try {
+			buyerService.delete(id);
+			return new ResponseEntity<>("Comprador com Id " + id + " deletado com sucesso", HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 }
