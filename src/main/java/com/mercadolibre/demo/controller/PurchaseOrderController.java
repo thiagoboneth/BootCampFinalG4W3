@@ -21,7 +21,12 @@ public class PurchaseOrderController implements SecurityController {
 
     @PostMapping(value = "/add")
     private ResponseEntity<PriceDTO> addItem(@Valid @RequestBody PurchaseOrderDTO dto) throws Exception {
-           PurchaseOrder purchaseOrder = purchaseOrderService.save(dto);
+    	try {
+            PurchaseOrder purchaseOrder = purchaseOrderService.save(dto);
             return new ResponseEntity<>(purchaseOrderService.priceList(purchaseOrder.getItemOfProduct()), HttpStatus.CREATED);
+    	} catch(Exception e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    	}
+
     }
 }

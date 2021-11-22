@@ -23,8 +23,12 @@ public class SectionController implements SecurityController {
 
 	@PostMapping(value = "/save")
 	public ResponseEntity<Section> saveSection(@Valid @RequestBody SectionDTO dto) throws Exception{
-		Section section = sectionService.save(dto);
-		return new ResponseEntity<>(section, HttpStatus.CREATED);
+		try {
+			Section section = sectionService.save(dto);
+			return new ResponseEntity<>(section, HttpStatus.CREATED);
+		} catch(Exception e) {
+			return new ResponseEntity(e.getMessage(),  HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@GetMapping(value = "/list")
@@ -51,8 +55,12 @@ public class SectionController implements SecurityController {
 	@PutMapping(value = "/update/{id}")
 	@ResponseBody
 	public ResponseEntity<Section> updateSection(@Valid @RequestBody SectionDTO dto, @PathVariable Long id) throws Exception{
-		Section section = sectionService.update(dto, id);
-		return new ResponseEntity<>(section, HttpStatus.CREATED);
-
+		try {
+			Section section = sectionService.update(dto, id);
+			return new ResponseEntity<>(section, HttpStatus.CREATED);
+		}
+		catch(Exception e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
 	}
 }
