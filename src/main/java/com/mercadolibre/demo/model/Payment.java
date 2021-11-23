@@ -28,12 +28,12 @@ public class Payment {
     private PaymentStatus paymentStatus = PaymentStatus.EM_ANALISE;
 
     @Column(name = "valueofCart", nullable = false)
-    private Long valueOfCart;
+    private Double valueOfCart;
 
     @Column(name = "installment", nullable = false)
     private Long installment;
 
-    public Payment(PaymentStatus paymentStatus, Long valueOfCart, Long installment) {
+    public Payment(PaymentStatus paymentStatus, Double valueOfCart, Long installment) {
         this.paymentStatus = paymentStatus;
         this.valueOfCart = valueOfCart;
         this.installment = installment;

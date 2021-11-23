@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.mercadolibre.demo.model.PaymentStatus.EM_ANALISE;
+
 
 @Service
 public class PaymentsService {
@@ -29,17 +31,39 @@ public class PaymentsService {
 
     public Payment payment(Long idCart, PaymentStatus paymentStatus, Long installment) throws Exception {
         Optional<PurchaseOrder> existCart = findById(idCart);
+        PaymentDTO paymentDTO = new PaymentDTO();
         if (existCart.isPresent()){
-            Long priceGet = paymentRepository.orderOfItem(idCart);
-            PaymentDTO paymentDTO = new PaymentDTO();
-            paymentDTO.setValueOfCart(priceGet);
-            paymentDTO.setPaymentStatus(paymentStatus);
-            paymentDTO.setInstallment(installment);
-            Payment dto = convertPaymentoToDTO(paymentDTO);
-            Payment payment = paymentRepository.save(dto);
-            return payment;
+            switch (paymentStatus) {
+                case PARCELADO:
+                    paymentDTO = rentDTO(divDB(idCart,installment), paymentStatus, installment);
+                    return paymentRepository.save(convertPaymentoToDTO(paymentDTO));
+                case BOLETO:
+                    paymentDTO = rentDTO(sumDB(idCart), paymentStatus, installment);
+                    return paymentRepository.save(convertPaymentoToDTO(paymentDTO));
+                case 3:
+                    System.out.println("Wednesday");
+                    break;
+                case 4:
+                    System.out.println("Thursday");
+                    break;
+                case 5:
+                    System.out.println("Friday");
+                    break;
+                case 6:
+                    System.out.println("Saturday");
+                    break;
+                case 7:
+                    System.out.println("Sunday");
+                    break;
+//                return payment;
+            }else if (paymentStatus.equals(EM_ANALISE)) {
+                PaymentDTO paymentDTO = rentDTO(sumDB(idCart), paymentStatus, installment);
+                Payment dto = convertPaymentoToDTO(paymentDTO);
+                Payment payment = paymentRepository.save(dto);
+                return payment;
+            }
 
-        }else {
+            }else {
               throw new Exception("Carrinho inexistente");
         }
     }
@@ -52,5 +76,17 @@ public class PaymentsService {
         return purchaseOrderRepository.findById(id);
     }
 
+    private Double sumDB(Long idCart){
+        Long quantity = paymentRepository.quantity(idCart);
+        Double price = paymentRepository.price(idCart);
+        return quantity*price;
+    }
 
+    private Double divDB(Long priceOfProduct, Long installment){
+        return sumDB(priceOfProduct)/installment;
+    }
+
+    private PaymentDTO rentDTO(Double sumDB, PaymentStatus paymentStatus, Long installment){
+        return new PaymentDTO(paymentStatus,sumDB,installment);
+    }
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 public class PaymentDTO {
 
     private PaymentStatus paymentStatus;
-    private Long valueOfCart;
+    private Double valueOfCart;
     private Long installment;
 
 }
