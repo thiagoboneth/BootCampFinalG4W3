@@ -36,6 +36,4 @@ public interface SectionRepository extends JpaRepository<Section,Long> {
 			" and sec.WareHouse.idWareHouse = w.idWareHouse" +
 			" and sec.category like %?1%")
 	List<StockByWareHouseDTO> categoryContaining(String name);
-
-
 }
