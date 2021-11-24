@@ -45,9 +45,45 @@ public class PaymentsControllerTest {
     }
 
     @Test
-    public void testSavePaymentWithSuccess() throws Exception {
+    public void testSavePaymentWithBoletoSuccess() throws Exception {
 
         uri = new URI("/api/v1/paymentMethod/payment?idCart=1&paymentStatus=BOLETO&installment=1");
+
+        assertNotNull(uri);
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post(uri)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isAccepted()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
+
+    @Test
+    public void testSavePaymentWithInstallmentSuccess() throws Exception {
+
+        uri = new URI("/api/v1/paymentMethod/payment?idCart=1&paymentStatus=PARCELADO&installment=12");
+
+        assertNotNull(uri);
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.post(uri)
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", tokenDTO.getTipo() + " " + tokenDTO.getToken()))
+                .andExpect(status().isAccepted()).andReturn();
+
+        String responseJson = result.getResponse().getContentAsString();
+
+        assertNotNull(responseJson);
+    }
+
+    @Test
+    public void testSavePaymentWithCreditoAVistaSuccess() throws Exception {
+
+        uri = new URI("/api/v1/paymentMethod/payment?idCart=1&paymentStatus=CREDITO_A_VISTA&installment=1");
 
         assertNotNull(uri);
 
