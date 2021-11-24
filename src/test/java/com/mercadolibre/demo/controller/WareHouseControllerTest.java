@@ -35,7 +35,7 @@ public class WareHouseControllerTest {
 
 	@BeforeEach
 	public void testandoAutenticacao() throws Exception {
-		String json = "{\"user\": \"filipe\", \"senha\": \"123\"}";
+		String json = "{\"user\": \"thiago\", \"senha\": \"123\"}";
 		uri = new URI("/auth");
 
 		MvcResult resultContendoToken = mockMvc
