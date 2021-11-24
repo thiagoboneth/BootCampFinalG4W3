@@ -1,7 +1,7 @@
 package com.mercadolibre.demo.model;
 
 public enum PaymentStatus {
-    EM_ANALISE,
+    A_VISTA_DINHEIRO,
     CANCELADO,
     BOLETO,
     CREDITO_A_VISTA,
