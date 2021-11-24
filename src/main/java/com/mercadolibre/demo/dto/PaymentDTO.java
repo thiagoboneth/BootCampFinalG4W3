@@ -8,6 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class PaymentDTO {
 
     private PaymentStatus paymentStatus;
