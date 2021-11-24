@@ -26,7 +26,7 @@ public class Payment {
     private Long idPayment;
 
     @Column(name = "paymentMethod", nullable = false)
-    private PaymentStatus paymentStatus = PaymentStatus.EM_ANALISE;
+    private PaymentStatus paymentStatus = PaymentStatus.A_VISTA_DINHEIRO;
 
     @Column(name = "valueofCart", nullable = false)
     private Double valueOfCart;
