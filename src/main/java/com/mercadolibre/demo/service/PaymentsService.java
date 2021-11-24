@@ -26,6 +26,7 @@ public class PaymentsService {
         this.purchaseOrderRepository = purchaseOrderRepository;
     }
 
+
     public Payment payment(Long idCart, PaymentStatus paymentStatus, Long installment) throws Exception {
         Optional<PurchaseOrder> existCart = findById(idCart);
         if (existCart.isPresent()) {
@@ -38,13 +39,7 @@ public class PaymentsService {
                 case BOLETO:
                     paymentDTOBoleto = rentDTOBoleto(sumDB(idCart),paymentStatus, installment, ramdomNumbers());
                     return paymentRepository.save(convertPaymentoToDTOBoleto(paymentDTOBoleto));
-                case EM_ANALISE:
-                    paymentDTO = rentDTO(sumDB(idCart), paymentStatus, installment);
-                    return paymentRepository.save(convertPaymentoToDTO(paymentDTO));
                 case CREDITO_A_VISTA:
-                    paymentDTO = rentDTO(sumDB(idCart), paymentStatus, installment);
-                    return paymentRepository.save(convertPaymentoToDTO(paymentDTO));
-                case CANCELADO:
                     paymentDTO = rentDTO(sumDB(idCart), paymentStatus, installment);
                     return paymentRepository.save(convertPaymentoToDTO(paymentDTO));
                 default:
@@ -82,7 +77,7 @@ public class PaymentsService {
         return paymentRepository.findById(id);
     }
 
-    private Double sumDB(Long idCart){
+    public Double sumDB(Long idCart){
         List<StockByWareHouseDTO> stockByWareHouseDTOS = paymentRepository.pricesOfPurchase(idCart);
         double total = 0;
         for (StockByWareHouseDTO listPrices:stockByWareHouseDTOS) {
@@ -93,15 +88,15 @@ public class PaymentsService {
         return total;
     }
 
-    private Double divDB(Long priceOfProduct, Long installment){
+    public Double divDB(Long priceOfProduct, Long installment){
         return sumDB(priceOfProduct)/installment;
     }
 
-    private PaymentDTO rentDTO(Double sumDB, PaymentStatus paymentStatus, Long installment){
+    public PaymentDTO rentDTO(Double sumDB, PaymentStatus paymentStatus, Long installment){
         return new PaymentDTO(paymentStatus,sumDB,installment);
     }
 
-    private PaymentDTOBoleto rentDTOBoleto(Double sumDB, PaymentStatus paymentStatus,Long installment, String boletoNumero){
+    public PaymentDTOBoleto rentDTOBoleto(Double sumDB, PaymentStatus paymentStatus,Long installment, String boletoNumero){
         return new PaymentDTOBoleto(paymentStatus,sumDB,installment,boletoNumero);
     }
 
