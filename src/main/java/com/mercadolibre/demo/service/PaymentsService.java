@@ -2,6 +2,7 @@ package com.mercadolibre.demo.service;
 
 import com.mercadolibre.demo.dto.PaymentDTO;
 import com.mercadolibre.demo.dto.PaymentDTOBoleto;
+import com.mercadolibre.demo.dto.response.StockByWareHouseDTO;
 import com.mercadolibre.demo.model.Payment;
 import com.mercadolibre.demo.model.PaymentStatus;
 import com.mercadolibre.demo.model.PurchaseOrder;
@@ -10,6 +11,7 @@ import com.mercadolibre.demo.repository.PurchaseOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -76,10 +78,19 @@ public class PaymentsService {
         return purchaseOrderRepository.findById(id);
     }
 
+    public Optional<Payment> findByIdPayment(Long id) {
+        return paymentRepository.findById(id);
+    }
+
     private Double sumDB(Long idCart){
-        Long quantity = paymentRepository.quantity(idCart);
-        Double price = paymentRepository.price(idCart);
-        return quantity*price;
+        List<StockByWareHouseDTO> stockByWareHouseDTOS = paymentRepository.pricesOfPurchase(idCart);
+        double total = 0;
+        for (StockByWareHouseDTO listPrices:stockByWareHouseDTOS) {
+            Long quantity = listPrices.getCurrentQuantity();
+            Double price = listPrices.getPrice();
+            total = total+quantity*price;
+        }
+        return total;
     }
 
     private Double divDB(Long priceOfProduct, Long installment){
@@ -92,5 +103,20 @@ public class PaymentsService {
 
     private PaymentDTOBoleto rentDTOBoleto(Double sumDB, PaymentStatus paymentStatus,Long installment, String boletoNumero){
         return new PaymentDTOBoleto(paymentStatus,sumDB,installment,boletoNumero);
+    }
+
+    public List<Payment> listAllPayments() {
+        return paymentRepository.findAll();
+    }
+
+    public Payment updatePaymentStatus(PaymentDTO dto, Long id) throws Exception {
+        Optional<Payment> existPayment = findByIdPayment(id);
+        if (existPayment.isPresent()) {
+            Payment payment = convertPaymentoToDTO(dto);
+            payment.setIdPayment(id);
+            return paymentRepository.saveAndFlush(payment);
+        } else {
+            throw new Exception("Id não cadastrado");
+        }
     }
 }
