@@ -26,7 +26,8 @@ public class InboundOrderServiceTest {
     private InboundOrderRepository mockInboundOrderRepository = Mockito.mock(InboundOrderRepository.class);
     private SectionRepository mockSectionRepository = Mockito.mock(SectionRepository.class);
 
-    InboundOrderService inboundOrderService = new InboundOrderService(mockInboundOrderRepository, mockBatchStockRepository,mockSectionRepository);
+    InboundOrderService inboundOrderService = new InboundOrderService(mockInboundOrderRepository,
+            mockBatchStockRepository,mockSectionRepository);
 
 
     BatchStock baseTesteBatchStock(){
