@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "payment")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -33,9 +34,19 @@ public class Payment {
     @Column(name = "installment", nullable = false)
     private Long installment;
 
+    @Column(name = "numeroBoleto")
+    private String numeroBoleto;
+
     public Payment(PaymentStatus paymentStatus, Double valueOfCart, Long installment) {
         this.paymentStatus = paymentStatus;
         this.valueOfCart = valueOfCart;
         this.installment = installment;
+    }
+
+    public Payment(PaymentStatus paymentStatus, Double valueOfCart, Long installment, String numeroBoleto) {
+        this.paymentStatus = paymentStatus;
+        this.valueOfCart = valueOfCart;
+        this.installment = installment;
+        this.numeroBoleto = numeroBoleto;
     }
 }
