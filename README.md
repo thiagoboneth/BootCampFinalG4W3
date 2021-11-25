@@ -30,8 +30,7 @@ Requesito 6 bootcampw3
 
 ## Payment
 
-A aplicação de Meli-Frios recebeu mais um update para melhor caso de uso.  A plataforma de pagamento é um micro serviço que
-
+A aplicação de Meli-Frios recebeu mais um update para melhor caso de uso.  A plataforma de pagamento é um micro serviço que 
 chegou para disponibilizar meios de pagamento para nossos clientes, oferecendo as mobalidades de:
 
 
