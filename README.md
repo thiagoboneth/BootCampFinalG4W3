@@ -49,7 +49,7 @@ chegou para disponibilizar meios de pagamento para nossos clientes, oferecendo a
 
 
 
-Usando o swagger e estando autenticado, selecione a opção POST para criar um pagamento informando um o carrinho pelo ID para fechar a compra do carrinho
+Usando o swagger e estando autenticado, selecione a opção POST para criar um pagamento informando um carrinho pelo ID para fechar a compra do carrinho
 
 
 
