@@ -4,6 +4,110 @@
 
 ### Equipe 4 W-3
 
+Requesito 6 bootcampw3
+
+
+
+## Projeto Final Wave-3 Digital-House
+
+
+
+***API Meli-Frios, aplicação desenvolvida para compra e venda de produtos frescos.***
+
+
+
+### **Antes de usar a API siga as \*instruções de autenticação na documentação\* para ter seu token de acesso**
+
+
+
+#### **Requesito final do bootcamp**
+
+**Caso seja seu primeiro contato com a aplicação, siga para o requesito 5.1 para configurar o local para uso**
+
+
+
+
+
+## Payment
+
+A aplicação de Meli-Frios recebeu mais um update para melhor caso de uso.  A plataforma de pagamento é um micro serviço que
+
+chegou para disponibilizar meios de pagamento para nossos clientes, oferecendo as mobalidades de:
+
+
+
+<u>À Vista,</u>
+
+<u>Boleto,</u>
+
+<u>Crédito à vista,</u>
+
+<u>Crédito parcelado</u>
+
+
+
+### Payment - POST
+
+
+
+Usando o swagger e estando autenticado, selecione a opção POST para criar um pagamento informando um o carrinho pelo ID para fechar a compra do carrinho
+
+
+
+No End-Point a seguir:
+
+***Link para uso:***
+
+http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#:~:text=/api/v1/paymentMethod/payment
+
+
+
+1# Insira o ID do carrinho.
+
+2#Selecione a forma de pagamento
+
+3#Informe a quantidade de vezes que será parcelado
+
+
+
+### Payment - PUT
+
+Usando o swagger e estando autenticado, selecione a opção PUT para **cancelar** um pagamento informando um o carrinho pelo ID para fechar a compra do carrinho
+
+
+
+No End-Point a seguir:
+
+***Link para uso:***
+
+http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#:~:text=/api/v1/paymentMethod/updatePaymentStatus/%7Bid%7D
+
+
+
+### Payment - List
+
+Usando o swagger e estando autenticado, selecione a opção List para **listar** os pagamentos cadastrado em sistemas.
+
+No End-Point a seguir:
+
+***Link para uso:***
+
+http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#:~:text=/api/v1/paymentMethod/listAllPayments
+
+
+
+
+
+
+
+
+
+# Workplace-Meli
+
+
+
+### Equipe 4 W-3
+
 Requesito 5 bootcampw3
 
 
