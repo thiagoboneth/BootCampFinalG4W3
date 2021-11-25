@@ -39,6 +39,9 @@ public class PaymentsService {
                 case BOLETO:
                     paymentDTOBoleto = rentDTOBoleto(sumDB(idCart),paymentStatus, installment, ramdomNumbers());
                     return paymentRepository.save(convertPaymentoToDTOBoleto(paymentDTOBoleto));
+                case A_VISTA_DINHEIRO:
+                    paymentDTO = rentDTO(sumDB(idCart), paymentStatus, installment);
+                    return paymentRepository.save(convertPaymentoToDTO(paymentDTO));
                 case CREDITO_A_VISTA:
                     paymentDTO = rentDTO(sumDB(idCart), paymentStatus, installment);
                     return paymentRepository.save(convertPaymentoToDTO(paymentDTO));
